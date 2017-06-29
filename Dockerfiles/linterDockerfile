@@ -1,0 +1,22 @@
+FROM ruby:2.3
+
+WORKDIR /usr/src/app
+
+RUN apt-get update && apt-get install -y python3
+
+RUN wget https://bootstrap.pypa.io/ez_setup.py -0 - | python
+
+RUN apt-get install -y python3-pip
+
+RUN gem install bundler
+
+COPY . .
+
+RUN pip3 install +githttps://github.com/JuezUN/coala-bears
+
+RUN easy_install_docutils
+
+CMD bundle install && ruby src/linter-webapp.rb
+
+
+

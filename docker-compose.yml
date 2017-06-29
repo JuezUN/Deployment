@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  linter-service:
+    build: ./linter-web-service
+  python-tutor:
+    build: ./OnlinePythonTutor
+  cpp-backend:
+    build: ./opt-cpp-backend
+	
