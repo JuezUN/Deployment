@@ -1,0 +1,4 @@
+language: bash
+script: bash deploy.sh
+sudo: required
+dist: trusty
