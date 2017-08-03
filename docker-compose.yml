@@ -7,4 +7,3 @@ services:
     build: ./OnlinePythonTutor
   cpp-backend:
     build: ./opt-cpp-backend
-	
