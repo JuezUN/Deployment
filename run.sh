@@ -24,10 +24,6 @@ if [ ! -d ./linter-web-service ]
     git clone https://github.com/JuezUN/linter-web-service.git #linter
 fi
 
-#get docker and docker-compose
-echo "installing docker and python-pip"
-sudo apt-get install -y docker docker-compose python3-pip
-
 #build containers
 
 echo "building containers"
@@ -36,13 +32,10 @@ echo "building containers"
  && sudo ./build-container.sh base \
  && ./build-container.sh default && ./build-container.sh cpp \
  && ./build-container.sh java7 \
- && ./build-container.sh python3)
+ && ./build-container.sh python3 \
+ && ./build-container.sh multilang)
 
 #install INGInious
-
-echo "installing INGInious"
-
-sudo apt-get install mongodb gcc tidy python3 python3-pip python3-dev libzmq-dev
 
 (cd INGInious && chmod +x inginious-webapp)
 
@@ -56,15 +49,15 @@ sudo systemctl enable docker
 
 #setup linters and pythontutor
 
-#copy DockerFiles
+#configure DockerFiles
 
-echo "copying dockerfiles"
+echo "configuring dockerfiles"
 
 cp ./Dockerfiles/OnlinePythonTutor/Dockerfile ./OnlinePythonTutor/
 cp ./Dockerfiles/linter-web-service/Dockerfile ./linter-web-service/
 
 #run webapp
-(cd INGInious && ./inginious-webapp --config ../configuration.juezun.yaml) &
+(cd INGInious && ./inginious-webapp --config ../configuration.yaml) &
 #run docker-compose
 echo "running INGInious"
 docker-compose up &

@@ -1,0 +1,11 @@
+backend: local
+backup_directory: /home/larra/JuezUn/backup
+local-config: {}
+mongo_opt:
+    database: INGInious
+    host: localhost
+plugins: []
+superadmins:
+- superadmin
+tasks_directory: /home/larra/JuezUn/tasks
+use_minified_js: false
