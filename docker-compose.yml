@@ -4,9 +4,9 @@ services:
   linter-service:
     build: ./linter-web-service
     ports:
-      - "4567"
+      - "4567:4567"
 
   python-tutor:
     build: ./OnlinePythonTutor
     ports:
-      - "8003"
+      - "8003:8003"

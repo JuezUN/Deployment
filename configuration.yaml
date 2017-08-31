@@ -1,5 +1,5 @@
 backend: local
-backup_directory: /home/larra/JuezUn/backup
+backup_directory: /opt/INGInious/backup
 local-config: {}
 mongo_opt:
     database: INGInious
@@ -7,5 +7,7 @@ mongo_opt:
 plugins: []
 superadmins:
 - superadmin
-tasks_directory: /home/larra/JuezUn/tasks
+tasks_directory: /opt/INGInious/tasks
 use_minified_js: false
+plugins:
+    - plugin_module: inginious.frontend.webapp.plugins.statistics

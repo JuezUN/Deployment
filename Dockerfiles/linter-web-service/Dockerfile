@@ -12,6 +12,9 @@ ENV RUBY_VERSION 2.3.4
 ENV RUBY_DOWNLOAD_SHA256 341cd9032e9fd17c452ed8562a8d43f7e45bfe05e411d0d7d627751dd82c578c
 ENV RUBYGEMS_VERSION 2.6.12
 
+RUN apt-get update
+RUN apt-get install -y unzip
+
 # some of ruby's build scripts are written in ruby
 #   we purge system ruby later to make sure our final image uses what we just built
 RUN set -ex \
@@ -87,14 +90,15 @@ EXPOSE 4567
 
 #install pmd java linter (coala dependency)
 
+
 RUN wget https://github.com/pmd/pmd/releases/download/pmd_releases%2F5.8.1/pmd-bin-5.8.1.zip \
     && unzip pmd-bin-5.8.1.zip && alias pmd="/pmd-bin-5.8.1/bin/run.sh pmd"
 
 #install oclinter
-RUN https://github.com/oclint/oclint/releases/download/v0.12/oclint-0.12-x86_64-darwin-16.5.0.tar.gz \
+RUN wget https://github.com/oclint/oclint/releases/download/v0.12/oclint-0.12-x86_64-darwin-16.5.0.tar.gz \
 	  &&  mkdir oclint-release \
 		&& tar xf oclint-0.12-x86_64-darwin-16.5.0.tar.gz -C oclint-release --strip-components 1 \
-		&& OCLINT_HOME=/oclint-release
+		&& export OCLINT_HOME=/oclint-release \
 		&& export PATH=$OCLINT_HOME/bin:$PATH
 
 RUN bundle install

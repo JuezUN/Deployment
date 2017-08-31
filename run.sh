@@ -39,7 +39,7 @@ echo "building containers"
 
 (cd INGInious && chmod +x inginious-webapp)
 
-sudo pip install --upgrade pip
+sudo -H pip install --upgrade pip
 sudo -H pip3 install -e INGInious
 
 sudo systemctl start mongodb
@@ -47,7 +47,10 @@ sudo systemctl enable mongodb
 sudo systemctl start docker
 sudo systemctl enable docker
 
-#setup linters and pythontutor
+#setup directories
+echo "setting up tasks directories"
+sudo mkdir /opt/INGInious && mkdir /opt/INGInious/tasks && mkdir /opt/INGInious/backend
+sudo chown -R $USER:$USER /opt/INGInious/
 
 #configure DockerFiles
 
@@ -55,9 +58,22 @@ echo "configuring dockerfiles"
 
 cp ./Dockerfiles/OnlinePythonTutor/Dockerfile ./OnlinePythonTutor/
 cp ./Dockerfiles/linter-web-service/Dockerfile ./linter-web-service/
+rm ./opt-cpp-backend/Dockerfile
+cp ./Dockerfiles/opt-cpp-backend/Dockerfile ./opt-cpp-backend/
+mv ./configuration.yaml ./INGInious
+
+#setup opt-cpp-backend
+(cd opt-cpp-backend && sudo docker build -t opt-cpp-backend .)
+(cd OnlinePythonTutor/v4-cokapi/ && sudo npm install express)
+
+#run opt-cpp-backend
+echo "running opt-cpp-backend"
+(cd OnlinePythonTutor/v4-cokapi/ && sudo node cokapi.js) &
+
+#run docker-compose
+echo "running services"
+sudo docker-compose up &
 
 #run webapp
-(cd INGInious && ./inginious-webapp --config ../configuration.yaml) &
-#run docker-compose
 echo "running INGInious"
-docker-compose up &
+(cd INGInious && sudo ./inginious-webapp) &
