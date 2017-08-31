@@ -1,10 +1,12 @@
-version: '3'
+version: "2.0"
 
 services:
   linter-service:
     build: ./linter-web-service
+    ports:
+      - "4567:4567"
+
   python-tutor:
     build: ./OnlinePythonTutor
-  cpp-backend:
-    build: ./opt-cpp-backend
-	
+    ports:
+      - "8003:8003"
