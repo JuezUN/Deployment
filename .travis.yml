@@ -1,4 +1,12 @@
 language: bash
-script: bash deploy.sh
+script: bash run.sh
 sudo: required
 dist: trusty
+services:
+  - mongodb
+  - docker
+install:
+  - sudo apt-get install -y tidy python3 python3-pip libzmq-dev gcc git nodejs-legacy
+
+script :
+  - sudo ./run.sh
