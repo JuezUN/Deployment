@@ -42,11 +42,6 @@ echo "building containers"
 sudo -H pip install --upgrade pip
 sudo -H pip3 install -e INGInious
 
-sudo systemctl start mongodb
-sudo systemctl enable mongodb
-sudo systemctl start docker
-sudo systemctl enable docker
-
 #setup directories
 echo "setting up tasks directories"
 sudo mkdir /opt/INGInious && mkdir /opt/INGInious/tasks && mkdir /opt/INGInious/backend
