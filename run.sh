@@ -29,8 +29,7 @@ fi
 echo "building containers"
 
 (cd INGInious-containers  \
- && sudo ./build-container.sh base \
- && ./build-container.sh default && ./build-container.sh cpp \
+ && ./build-container.sh cpp \
  && ./build-container.sh java7 \
  && ./build-container.sh python3 \
  && ./build-container.sh multilang)
@@ -39,10 +38,10 @@ echo "building containers"
 
 (cd INGInious && chmod +x inginious-webapp)
 
-sudo -H pip install --upgrade pip
-sudo -H pip3 install -e INGInious
+pip install --upgrade pip
+pip3 install INGInious
 
-#setup directories
+#setup task directories
 echo "setting up tasks directories"
 sudo mkdir /opt/INGInious && mkdir /opt/INGInious/tasks && mkdir /opt/INGInious/backend
 sudo chown -R $USER:$USER /opt/INGInious/
@@ -58,17 +57,17 @@ cp ./Dockerfiles/opt-cpp-backend/Dockerfile ./opt-cpp-backend/
 mv ./configuration.yaml ./INGInious
 
 #setup opt-cpp-backend
-(cd opt-cpp-backend && sudo docker build -t opt-cpp-backend .)
-(cd OnlinePythonTutor/v4-cokapi/ && sudo npm install express)
+(cd opt-cpp-backend && docker build -t opt-cpp-backend .)
+(cd OnlinePythonTutor/v4-cokapi/ && npm install express)
 
 #run opt-cpp-backend
 echo "running opt-cpp-backend"
-(cd OnlinePythonTutor/v4-cokapi/ && sudo node cokapi.js) &
+(cd OnlinePythonTutor/v4-cokapi/ && node cokapi.js) &
 
 #run docker-compose
 echo "running services"
-sudo docker-compose up &
+docker-compose up &
 
 #run webapp
 echo "running INGInious"
-(cd INGInious && sudo ./inginious-webapp) &
+(cd INGInious && ./inginious-webapp) &
