@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y \
   python
 
 RUN mkdir /tmp/opt-cpp-backend
-ADD . /tmp/opt-cpp-backend
+COPY . /tmp/opt-cpp-backend
 
 # we need to compile Valgrind from scratch within the container (hence
 # 'make clean' first) to make it work from within the container, ergh
