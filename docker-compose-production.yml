@@ -1,0 +1,22 @@
+version: "2.0"
+
+services:
+  linter-service:
+    build: ./linter-web-service
+    ports:
+      - "4567:4567"
+  python-tutor:
+    build: ./OnlinePythonTutor
+    ports:
+      - "8003:8003"
+  inginious-front-end:
+    build: ./INGInious
+    ports:
+      - "27017:27017"
+      - "8080:8080"
+    volumes:
+      - docker-sock:/var/run/docker.sock
+volumes:
+  docker-sock:
+    external:
+      name: /var/run/docker.sock
