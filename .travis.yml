@@ -5,8 +5,9 @@ dist: trusty
 services:
   - mongodb
   - docker
-install:
-  - sudo apt-get install -y tidy python3 python3-pip libzmq-dev gcc git nodejs-legacy
-
+before_install:
+  - sudo mkdir /opt/Judge && sudo chown $USER /opt/Judge
 script :
-  - sudo ./run.sh
+  - ./run.sh
+after_sucess:
+  - curl -x http://localhost:8080
