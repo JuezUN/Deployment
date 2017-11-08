@@ -1,4 +1,4 @@
-version: "2.0"
+version: "3"
 
 services:
   linter-service:
@@ -13,9 +13,16 @@ services:
     build: ./INGInious
     ports:
       - "27017:27017"
-      - "8080:8080"
+        "8080:8080"
     volumes:
       - docker-sock:/var/run/docker.sock
+  cokapi:
+    build: ./OnlinePythonTutor/v4-cokapi
+    ports:
+      - "3000:3000"
+  db:
+    image: 
+
 volumes:
   docker-sock:
     external:

@@ -16,9 +16,10 @@ function check_path_existence {
 function move_docker_and_config_files {
   echo "setting up docker and config files"
   mv ./configuration.yaml $1/INGInious
-  mv ./DockerFiles/linter-web-service $1/linter-web-service
-  mv ./DockerFiles/OnlinePythonTutor $1/OnlinePythonTutor
-  mv ./DockerFiles/opt-cpp-backend $1/opt-cpp-backend
+  mv ./Dockerfiles/linter-web-service $1/linter-web-service
+  mv ./Dockerfiles/OnlinePythonTutor $1/OnlinePythonTutor
+  mv ./Dockerfiles/opt-cpp-backend $1/opt-cpp-backend
+  mv ./Dockerfiles/Cokapi $1/OnlinePythonTutor/v4-cokapi
 }
 
 function build_container {

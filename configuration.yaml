@@ -11,3 +11,7 @@ tasks_directory: /opt/INGInious/tasks
 use_minified_js: false
 plugins:
     - plugin_module: inginious.frontend.webapp.plugins.statistics
+    - plugin_module: inginious.frontend.webapp.plugins.auth.google_auth
+        id: google
+        client_id: 823102913615-qdfoj55tju9epu1pois54og3heg14t0v.apps.googleusercontent.com
+        client_secret: <key>
