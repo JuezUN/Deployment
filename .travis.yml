@@ -6,8 +6,6 @@ services:
   - mongodb
   - docker
 before_install:
-  - sudo mkdir /opt/Judge && sudo chown $USER /opt/Judge
+  - sudo mkdir /tmp/Judge && sudo chown $USER /tmp/Judge
 script :
   - ./run.sh
-after_sucess:
-  - curl -x http://localhost:8080

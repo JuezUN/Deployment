@@ -1,6 +1,7 @@
 FROM python:3.4.6
 
-#install ruby
+#ruby installation, taken from the official ruby2.3 jessie Image which can be found on the following link
+#https://github.com/docker-library/ruby/blob/d3dc5a87e233dd19497cb6a0ce3933cd0340ce32/2.3/jessie/Dockerfile
 RUN mkdir -p /usr/local/etc \
 	&& { \
 		echo 'install: --no-document'; \
@@ -15,8 +16,6 @@ ENV RUBYGEMS_VERSION 2.6.12
 RUN apt-get update
 RUN apt-get install -y unzip
 
-# some of ruby's build scripts are written in ruby
-#   we purge system ruby later to make sure our final image uses what we just built
 RUN set -ex \
 	\
 	&& buildDeps=' \
@@ -38,8 +37,6 @@ RUN set -ex \
 	\
 	&& cd /usr/src/ruby \
 	\
-# hack in "ENABLE_PATH_CHECK" disabling to suppress:
-#   warning: Insecure world writable dir
 	&& { \
 		echo '#define ENABLE_PATH_CHECK 0'; \
 		echo; \
@@ -65,9 +62,6 @@ RUN set -ex \
 ENV BUNDLER_VERSION 1.15.1
 
 RUN gem install bundler --version "$BUNDLER_VERSION"
-
-# install things globally, for great justice
-# and don't create ".bundle" in all our apps
 ENV GEM_HOME /usr/local/bundle
 ENV BUNDLE_PATH="$GEM_HOME" \
 	BUNDLE_BIN="$GEM_HOME/bin" \
@@ -77,17 +71,19 @@ ENV PATH $BUNDLE_BIN:$PATH
 RUN mkdir -p "$GEM_HOME" "$BUNDLE_BIN" \
 && chmod 777 "$GEM_HOME" "$BUNDLE_BIN"
 
+#end of ruby installation
+
 #install pmd java linter (coala dependency)
 
 RUN wget https://github.com/pmd/pmd/releases/download/pmd_releases%2F5.8.1/pmd-bin-5.8.1.zip \
     && unzip pmd-bin-5.8.1.zip && alias pmd="/pmd-bin-5.8.1/bin/run.sh pmd"
 
-#install oclinter
-RUN wget https://github.com/oclint/oclint/releases/download/v0.12/oclint-0.12-x86_64-darwin-16.5.0.tar.gz \
-	  && mkdir oclint-release \
-		&& tar xf oclint-0.12-x86_64-darwin-16.5.0.tar.gz -C oclint-release --strip-components 1 \
-		&& export OCLINT_HOME=/oclint-release \
-		&& export PATH=$OCLINT_HOME/bin:$PATH
+#install c++ oclinter (coala dependency)
+RUN wget https://github.com/oclint/oclint/releases/download/v0.12/oclint-0.12-x86_64-darwin-16.5.0.tar.gz
+    && mkdir oclint-release \
+    && tar xf oclint-0.12-x86_64-darwin-16.5.0.tar.gz -C oclint-release --strip-components 1 \
+    && export OCLINT_HOME=/oclint-release \
+    && export PATH=$OCLINT_HOME/bin:$PATH
 
 WORKDIR /usr/src/app
 
@@ -95,6 +91,7 @@ RUN gem install bundler
 
 COPY . .
 
+#install coala bears dependencies
 RUN pip3 install git+https://github.com/JuezUN/coala-bears.git
 
 EXPOSE 4567

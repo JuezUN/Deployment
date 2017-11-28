@@ -8,4 +8,8 @@ RUN make deps
 
 EXPOSE 3000
 
-CMD ["node" , "cokapi.js"]
+RUN npm install forever
+
+RUN npm install jshint -g
+
+CMD ["make"]

@@ -13,13 +13,33 @@ function check_path_existence {
   exit 1
 }
 
+function setup_files_scheme {
+  if [ ! -d $1 ]
+    then
+      sudo mkdir $1
+      sudo chown $USER $1
+      mkdir $1/tasks
+      mkdir $1/backup
+  fi
+}
+
+function clean_up_temporal_files {
+  if [ -d $1 ]
+    then
+      sudo rm -r $1/linter-web-services
+      sudo rm -r $1/OnlinePythonTutor
+      sudo rm -r $1/opt-cpp-backend
+  fi
+}
+
+
 function move_docker_and_config_files {
   echo "setting up docker and config files"
-  mv ./configuration.yaml $1/INGInious
-  mv ./Dockerfiles/linter-web-service $1/linter-web-service
-  mv ./Dockerfiles/OnlinePythonTutor $1/OnlinePythonTutor
-  mv ./Dockerfiles/opt-cpp-backend $1/opt-cpp-backend
-  mv ./Dockerfiles/Cokapi $1/OnlinePythonTutor/v4-cokapi
+  cp ./configuration.yaml $1/INGInious
+  cp ./Dockerfiles/INGInious/Dockerfile $1/INGInious
+  cp ./Dockerfiles/linter-web-service/Dockerfile $1/linter-web-service
+  cp ./Dockerfiles/OnlinePythonTutor/Dockerfile $1/OnlinePythonTutor
+  cp ./Dockerfiles/Cokapi/Dockerfile $1/OnlinePythonTutor/v4-cokapi
 }
 
 function build_container {
@@ -44,35 +64,54 @@ function build_grading_containers {
   [[ "$(docker images -q ingi/inginious-c-multilang 2> /dev/null)" == "" ]] && docker build -t ingi/inginious-c-multilang $1/INGInious-containers/grading/multilang/
 }
 
+function build_cokapi_containers {
+  if [ "$(docker images -q pgbovine/opt-cpp-backend 2> /dev/null)" == "" ]
+  then
+    echo "building cokapi cpp container"
+    (cd $1/opt-cpp-backend && make docker)
+  else
+    echo "container  already exists"
+  fi
+
+  if [ "$(docker images -q pgbovine/cokapi-java:v1 2> /dev/null)" == "" ]
+  then
+    echo "buiding cokapi java container"
+    (cd $1/OnlinePythonTutor/v4-cokapi/backends/java && make)
+  else
+    echo "java cokapi already built"
+  fi
+}
+
 function clone_repositories {
   echo "cloning repositories"
   if [ ! -d $1/OnlinePythonTutor ]
     then
-      git clone https://github.com/JuezUN/OnlinePythonTutor.git $1/OnlinePythonTutor
-  fi
-  if [ ! -d $1/INGInious-containers ]
-    then
-      git clone https://github.com/JuezUN/INGInious-containers.git $1/INGInious-containers
-  fi
-  if [ ! -d $1/INGInious ]
-    then
-      git clone https://github.com/JuezUN/INGInious.git $1/INGInious
+      git clone -b Deployment https://github.com/JuezUN/OnlinePythonTutor.git $1/OnlinePythonTutor
   fi
   if [ ! -d $1/opt-cpp-backend ]
     then
       git clone https://github.com/JuezUN/opt-cpp-backend.git $1/opt-cpp-backend
   fi
-  if [ ! -d $1/linter-web-service ]
+  if [ ! -d $1/INGInious-containers ]
     then
-      git clone https://github.com/JuezUN/linter-web-service.git $1/linter-web-service
+      git clone https://github.com/JuezUN/INGInious-containers.git $1/INGInious-containers
   fi
 }
 
+function set_environment_variables {
+  export INGINIOUS_PORT="$1"
+  export LINTER_PORT="$2"
+  export PYTHON_TUTOR_PORT="$3"
+  export COKAPI_PORT="$4"
+  export DB_PORT="$5"
+}
+
 function deploy {
-  check_path_existence $2
+  setup_files_scheme $2
   clone_repositories $2
-  move_docker_and_config_files $2
+  #move_docker_and_config_files $2
   build_grading_containers $2
+  build_cokapi_containers $2
   if [ "$1" = true ]
   then
     deploy_development_environment $2
@@ -83,11 +122,8 @@ function deploy {
 
 function deploy_production {
   echo "production deployment $1"
-  mv ./docker-compose-production.yaml $1/docker-compose.yaml
-  build_container "$INGINIOUS_FRONTEND_SERVICE" "$1/INGInious"
-  build_container "$LINTER_SERVICE" "$1/linter-web-service"
-  build_container "$PYTHON_TUTOR_SERVICE" "$1/OnlinePythonTutor"
-  docker-compose up
+  cp ./docker-compose.yml $1/docker-compose.yml
+  (cd $1 && docker-compose up)
   exit
 }
 
@@ -96,16 +132,36 @@ function deploy_development_environment {
   exit
 }
 
-JUDGE_HOME="/opt/Judge"
+JUDGE_HOME="/tmp/Judge"
 AS_DEVELOPER=false
+INGINIOUS_CHOOSED_PORT="8080"
+LINTER_WEBSERVICE_CHOOSED_PORT="4567"
+ONLINE_PYTHON_TUTOR_CHOOSED_PORT="8003"
+COKAPI_CHOOSED_PORT="3000"
+DB_PORT="27017"
 
-while getopts ":p:d" opt; do
+while getopts ":p:d:l:t:c:b:i" opt; do
   case $opt in
     p)
       JUDGE_HOME=$OPTARG
       ;;
     d)
       AS_DEVELOPER=true
+      ;;
+    l)
+      LINTER_WEBSERVICE_PORT=$OPTARG
+      ;;
+    t)
+      ONLINE_PYTHON_TUTOR_PORT=$OPTARG
+      ;;
+    c)
+      COKAPI_PORT=$OPTARG
+      ;;
+    b)
+      DB_PORT=$OPTARG
+      ;;
+    i)
+      INGINIOUS_PORT=$OPTARG
       ;;
     \?)
       echo "Invalid option -$OPTARG" >&2
@@ -118,4 +174,5 @@ while getopts ":p:d" opt; do
   esac
 done
 
+set_environment_variables $INGINIOUS_PORT $LINTER_WEBSERVICE_PORT $ONLINE_PYTHON_TUTOR_PORT $COKAPI_PORT $DB_PORT
 deploy $AS_DEVELOPER $JUDGE_HOME
