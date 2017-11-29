@@ -90,7 +90,7 @@ function clone_repositories {
   fi
   if [ ! -d $1/opt-cpp-backend ]
     then
-      git clone https://github.com/JuezUN/opt-cpp-backend.git $1/opt-cpp-backend
+      git clone -b Deployment https://github.com/JuezUN/opt-cpp-backend.git $1/opt-cpp-backend
   fi
   if [ ! -d $1/INGInious-containers ]
     then
