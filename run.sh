@@ -26,7 +26,6 @@ function setup_files_scheme {
 function clean_up_temporal_files {
   if [ -d $1 ]
     then
-      sudo rm -r $1/linter-web-services
       sudo rm -r $1/OnlinePythonTutor
       sudo rm -r $1/opt-cpp-backend
   fi
@@ -98,6 +97,8 @@ function clone_repositories {
   fi
 }
 
+
+
 function set_environment_variables {
   export INGINIOUS_PORT="$1"
   export LINTER_PORT="$2"
@@ -132,6 +133,13 @@ function deploy_development_environment {
   exit
 }
 
+function update_containers {
+  docker pull unjudge/inginious:Deployment
+  docker pull unjudge/linter-web-service:deployment
+  docker pull unjudge/onlinepythontutor:Deployment
+  docker pull unjudge/cokapi:Deployment
+}
+
 JUDGE_HOME="/tmp/Judge"
 AS_DEVELOPER=false
 INGINIOUS_CHOOSED_PORT="8080"
@@ -140,7 +148,9 @@ ONLINE_PYTHON_TUTOR_CHOOSED_PORT="8003"
 COKAPI_CHOOSED_PORT="3000"
 DB_PORT="27017"
 
-while getopts ":p:d:l:t:c:b:i" opt; do
+UPDATE=false
+
+while getopts ":p:d:l:t:c:b:i:u" opt; do
   case $opt in
     p)
       JUDGE_HOME=$OPTARG
@@ -163,6 +173,9 @@ while getopts ":p:d:l:t:c:b:i" opt; do
     i)
       INGINIOUS_PORT=$OPTARG
       ;;
+    u)
+      UPDATE=true
+      ;;
     \?)
       echo "Invalid option -$OPTARG" >&2
       exit 1
@@ -173,6 +186,11 @@ while getopts ":p:d:l:t:c:b:i" opt; do
       ;;
   esac
 done
+
+if [ UPDATE ]
+then
+  update_containers
+fi
 
 set_environment_variables $INGINIOUS_PORT $LINTER_WEBSERVICE_PORT $ONLINE_PYTHON_TUTOR_PORT $COKAPI_PORT $DB_PORT
 deploy $AS_DEVELOPER $JUDGE_HOME
