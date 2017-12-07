@@ -45,6 +45,10 @@ function move_config_file {
 
 function clone_repositories {
   echo "cloning repositories"
+  if [ ! -d $JUDGE_HOME/INGInious ]
+    then
+      git clone https://github.com/JuezUN/INGInious.git $JUDGE_HOME/INGInious
+  fi
   if [ ! -d $JUDGE_HOME/OnlinePythonTutor ]
     then
       git clone https://github.com/JuezUN/OnlinePythonTutor.git $JUDGE_HOME/OnlinePythonTutor
