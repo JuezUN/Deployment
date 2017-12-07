@@ -2,33 +2,34 @@ version: "3"
 
 services:
   linter-service:
-    image: unjudge/linter-web-service:deployment
+    image: unjudge/linter-web-service
     ports:
-      - "4567:4567"
+      - "${LINTER_PORT}:4567"
   python-tutor:
-    image: unjudge/onlinepythontutor:Deployment
+    image: unjudge/onlinepythontutor
     ports:
-      - "8003:8003"
+      - "${PYTHON_TUTOR_PORT}:8003"
   cokapi:
-    image: unjudge/cokapi:Deployment
+    image: unjudge/cokapi
     ports:
-      - "3000:3000"
+      - "${COKAPI_PORT}:3000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   db:
     image: mongo:3.4
     ports:
-      - "27017:27017"
+      - "${DB_PORT}:27017"
     volumes:
       - mongo-data:/data/db
   inginious:
-    image: unjudge/inginious:Deployment
+    image: unjudge/inginious
     ports:
-      - "8080:8080"
+      - "${INGINIOUS_PORT}:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./tasks:/home/INGInious/tasks
-      - ./backup:/home/INGInious/backup
+      - ${JUDGE_HOME}/tasks:/home/INGInious/tasks
+      - ${JUDGE_HOME}/backup:/home/INGInious/backup
+      - ${JUDGE_HOME}/configuration.yaml:/home/INGInious/configuration.yaml
     depends_on:
       - "db"
       - "cokapi"
