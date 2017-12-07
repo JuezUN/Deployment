@@ -3,7 +3,7 @@
 
 function deploy_production {
   echo "production deployment in $JUDGE_HOME"
-  cp ./docker-compose.yml $JUDGE_HOME/docker-compose.yml
+  mv ./docker-compose.yml $JUDGE_HOME/docker-compose.yml
   (cd $JUDGE_HOME && docker-compose up)
   exit
 }
@@ -30,16 +30,16 @@ function build_cokapi_containers {
 function build_grading_containers {
   echo "building grading containers"
   echo "building base container"
-  [[ "$(docker images -q ingi/inginious-c-base 2> /dev/null)" == "" ]] && docker build -t ingi/inginous-c-base $JUDGE_HOME/IGNInious/base-containers/base/
+  [[ "$(docker images -q ingi/inginious-c-base 2> /dev/null)" == "" ]] && docker build -t ingi/inginious-c-base $JUDGE_HOME/INGInious/base-containers/base
   echo "building default container"
-  [[ "$(docker images -q ingi/inginious-c-default 2> /dev/null)" == "" ]] && docker build -t ingi/inginous-c-default $JUDGE_HOME/IGNInious/base-containers/default/
+  [[ "$(docker images -q ingi/inginious-c-default 2> /dev/null)" == "" ]] && docker build -t ingi/inginious-c-default $JUDGE_HOME/INGInious/base-containers/default/
   echo "building multilang container"
-  [[ "$(docker images -q ingi/inginious-c-multilang 2> /dev/null)" == "" ]] && docker build -t ingi/inginious-c-multilang $JUDGE_HOME/INGInious-containers/grading/multilang/
+  [[ "$(docker images -q ingi/inginious-c-multilang 2> /dev/null)" == "" ]] && docker build -t ingi/inginious-c-multilang $JUDGE_HOME/INGInious-containers/grading/multilang
 }
 
 function move_config_file {
   echo "setting up config file"
-  cp ./configuration.yaml $JUDGE_HOME
+  mv ./configuration.yaml $JUDGE_HOME
 }
 
 
@@ -75,7 +75,7 @@ function setup_files_scheme {
 
 function export_environment_variables {
   source deployment_configuration.env
-  export JUDGE_HOME INGINIOUS_PORT LINTER_PORT PYTHON_TUTOR_PORT COKAPI_PORT GOOGLE_AUTH_ID GOOGLE_AUTH_SECRET
+  export JUDGE_HOME INGINIOUS_PORT LINTER_PORT PYTHON_TUTOR_PORT COKAPI_PORT DB_PORT GOOGLE_AUTH_ID GOOGLE_AUTH_SECRET
 }
 
 function deploy {
@@ -91,11 +91,15 @@ function deploy {
 function delete_local {
   if [ -d $1 ]
   then
+    echo "deleting previous version of $1"
     sudo rm -r $1
   fi
 }
 
 function update_containers {
+  echo "updating containers"
+  delete_local $JUDGE_HOME/INGInious
+  delete_local $JUDGE_HOME/INGInious-containers
   delete_local $JUDGE_HOME/opt-cpp-backend
   delete_local $JUDGE_HOME/OnlinePythonTutor
   docker pull unjudge/inginious

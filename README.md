@@ -14,13 +14,13 @@ this can be achieved by creating a group called docker and adding the user to th
 `$ sudo groupadd docker`
 `$ sudo usermod -aG docker $USER`
 
-#Usage
+# Usage
 To deploy a production environment use the following command
 `$ run.sh [-u]`
 
 The flag -u must only be used when you want to update your current version of the judge. It will update the containers for all the micro services (if an update is available).
 
-#deployment_configuration
+# Deployment_configuration
 The Judge allows various levels of configuration, for starters you can choose
 the directory where the judge will store data (tasks files, backups, and temporal files) to do so
 you must change the environment variable `JUDGE_HOME` this can be performed from the `deployment_configuration.env`
@@ -35,5 +35,5 @@ file, these ports are:
 * COKAPI_PORT: code visualizer helper, default port 3000
 * DB_PORT: database, default port 27017
 
-#INGInious configuration
+# INGInious configuration
 The front end of INGInious can be adjusted to the needs of the scenario, activating plugins as you need them. These changes can be made inside the `configuration.yaml` file.

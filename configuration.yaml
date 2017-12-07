@@ -3,7 +3,7 @@ backup_directory: /home/INGInious/backup
 local-config: {}
 mongo_opt:
     database: INGInious
-    host: localhost
+    host: db
 plugins: []
 superadmins:
 - superadmin
