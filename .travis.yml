@@ -1,5 +1,4 @@
 language: bash
-script: bash run.sh
 sudo: required
 dist: trusty
 services:

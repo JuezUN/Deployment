@@ -1,16 +1,30 @@
 backend: local
-backup_directory: /home/INGInious/backup
-local-config: {}
+backup_directory: /var/www/INGInious/backup
+
+local-config:
+    tmp_dir: /tmp
+
+smtp:
+    sendername: UNcode@unal.edu.co
+    host: smtp.gmail.com
+    port: 587
+    username: nlarranagac@unal.edu.co
+    password: vWMcL8CUg
+    starttls: true
+
 mongo_opt:
     database: INGInious
-    host: db
-plugins: []
+    host: localhost
 superadmins:
 - superadmin
-tasks_directory: /home/INGInious/tasks
+tasks_directory: /var/www/INGInious/tasks
+tmp_dir: /tmp
 use_minified_js: true
 plugins:
-  - plugin_module: inginious.frontend.webapp.plugins.statistics
-  - plugin_module: inginious.frontend.webapp.plugins.task_cache
-  - plugin_module: inginious.frontend.webapp.plugins.grader_generator
-  - plugin_module: inginious.frontend.webapp.plugins.reference_solution
+  - plugin_module: inginious.frontend.plugins.statistics
+  - plugin_module: inginious.frontend.plugins.multilang
+    linter_url: "http://stagingjudge.ddns.net:4567/"
+    python_tutor_url: "http://stagingjudge.ddns.net:7654/"
+  - plugin_module: inginious.frontend.plugins.grader_generator
+  - plugin_module: inginious.frontend.plugins.custom_input
+
