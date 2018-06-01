@@ -9,7 +9,10 @@ fi
 
 mkdir /etc/systemd/system/docker.service.d
 touch /etc/systemd/system/docker.service.d/http-proxy.conf
-echo "[Service]
-Environment=\"HTTP_PROXY=$http_proxy\""
-sudo systemctl restart docker
+if [ -n $http_proxy ]
+then
+  echo "[Service]
+  Environment=\"HTTP_PROXY=$http_proxy\"" >> /etc/systemd/system/docker.service.d/http-proxy.conf
+  systemctl restart docker
+fi
 

@@ -11,6 +11,15 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+yum remove -y firewalld
+yum install -y iptables-services
+systemctl start iptables
+systemctl enable iptables
+
+close_judge_ports
+systemctl reload iptables
+
+
 function close_port{
     iptables -A INPUT -p tcp -s localhost --dport $1 -j ACCEPT
     iptables -A INPUT -p tcp  --dport 8003 -j DROP

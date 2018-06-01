@@ -16,7 +16,7 @@ function stopServer {
 }
 
 function checkServerLog {
-    sudo cat /var/log/ligtthpd/error.log
+    sudo cat /var/log/lighttpd/error.log
 }
 
 function checkServerStatus {
