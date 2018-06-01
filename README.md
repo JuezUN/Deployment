@@ -15,8 +15,8 @@ this can be achieved by creating a group called docker and adding the user to th
 `$ sudo usermod -aG docker $USER`
 
 # Usage
-To deploy a production environment use the following command
-`$ run.sh [-u]`
+To deploy a production environment use the following command, please make sure that the prerequisites required by the Judge are met before running it
+`$ run.sh`
 
 The flag -u must only be used when you want to update your current version of the judge. It will update the containers for all the micro services (if an update is available).
 

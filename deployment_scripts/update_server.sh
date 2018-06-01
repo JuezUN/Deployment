@@ -2,11 +2,6 @@
 
 #update server with latest version of UNcode's INGInious, a branch can also be specified to the script via the -b tag
 
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
-  exit
-fi
-
 BRANCH=""
 while getopts "b:" opt; do
     case $opt in
@@ -26,7 +21,14 @@ done
 
 if [ -n $BRANCH ]
 then
-    sudo pip3.5 install --upgrade "git+https://github.com/JuezUN/INGInious.git@$BRANCH"
+    exists_branch=git ls-remote --heads git@github.com:user/repo.git $BRANCH | wc -l
+    if [ !exists_branch ]
+    then
+        sudo -H pip3.5 install --upgrade "git+https://github.com/JuezUN/INGInious.git@$BRANCH"
+    else
+        echo "branch $BRANCH does not exists in JueUN/INGINIOUS"
+        exit 1
+    fi
 else
-    sudo pip3.5 install --upgrade git+https://github.com/JuezUN/INGInious.git
+    sudo -H pip3.5 install --upgrade git+https://github.com/JuezUN/INGInious.git
 fi

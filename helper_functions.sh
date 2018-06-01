@@ -1,21 +1,25 @@
 #!/bin/bash
-function restartJudge {
+function restartServer {
     systemctl restart lighttpd
 }
 
-function startJudge {
+function startServer {
     systemctl start lighttpd
 }
 
-function stopJudge {
+function enableServer {
+    systemctl enable lighttpd
+}
+
+function stopServer {
     systemctl stop lighttpd
 }
 
-function checkInginious {
+function checkServerLog {
     sudo cat /var/log/ligtthpd/error.log
 }
 
-function checkServer {
+function checkServerStatus {
     systemctl status lighttpd
 }
 
