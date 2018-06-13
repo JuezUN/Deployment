@@ -5,4 +5,5 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-yum -y install lighttpd lighttpd-fastcgi
+yum install -y yum install httpd httpd-devel
+pip3.5 install mod_wsgi

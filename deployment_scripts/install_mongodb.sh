@@ -6,10 +6,10 @@ if [ "$EUID" -ne 0 ]
 fi
 
 touch /etc/yum.repos.d/mongodb.repo
+groupadd mongodb
 
 current_path=$(pwd)
-cp "$current_path/deployment_scripts/mongodb.repo"  /etc/yum.repos.d/
-
+cp $current_path/config/mongodb.repo  /etc/yum.repos.d/
 
 yum -y install mongodb-org
 

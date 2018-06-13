@@ -1,10 +1,10 @@
-language: bash
 sudo: required
-dist: trusty
+env:
+  - OS_TYPE=centos OS_VERSION=7 ANSIBLE_VERSION=1.9.2
 services:
-  - mongodb
   - docker
 before_install:
-  - sudo mkdir /tmp/Judge && sudo chown $USER /tmp/Judge
-script :
-  - ./run.sh
+  - source init.sh
+
+script:
+ - ./run.sh
