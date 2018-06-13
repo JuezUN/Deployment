@@ -12,4 +12,3 @@ function build_grading_containers {
     echo "building multilang container"
     [[ "$(docker images -q ingi/inginious-c-multilang 2> /dev/null)" == "" ]] && docker build -t ingi/inginious-c-multilang ./INGInious-containers/grading/multilang
 }
-

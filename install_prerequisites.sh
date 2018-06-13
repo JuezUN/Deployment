@@ -26,7 +26,7 @@ sudo yum install -y git gcc libtidy python35u python35u-pip python35u-devel zero
 sudo chmod +x deployment_scripts/*.sh
 sudo bash deployment_scripts/install_mongodb.sh
 bash deployment_scripts/install_docker.sh
-if [ SERVER -eq "APACHE" ]
+if [ "$SERVER" == "APACHE" ]
 then
     echo "installing apache with mod_wsgi"
     sudo bash deployment_scripts/install_apache.sh

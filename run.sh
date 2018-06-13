@@ -25,7 +25,7 @@ docker-compose up -d
 sudo bash deployment_scripts/restrict_ports.sh
 bash deployment_scripts/build_all_containers.sh
 bash deployment_scripts/update_server.sh
-if [ $SERVER -eq "APACHE" ]
+if [ "$SERVER" == "APACHE" ]
 then
     sudo bash deployment_scripts/deploy_apache_server.sh
 fi
