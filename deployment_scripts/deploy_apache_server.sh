@@ -10,7 +10,7 @@ usermod -aG docker apache
 usermod -aG mongodb apache
 
 mkdir -p /var/www/INGInious
-mkdir -p /var/www/INGINious/task
+mkdir -p /var/www/INGINious/tasks
 mkdir -p /var/www/INGInious/backup
 chown -R apache:apache /var/www/INGInious
 
