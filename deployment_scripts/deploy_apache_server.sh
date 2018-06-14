@@ -5,20 +5,27 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+echo "adding apache to mongo and docker group"
 usermod -aG docker apache
 usermod -aG mongodb apache
 
 mkdir -p /var/www/INGInious
+mkdir -p /var/www/INGINious/task
+mkdir -p /var/www/INGInious/backup
 chown -R apache:apache /var/www/INGInious
 
+echo "updating configuration files"
 current_path=$(pwd)
+echo "configuration.yaml"
 cp $current_path/config/configuration.yaml /var/www/INGInious/
+echo "httpd"
 rm /etc/sysconfig/httpd 
 cp $current_path/config/httpd /etc/sysconfig/
+echo "removing welcome.conf"
 rm /etc/httpd/conf.d/welcome.conf
+echo "httpd.conf"
 rm /etc/httpd/conf/httpd.conf
 cp $current_path/config/httpd.conf /etc/httpd/conf/
 
-SERVICE=httpd
+echo "setting up httpd"
 systemctl restart httpd
-systemctl enable httpd
