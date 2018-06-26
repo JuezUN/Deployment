@@ -10,9 +10,12 @@ usermod -aG docker apache
 usermod -aG mongodb apache
 
 mkdir -p /var/www/INGInious
-mkdir -p /var/www/INGINious/tasks
+mkdir -p /var/www/INGInious/tasks
 mkdir -p /var/www/INGInious/backup
 chown -R apache:apache /var/www/INGInious
+
+echo "setup permissions"
+sudo chown 777 -R /tmp
 
 echo "updating configuration files"
 current_path=$(pwd)

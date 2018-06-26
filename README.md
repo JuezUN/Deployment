@@ -9,3 +9,9 @@ Steps to deploy the server using Apache
 5. run the command `source init.sh` to set the environment variables (such as proxy and ports used by the backend microservices).
 6. modify the `configuration.yaml` file to use the setup you want.
 7. execute the script `./run`
+
+
+# Condiguration
+
+## Configuration.yml
+This files specifies which plugins will run when the judge deploys, also is needed that the settings for the SMTP server are set properly (i.e. username and password), if you want to

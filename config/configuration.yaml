@@ -23,8 +23,8 @@ use_minified_js: true
 plugins:
   - plugin_module: inginious.frontend.plugins.statistics
   - plugin_module: inginious.frontend.plugins.multilang
-    linter_url: "http://stagingjudge.ddns.net:4567/"
-    python_tutor_url: "http://stagingjudge.ddns.net:7654/"
+    linter_url: "http://localhost:4567/"
+    python_tutor_url: "http://localhost:8003/"
   - plugin_module: inginious.frontend.plugins.grader_generator
   - plugin_module: inginious.frontend.plugins.custom_input
 
