@@ -27,4 +27,6 @@ plugins:
     python_tutor_url: "http://localhost:8003/"
   - plugin_module: inginious.frontend.plugins.grader_generator
   - plugin_module: inginious.frontend.plugins.custom_input
+  - plugin_module: inginious.frontend.plugins.UN_template
+  - plugin_module: inginious.frontend.plugins.problem_bank
 
