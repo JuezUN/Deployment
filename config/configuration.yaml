@@ -2,7 +2,7 @@ backend: local
 backup_directory: /var/www/INGInious/backup
 
 local-config:
-    tmp_dir: /tmp
+    tmp_dir: /var/www/INGInious/tmp
 
 smtp:
     sendername: UNcode@unal.edu.co

@@ -7,7 +7,7 @@ export PYTHON_TUTOR_PORT="8003"
 export COKAPI_PORT="3000"
 export DB_PORT="27017"
 if [ -n $PROXY ]
-then 
+then
     export http_proxy="http://$PROXY"
     export https_proxy="https://$PROXY"
 fi
