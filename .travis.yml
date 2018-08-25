@@ -4,7 +4,7 @@ env:
 services:
   - docker
 before_install:
-  - source init.sh
+  - ./install_prerequisites.sh && source init.sh
 
 script:
  - ./run.sh
