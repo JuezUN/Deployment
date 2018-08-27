@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "installing problem-bank react"
-if [ -n $http_proxy ]
+if [ -n "$http_proxy" ]
 then
   sudo npm config set proxy $http_proxy
   sudo npm config set https-proxy $https_proxy

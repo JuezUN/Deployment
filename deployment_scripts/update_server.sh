@@ -19,7 +19,7 @@ while getopts "b:" opt; do
     esac
 done
 
-if [ -n $BRANCH ]
+if [ -n "$BRANCH" ]
 then
     sudo -H pip3.5 install --upgrade "git+https://github.com/JuezUN/INGInious.git@$BRANCH"
 else

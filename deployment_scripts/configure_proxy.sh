@@ -9,7 +9,7 @@ fi
 
 mkdir /etc/systemd/system/docker.service.d
 touch /etc/systemd/system/docker.service.d/http-proxy.conf
-if [ -n $http_proxy ]
+if [ -n "$http_proxy" ]
 then
   echo "[Service]
   Environment=\"HTTP_PROXY=$http_proxy\"" >> /etc/systemd/system/docker.service.d/http-proxy.conf
