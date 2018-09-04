@@ -2,13 +2,29 @@
 
 Steps to deploy the server using Apache
 
-1. Check that selinux is deactivated
-2. Make sure that there is a password set for root and the user that will execute the scripts
-3. Install the prerequisites, you can use `install_prerequisites.sh` to do this.
-4. logout and log back in to the server so that the user can use mongo without `sudo`.
-5. run the command `source init.sh` to set the environment variables (such as proxy and ports used by the backend microservices).
-6. modify the `configuration.yaml` file to use the setup you want.
-7. execute the script `./run`
+0. Have a machine with CentOS 7 
+
+1. Make sure that there is a password set for root and the user that will execute the scripts
+
+2. Clone the deployment repository
+    
+    `git clone https://github.com/JuezUN/Deployment.git`
+
+3. Inside the Deployment folder, make the .sh files runnable
+    
+    `chmod +x *.sh`
+
+4. Disable selinux
+    
+    `sudo ./disable_selinux.sh`
+
+    *Running this command will cause the server to restart automatically so that the changes are applied*
+
+5. Install the prerequisites, you can use `sudo ./install_prerequisites.sh` to do this.
+6. Logout and log back in to the server so that the user can use mongo and docker without `sudo`.
+7. Run the command `source init.sh` to set the environment variables (such as proxy and ports used by the backend microservices).
+8. Modify the `configuration.yaml` file to use the setup you want.
+9. Execute the script `./run`
 
 
 # Condiguration
