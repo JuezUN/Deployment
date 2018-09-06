@@ -1,0 +1,32 @@
+backend: local
+backup_directory: /var/www/INGInious/backup
+
+local-config:
+    tmp_dir: /var/www/INGInious/tmp
+
+smtp:
+    sendername: UNcode@unal.edu.co
+    host: smtp.gmail.com
+    port: 587
+    username: <your_user_name>
+    password: <your_user_password>
+    starttls: true
+
+mongo_opt:
+    database: INGInious
+    host: localhost
+superadmins:
+- superadmin
+tasks_directory: /var/www/INGInious/tasks
+tmp_dir: /tmp
+use_minified_js: true
+plugins:
+  - plugin_module: inginious.frontend.plugins.statistics
+  - plugin_module: inginious.frontend.plugins.multilang
+    linter_url: "http://localhost:4567/"
+    python_tutor_url: "http://localhost:8003/"
+  - plugin_module: inginious.frontend.plugins.grader_generator
+  - plugin_module: inginious.frontend.plugins.custom_input
+  - plugin_module: inginious.frontend.plugins.UN_template
+  - plugin_module: inginious.frontend.plugins.problem_bank
+

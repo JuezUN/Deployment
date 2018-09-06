@@ -1,39 +1,39 @@
-# dependencies
-The files contained in this repository deploy the Judge on a server using Docker and Docker compose
-----
+# Deployment
 
-To deploy the application run deploy.sh , the judge needs the following dependencies to be installed
+Steps to deploy the server using Apache
 
-* docker 1.13.0+
-* docker-compose 1.13.0+
-* mongodb v3.2 or greater
+0. Have a machine with CentOS 7 
 
-Also please make sure to grant docker use permissions to docker to the current user,
-this can be achieved by creating a group called docker and adding the user to that group.
+1. Make sure that there is a password set for root and the user that will execute the scripts
 
-`$ sudo groupadd docker`
-`$ sudo usermod -aG docker $USER`
+2. Clone the deployment repository
+    
+    `git clone https://github.com/JuezUN/Deployment.git`
 
-# Usage
-To deploy a production environment use the following command
-`$ run.sh [-u]`
+3. Inside the Deployment folder, make the .sh files runnable
+    
+    `chmod +x *.sh`
 
-The flag -u must only be used when you want to update your current version of the judge. It will update the containers for all the micro services (if an update is available).
+4. Disable selinux
+    
+    `sudo ./disable_selinux.sh`
 
-# Deployment_configuration
-The Judge allows various levels of configuration, for starters you can choose
-the directory where the judge will store data (tasks files, backups, and temporal files) to do so
-you must change the environment variable `JUDGE_HOME` this can be performed from the `deployment_configuration.env`
-file, by default this location is set to `tmp/Judge`.
+    *Running this command will cause the server to restart automatically so that the changes are applied*
 
-The ports that docker binds to the host to communicate the Judge's micro services can be adjusted via the `deployment_configuration.env`
-file, these ports are:
+5. Install the prerequisites, you can use `./install_prerequisites.sh` to do this. *Make sure you DON'T run this command with sudo as the user is the one that should be able to use the applications (not sudo)*
+6. Logout and log back in to the server so that the user can use mongo and docker without `sudo`.
+7. Run the command `source init.sh` to set the environment variables (such as proxy and ports used by the backend microservices).
+8. Modify the `configuration.yaml` file to use the setup you want.
+9. Execute the script `./run.sh`
 
-* INGINIOUS_PORT: INGInious front end service, default port 8080
-* LINTER_PORT: linter service, default port 4567
-* PYTHON_TUTOR_PORT: code visualizer, default port 8003
-* COKAPI_PORT: code visualizer helper, default port 3000
-* DB_PORT: database, default port 27017
 
-# INGInious configuration
-The front end of INGInious can be adjusted to the needs of the scenario, activating plugins as you need them. These changes can be made inside the `configuration.yaml` file.
+# Configuration
+
+## Configuration.yml
+This files specifies which plugins will run when the judge deploys, also is needed that the settings for the SMTP server are set properly (i.e. username and password), if you want to
+
+# Common problems
+
+There are some problems that you might find when deploying the services. 
+
+* Docker compose says that the ports of the micro services are not specified. Solution: Make sure you run the command `source init.sh`
