@@ -27,7 +27,13 @@ Steps to deploy the server using Apache
 9. Execute the script `./run.sh`
 
 
-# Condiguration
+# Configuration
 
 ## Configuration.yml
 This files specifies which plugins will run when the judge deploys, also is needed that the settings for the SMTP server are set properly (i.e. username and password), if you want to
+
+# Common problems
+
+There are some problems that you might find when deploying the services. 
+
+* Docker compose says that the ports of the micro services are not specified. Solution: Make sure you run the command `source init.sh`
