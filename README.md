@@ -2,7 +2,7 @@
 
 Steps to deploy the server using Apache
 
-0. Have a machine with CentOS 7 
+0. Have a machine with CentOS 7 and git
 
 1. Make sure that there is a password set for root and the user that will execute the scripts
 
