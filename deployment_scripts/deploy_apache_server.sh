@@ -32,4 +32,5 @@ rm /etc/httpd/conf/httpd.conf
 cp $current_path/config/httpd.conf /etc/httpd/conf/
 
 echo "setting up httpd"
+systemctl enable httpd
 systemctl restart httpd
