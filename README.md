@@ -37,3 +37,6 @@ This files specifies which plugins will run when the judge deploys, also is need
 There are some problems that you might find when deploying the services. 
 
 * Docker compose says that the ports of the micro services are not specified. Solution: Make sure you run the command `source init.sh`
+
+* Mongo DB fails to start after a reboot. There is an unsolved issue with systemd and mongod service that prevents it from starting correctly at boot. Until this issue is solved, the following workaround will start mongodb as INGInious needs.
+`sudo mongod -f /etc/mongod.conf`
