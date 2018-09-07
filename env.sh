@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#execute this as source ./init.sh
 PROXY=""
 export LINTER_PORT="4567"
 export PYTHON_TUTOR_PORT="8003"
