@@ -22,7 +22,7 @@ Steps to deploy the server using Apache
 
 5. Install the prerequisites, you can use `./install_prerequisites.sh` to do this. *Make sure you DON'T run this command with sudo as the user is the one that should be able to use the applications (not sudo)*
 6. Logout and log back in to the server so that the user can use mongo and docker without `sudo`.
-7. Run the command `./setup_environment.sh` to set the environment variables (such as proxy and ports used by the backend microservices).
+7. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as proxy and ports used by the backend microservices).
 8. Modify the `configuration.yaml` file to use the setup you want.
 9. Execute the script `./run.sh`
 
