@@ -32,4 +32,4 @@ then
     sudo bash deployment_scripts/install_apache.sh
 fi
 
-echo "please logout and back in to finished the installation"
+echo -e "\n\n$(tput setaf 3)Please logout and back in to finish the Docker installation $(tput sgr0)"
