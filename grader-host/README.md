@@ -39,6 +39,6 @@ Each agent registers itself to the backend and then the backend delegates the re
 5. Modify `inginious_agents.conf` on the `units` folder, please add the ip address or hostname of the backend
 5. Install the agent services with `sudo ./install_services.sh`
 6. Make sure the BACKEND is running and you can see the its host
-7. Run the services `sudo systemctl start docker_agent` and `sudo systemctl start mcq_agent`
+7. Run the services `sudo systemctl start docker_agent && sudo systemctl start mcq_agent`
 
 8. To verify that the deployment was successful, check the logs on the backend machine service and verify that it registered the agents you just deployed.
