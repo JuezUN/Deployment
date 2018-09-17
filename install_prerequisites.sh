@@ -23,7 +23,7 @@ done
 #install INGInious dependencies
 chmod +x deployment_scripts/*.sh
 bash deployment_scripts/install_basic_dependencies.sh
-bash deployment_scripts/install_mongodb.sh
+sudo bash deployment_scripts/install_mongodb.sh
 bash deployment_scripts/install_node.sh
 
 if [ "$SERVER" == "APACHE" ]
