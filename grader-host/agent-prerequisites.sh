@@ -4,3 +4,4 @@
 
 chmod +x ../deployment_scripts/*.sh
 bash ../deployment_scripts/install_basic_dependencies.sh
+bash ../deployment_scripts/update_server.sh
