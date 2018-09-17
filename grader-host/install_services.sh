@@ -10,6 +10,9 @@ fi
 cp docker_agent.sh /usr/local/bin
 cp mcq_agent.sh /usr/local/bin
 
+chown agent:agent /usr/local/bin/docker_agent.sh
+chown agent:agent /usr/local/bin/mcq_agent.sh
+
 cp units/docker_agent.service /etc/systemd/system
 cp units/mcq_agent.service /etc/systemd/system
 
