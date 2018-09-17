@@ -14,6 +14,8 @@ echo "Provide a password for the agent user"
 sudo passwd agent
 sudo groupadd agent
 sudo usermod -aG agent agent
+sudo usermod -aG docker agent
+
 sudo usermod -aG agent $(whoami)
 
 echo -e "\n\n$(tput setaf 3)Please logout and back in to finish the Docker installation $(tput sgr0)"
