@@ -31,6 +31,9 @@ Each agent registers itself to the backend and then the backend delegates the re
 2. Go to the grader-host folder `cd ./Deployment/grader-host`
 3. Make the .sh files executable `chmod +x *.sh`
 3. Install the agent prerequisites with `./agent_prerequisites.sh`
+
+    *In this step, you'll be requested to provide a password for the agent user, this user is the one who is going to own the grading service*
+
 4. *Logout and login again* so that you can use docker without sudo
 5. Install the grading containers `sudo ../deployment_scripts/build_all_containers.sh`
 5. Modify `inginious_agents.conf` on the `units` folder, please add the ip address or hostname of the backend
