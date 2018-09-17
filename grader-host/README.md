@@ -22,6 +22,7 @@ Each agent registers itself to the backend and then the backend delegates the re
 3. `chmod +x *.sh`
 3. Install the prerequisites with `./agent-prerequisites.sh`
 4. Logout and login again so that you can use docker without sudo
+5. Install the grading containers `sudo ../deployment_scripts/build_all_containers.sh`
 5. Install the agent services with `./install-services.sh`
 6. Make sure the BACKEND is running and you can see the its host
 7. Run the services `systemctl start docker-agent` and `systemctl start mcq-agent`
