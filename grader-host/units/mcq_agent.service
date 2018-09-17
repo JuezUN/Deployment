@@ -4,6 +4,7 @@ After=network.target
 After=docker
 
 [Service]
+EnvironmentFile=/etc/sysconfig/inginious_agents.conf
 ExecStart=/usr/local/bin/mcq_agent.sh
 
 [Install]
