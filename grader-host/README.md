@@ -33,8 +33,9 @@ Each agent registers itself to the backend and then the backend delegates the re
 3. Install the agent prerequisites with `./agent_prerequisites.sh`
 4. *Logout and login again* so that you can use docker without sudo
 5. Install the grading containers `sudo ../deployment_scripts/build_all_containers.sh`
-5. Install the agent services with `./install_services.sh`
+5. Modify `inginious_agents.conf` on the `units` folder, please add the ip address or hostname of the backend
+5. Install the agent services with `sudo ./install_services.sh`
 6. Make sure the BACKEND is running and you can see the its host
-7. Run the services `systemctl start docker-agent` and `systemctl start mcq-agent`
+7. Run the services `sudo systemctl start docker_agent` and `sudo systemctl start mcq_agent`
 
 8. To verify that the deployment was successful, check the logs on the backend machine service and verify that it registered the agents you just deployed.
