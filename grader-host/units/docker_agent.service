@@ -4,6 +4,8 @@ After=network.target
 After=docker
 
 [Service]
+User=agent
+Group=agent
 EnvironmentFile=/etc/sysconfig/inginious_agents.conf
 WorkingDirectory=/var/agent/
 ExecStart=/usr/local/bin/docker_agent.sh

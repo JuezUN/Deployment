@@ -18,6 +18,9 @@ chmod 664 /etc/systemd/system/mcq_agent.service
 
 cp units/inginious_agents.conf /etc/sysconfig
 
+mkdir -p /var/agent/
+chown -R agent:agent /var/agent/
+
 systemctl daemon-reload
 systemctl enable docker_agent.service
 systemctl enable mcq_agent.service
