@@ -41,4 +41,9 @@ Each agent registers itself to the backend and then the backend delegates the re
 6. Make sure the BACKEND is running and you can see the its host
 7. Run the services `sudo systemctl start docker_agent && sudo systemctl start mcq_agent`
 
-8. To verify that the deployment was successful, check the logs on the backend machine service and verify that it registered the agents you just deployed.
+8. To verify that the deployment was successful, check the logs on the backend machine service and verify that it registered the agents you just deployed. It should look something like the following. It indicates that the agents said 'hello' to the backend and that everything is ready to use.
+
+```
+2018-09-17 23:26:32,626 - inginious.backend - INFO - Agent b'\x00k\x8bEi' () said hello
+2018-09-17 23:26:33,305 - inginious.backend - INFO - Agent b'\x00k\x8bEj' () said hello
+```
