@@ -10,9 +10,12 @@ fi
 cp docker_agent.sh /usr/local/bin
 cp mcq_agent.sh /usr/local/bin
 
-cp units/docker_agent.service /etc/systemd/system/multi-user.target.wants
-cp units/mcq_agent.service /etc/systemd/system/multi-user.target.wants
+cp units/docker_agent.service /etc/systemd/system
+cp units/mcq_agent.service /etc/systemd/system
+
+chmod 664 /etc/systemd/system/docker_agent.service
+chmod 664 /etc/systemd/system/mcq_agent.service
 
 systemctl daemon-reload
-systemctl enable docker_agent
-systemctl enable mcq_agent
+systemctl enable docker_agent.service
+systemctl enable mcq_agent.service
