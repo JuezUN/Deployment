@@ -1,0 +1,10 @@
+[Unit]
+Description=Docker Agent - Service that runs inginious submissions
+After=network.target
+After=docker
+
+[Service]
+ExecStart=/usr/local/bin/docker_agent.sh
+
+[Install]
+WantedBy=multi-user.target

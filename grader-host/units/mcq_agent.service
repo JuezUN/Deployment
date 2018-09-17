@@ -1,0 +1,10 @@
+[Unit]
+Description=MCQ Agent - Helper service of docker_agent service 
+After=network.target
+After=docker_agent
+
+[Service]
+ExecStart=/usr/local/bin/mcq_agent.sh
+
+[Install]
+WantedBy=multi-user.target
