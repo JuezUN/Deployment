@@ -20,12 +20,33 @@ Steps to deploy the server using Apache
 
     *Running this command will cause the server to restart automatically so that the changes are applied*
 
-5. Install the prerequisites, you can use `./install_prerequisites.sh` to do this. *Make sure you DON'T run this command with sudo as the user is the one that should be able to use the applications (not sudo)*
+5. Install the prerequisites, you can use `./install_prerequisites.sh` to do this. 
+        
+    *Make sure you DON'T run this command with sudo as the user is the one that should be able to use the applications (not sudo)*
+
 6. Logout and log back in to the server so that the user can use mongo and docker without `sudo`.
 7. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as proxy and ports used by the backend microservices).
 8. Modify the `configuration.yaml` file to use the setup you want.
-9. Execute the script `./run.sh`
 
+If you want to deploy the entire application in a single machine, then
+
+* Execute the script `./run.sh`
+
+Otherwise, if you want to separate the grading machines from the rest of the application
+
+* Have *n>=1* machines with CentOS 7 that can communicate to the main machine via tcp protocol
+
+* In `configuration.yaml` in the backend option, set it to `backend: tcp://127.0.0.1:2000`
+
+* Run `sudo ./install_backend_service.sh` to setup the backend as a systemd service so that you don't have to manage it manually.
+
+    *You will be requested a password for the backend user, this user is the one who is going to own the backend service*
+
+    *Running this command will enable the backend service, which means that even after reboot it will be run by the init procedure.*
+
+* Run `./run.sh --distributed` to deploy the apache service and the backend service. You should be able to have the application working by now (except for the submission grading)
+
+* Go to [Grading host deployment documentation](https://github.com/JuezUN/Deployment/tree/master/grader-host) to deploy any number of hosts that will be used as grading machines.
 
 # Configuration
 
@@ -36,7 +57,7 @@ This files specifies which plugins will run when the judge deploys, also is need
 
 There are some problems that you might find when deploying the services. 
 
-* Docker compose says that the ports of the micro services are not specified. Solution: Make sure you run the command `source init.sh`
+* Docker compose says that the ports of the micro services are not specified. Solution: Make sure you run the command `source env.sh`
 
 * Mongo DB fails to start after a reboot. There is an unsolved issue with systemd and mongod service that prevents it from starting correctly at boot. Until this issue is solved, the following workaround will start mongodb as INGInious needs.
 `sudo mongod -f /etc/mongod.conf`
