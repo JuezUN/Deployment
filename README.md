@@ -36,14 +36,17 @@ Otherwise, if you want to separate the grading machines from the rest of the app
 
 * Have *n>=1* machines with CentOS 7 that can communicate to the main machine via tcp protocol
 
-* In `configuration.yaml` in the backend option, set it to `backend: tcp://backend-host:2000` where `backend-host` is the ip address of the machine (localhost does not work?)
+* In `configuration.yaml` in the backend option, set it to `backend: tcp://127.0.0.1:2000`
 
-* Run `./install_backend_service.sh` to setup the backend as a systemd service so that you don't have to manage it manually.
+* Run `sudo ./install_backend_service.sh` to setup the backend as a systemd service so that you don't have to manage it manually.
+
+    *You will be requested a password for the backend user, this user is the one who is going to own the backend service*
 
     *Running this command will enable the backend service, which means that even after reboot it will be run by the init procedure.*
+
 * Run `./run.sh --distributed` to deploy the apache service and the backend service. You should be able to have the application working by now (except for the submission grading)
 
-* Go to [Grading host deployment documentation](https://github.com/JuezUN/Deployment/tree/separated-grading/grader-host) to deploy any number of hosts that will be used as grading machines.
+* Go to [Grading host deployment documentation](https://github.com/JuezUN/Deployment/tree/master/grader-host) to deploy any number of hosts that will be used as grading machines.
 
 # Configuration
 
