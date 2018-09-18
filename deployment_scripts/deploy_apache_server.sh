@@ -7,16 +7,13 @@ fi
 
 echo "adding apache to mongo and docker group"
 usermod -aG docker apache
-usermod -aG mongodb apache
+usermod -aG mongod apache
 
 mkdir -p /var/www/INGInious
 mkdir -p /var/www/INGInious/tasks
 mkdir -p /var/www/INGInious/backup
 mkdir -p /var/www/INGInious/tmp
 chown -R apache:apache /var/www/INGInious
-
-echo "setup permissions"
-sudo chown 777 -R /tmp
 
 echo "updating configuration files"
 current_path=$(pwd)
