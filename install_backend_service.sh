@@ -18,6 +18,7 @@ fi
 
 cp backend/backend.sh /usr/local/bin
 chown backend:backend /usr/local/bin/backend.sh
+chmod +x /usr/local/bin/backend.sh
 
 cp backend/backend.service /etc/systemd/system
 chmod 664 /etc/systemd/system/backend.service
