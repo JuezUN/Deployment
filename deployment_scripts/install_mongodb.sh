@@ -5,12 +5,12 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-touch /etc/yum.repos.d/mongodb.repo
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+cd "$parent_path"
 
-current_path=$(pwd)
-cp $current_path/config/mongodb.repo  /etc/yum.repos.d/
+cp ../config/mongodb.repo  /etc/yum.repos.d/
 
 yum -y install mongodb-org
 
-systemctl start mongod
-systemctl enable mongod
+systemctl start mongod.service
+systemctl enable mongod.service
