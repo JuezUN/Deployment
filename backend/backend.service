@@ -1,0 +1,16 @@
+[Unit]
+Description=INGInious Backend - Orchestrator and interface of grading agents to the frontend
+StartLimitBurst=300
+StartLimitIntervalSec=600
+After=network.target
+
+[Service]
+User=backend
+Group=backend
+WorkingDirectory=/var/backend/
+ExecStart=/usr/local/bin/backend.sh
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
