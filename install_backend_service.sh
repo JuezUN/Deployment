@@ -8,9 +8,13 @@ if [ "$EUID" -ne 0 ]
 fi
 
 # Create backend user if does not exist
-id -u backend &>/dev/null || useradd backend
-
-usermod -aG backend $(whoami)
+id -u backend > /dev/null 2>&1
+if [ $? -ne 0 ]
+then
+    useradd backend
+    passwd backend
+    usermod -aG backend $(whoami)
+fi
 
 cp backend/backend.sh /usr/local/bin
 chown backend:backend /usr/local/bin/backend.sh
