@@ -15,9 +15,6 @@ mkdir -p /var/www/INGInious/backup
 mkdir -p /var/www/INGInious/tmp
 chown -R apache:apache /var/www/INGInious
 
-echo "setup permissions"
-sudo chown 777 -R /tmp
-
 echo "updating configuration files"
 current_path=$(pwd)
 echo "configuration.yaml"
