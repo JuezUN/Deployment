@@ -10,9 +10,11 @@ As you can see in the diagram, *backend* is the piece of software that makes pos
 
 Due to design decisions The backend does not need to know the hostnames of the grading hosts. However, the grading hosts DO need to know the hostname of the backend and the port that it is listening to.
 
-*That means that you need to provide in each and every grading host the hostname of the backend. Moreover, the backend should be deployed and listening BEFORE we deploy and run the grading host software*
+*That means that you need to provide in each and every grading host the hostname of the backend*
 
 Each agent registers itself to the backend and then the backend delegates the responsibility of grading submissions to them using a load balancing algorithm.
+
+*If the backend dies, the registered agents don't have a way to know that they are not going to receive more work to do. You need to put backend up again and restart the agent services.*
 
 ## Steps to deploy a grading host (agent)
 
@@ -44,6 +46,8 @@ Each agent registers itself to the backend and then the backend delegates the re
 8. To verify that the deployment was successful, check the logs on the backend machine service and verify that it registered the agents you just deployed. It should look something like the following. It indicates that the agents said 'hello' to the backend and that everything is ready to use.
 
 ```
+$ journalctl -b -u backend | grep hello
+
 2018-09-17 23:26:32,626 - inginious.backend - INFO - Agent b'\x00k\x8bEi' () said hello
 2018-09-17 23:26:33,305 - inginious.backend - INFO - Agent b'\x00k\x8bEj' () said hello
 ```
