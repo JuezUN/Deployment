@@ -1,7 +1,7 @@
 [Unit]
 Description=Docker Agent - Service that runs inginious submissions
 After=network.target
-After=docker
+After=docker.service
 
 [Service]
 User=agent

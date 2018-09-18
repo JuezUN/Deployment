@@ -1,7 +1,7 @@
 [Unit]
 Description=MCQ Agent - Helper service of docker_agent service 
 After=network.target
-After=docker
+After=docker.service
 
 [Service]
 User=agent
