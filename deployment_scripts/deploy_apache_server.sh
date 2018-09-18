@@ -7,7 +7,7 @@ fi
 
 echo "adding apache to mongo and docker group"
 usermod -aG docker apache
-usermod -aG mongodb apache
+usermod -aG mongod apache
 
 mkdir -p /var/www/INGInious
 mkdir -p /var/www/INGInious/tasks
