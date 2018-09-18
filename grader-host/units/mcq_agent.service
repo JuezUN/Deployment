@@ -1,6 +1,6 @@
 [Unit]
 Description=MCQ Agent - Helper service of docker_agent service 
-StartLimitBurst=3000
+StartLimitBurst=300
 StartLimitIntervalSec=600
 After=network.target
 After=docker.service
@@ -12,7 +12,7 @@ EnvironmentFile=/etc/sysconfig/inginious_agents.conf
 WorkingDirectory=/var/agent/
 ExecStart=/usr/local/bin/mcq_agent.sh
 Restart=always
-RestartSec=5
+RestartSec=2
 
 [Install]
 WantedBy=multi-user.target
