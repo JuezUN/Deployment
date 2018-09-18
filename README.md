@@ -18,14 +18,31 @@ Steps to deploy the server using Apache
     
     `sudo ./disable_selinux.sh`
 
-    *Running this command will cause the server to restart automatically so that the changes are applied*
+        Running this command will cause the server to restart automatically so that the changes are applied
 
-5. Install the prerequisites, you can use `./install_prerequisites.sh` to do this. *Make sure you DON'T run this command with sudo as the user is the one that should be able to use the applications (not sudo)*
+5. Install the prerequisites, you can use `./install_prerequisites.sh` to do this. 
+        
+        Make sure you DON'T run this command with sudo as the user is the one that should be able to use the applications (not sudo)
+
 6. Logout and log back in to the server so that the user can use mongo and docker without `sudo`.
 7. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as proxy and ports used by the backend microservices).
 8. Modify the `configuration.yaml` file to use the setup you want.
-9. Execute the script `./run.sh`
 
+If you want to deploy the entire application in a single machine, then
+
+* Execute the script `./run.sh`
+
+Otherwise, if you want to separate the grading machines from the rest of the application
+
+* Have *n>=1* machines with CentOS 7 that can communicate to the main machine via tcp protocol
+
+* In `configuration.yaml` in the backend option, set it to `backend: tcp://backend-host:2000` where `backend-host` is the ip address of the machine (localhost does not work?)
+
+* Run `./install_backend_service.sh` to setup the backend as a systemd service so that you don't have to manage it manually.
+
+        Running this command will enable the backend service, which means that even after reboot it will be run by the init procedure.
+
+* Go to [Grading host deployment documentation](https://github.com/JuezUN/Deployment/tree/separated-grading/grader-host) to deploy any number of hosts that will be used as grading machines.
 
 # Configuration
 
