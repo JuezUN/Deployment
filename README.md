@@ -41,6 +41,7 @@ Otherwise, if you want to separate the grading machines from the rest of the app
 * Run `./install_backend_service.sh` to setup the backend as a systemd service so that you don't have to manage it manually.
 
     *Running this command will enable the backend service, which means that even after reboot it will be run by the init procedure.*
+* Run `./run.sh --distributed` to deploy the apache service and the backend service. You should be able to have the application working by now (except for the submission grading)
 
 * Go to [Grading host deployment documentation](https://github.com/JuezUN/Deployment/tree/separated-grading/grader-host) to deploy any number of hosts that will be used as grading machines.
 
