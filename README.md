@@ -48,6 +48,15 @@ Otherwise, if you want to separate the grading machines from the rest of the app
 
 * Go to [Grading host deployment documentation](https://github.com/JuezUN/Deployment/tree/master/grader-host) to deploy any number of hosts that will be used as grading machines.
 
+### HTTPS
+
+HTTPS can be enable with your own certificated. However, the approach we are going to take is to configure https with a tool called `certboot` which is a tool that lets you secure your web application for free.
+
+* You'll need a domain name pointing to the server ip address so that it can proves it owns the domain. you can get it wherever you want to, there are paid and free dns services. We have used https://www.noip.com for staging. It worked correctly and it's free.
+
+* After you got the domain name for your sever, go to [HTTPS on Centos7 + Apache](https://certbot.eff.org/lets-encrypt/centosrhel7-apache) tutorial to follow the instructions. (It is not complicated, just 2 or 3 commands).
+
+
 # Configuration
 
 ## Configuration.yml
