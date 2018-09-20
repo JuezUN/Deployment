@@ -12,7 +12,9 @@ sudo firewall-cmd --permanent --zone=public --add-service=https
 sudo firewall-cmd --reload
 ```
 
-If you are running under distributed grading and webapp configuration, you'll need to open the port 2001 for the tcp protocol so that backend and agents can communicate You can do that with the following commands *Please, apply this configurations on both grader machines and webapp machine.*
+If you are running under distributed grading and webapp configuration, you'll need to open the port 2001 for the tcp protocol so that backend and agents can communicate between each other. You can do that with the following commands.
+
+*Please, apply this configurations on both grader machines and webapp machine.*
 
 ```
 sudo firewall-cmd --permanent --add-port=2001/tcp
