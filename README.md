@@ -1,6 +1,10 @@
 # Deployment
 
-Steps to deploy the server using Apache
+## Before you start
+
+Before you start, we recommend that you review the documentation of [proxy settings](proxy.md) and the documentation of [firewall settings](firewall.md). You can avoid problems related to the configuration of this modules by reading and applying the considerations mentioned there.
+
+## Steps to deploy the server using Apache
 
 0. Have a machine with CentOS 7 and git
 
