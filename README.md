@@ -2,7 +2,7 @@
 
 ## Before you start
 
-Before you start we recommend that you review the documentation for [proxy setting](proxy.md) and the documentation for the [firewall](firewall.md) you can avoid problems related to this configurations reading the considerations on those files.
+Before you start, we recommend that you review the documentation of [proxy settings](proxy.md) and the documentation of [firewall settings](firewall.md). You can avoid problems related to the configuration of this modules by reading and applying the considerations mentioned there.
 
 ## Steps to deploy the server using Apache
 

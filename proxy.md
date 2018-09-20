@@ -1,8 +1,6 @@
 # Proxy setting
 
-Under some deployments you'll need to set up the proxy service for everything to work correctly.
-
-It is recommended to set proxy for all users in the system. You can do this by editing the /etc/environment
+Under some deployments, you'll need to set up the proxy service for everything to work correctly. It is recommended to set proxy for all users in the system. You can do this by editing the `/etc/environment` file.
 
 For example
 
@@ -17,7 +15,7 @@ HTTPS_PROXY="http://myproxy.server.com:8080/"
 NO_PROXY="localhost,127.0.0.1"
 ```
 
-For more details see this [Stackoverflow post](https://askubuntu.com/questions/175172/how-do-i-configure-proxies-without-gui)
+For more details see this [stackoverflow post](https://askubuntu.com/questions/175172/how-do-i-configure-proxies-without-gui).
 
 # Docker proxy
 
