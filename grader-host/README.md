@@ -38,7 +38,16 @@ Each agent registers itself to the backend and then the backend delegates the re
 
 4. *Logout and login again* so that you can use docker without sudo
 5. Install the grading containers `sudo ../deployment_scripts/build_all_containers.sh`
-5. Modify `inginious_agents.conf` on the `units` folder, please add the ip address or hostname of the backend
+5. Add `X.X.X.X backendhost` to your `/etc/hosts` file where `X.X.X.X` is the ip address of the backend, for example 
+
+    ```
+    $ cat /etc/hosts
+    127.0.0.1   localhost localhost.localdomain
+    ::1         localhost localhost.localdomain
+    10.142.0.3 backendhost
+    ```
+
+
 5. Install the agent services with `sudo ./install_services.sh`
 6. Make sure the BACKEND is running and you can see the its host
 7. Run the services `sudo systemctl start docker_agent && sudo systemctl start mcq_agent`
