@@ -61,4 +61,4 @@ $ journalctl -b -u backend | grep hello
 2018-09-17 23:26:33,305 - inginious.backend - INFO - Agent b'\x00k\x8bEj' () said hello
 ```
 
-8. Go to [sshfs](../sshfs.md) documentation to setup a the shared tasks folder from the webapp machine.
+8. Go to [sshfs](../sshfs.md) documentation to setup a shared tasks folder with the webapp machine.
