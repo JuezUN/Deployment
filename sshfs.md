@@ -8,7 +8,7 @@ Once you have deployed the grading agent, you can proceed to mount this share fo
 
 ## Steps to setup a shared folder
 
-sshfs by default only allows access to the shared resources to the *user that mounted the directory*. However, in our set up we have our `agent` user that is the one whi runs the grading services on the grading machine, so we need to configure sshfs to allow other users to access the directory.
+sshfs by default only allows access to the shared resources to the *user that mounted the directory*. However, in our set up we have our `agent` user that is the one who runs the grading services on the grading machine, so we need to configure sshfs to allow other users to access the directory.
 
 * Modify the file `/etc/fuse.conf` and add the line `user_allow_other` 
 
@@ -25,7 +25,7 @@ This will allow the agent user to access the resource.
 
     `mkdir -p /var/agent/tasks`
 
-Make sure that the user who is going to mount the folder and `agent` user have write access to this mount point.
+Make sure that the user who is going to mount the folder and the `agent` user have write access to this mount point.
 
 * Mount the folder.
 
