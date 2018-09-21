@@ -38,3 +38,5 @@ It'll ask for a password to login via ssh unless you have previously set up auth
 Once you do that, you can verify that the folder is correctly mounted: if you do `cd /var/agent/tasks`, you should same the contents of the folder `/var/www/INGInious/tasks` of the webapp machine.  
 
 After this, The agent is ready to grade the student submissions
+
+*NOTE: you'll have to mount again the folder if the client reboots, we currently haven't tested a way to permanently mount the folder, but you can try to set it up.* 
