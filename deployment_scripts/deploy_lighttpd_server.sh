@@ -15,6 +15,9 @@ mkdir -p /var/www/INGInious/backup
 mkdir -p /var/www/INGInious/tmp
 chown -R lighttpd:lighttpd /var/www/INGInious
 
+mkdir -p /var/cache/lighttpd/compress
+chown -R lighttpd:lighttpd /var/cache/lighttpd/compress
+
 current_path=$(pwd)
 cp $current_path/config/configuration.yaml /var/www/INGInious/
 
