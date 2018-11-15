@@ -6,7 +6,8 @@ then
     echo -e "Pushing backups to remote...\n"
     git push
     echo -e "\nBackup(s) pushed successfully" 
-else
+elif [ "$1" == "create" ]
+then
     echo -e "Creating backup...\n"
     rm -r copyData/
     mongodump -d INGInious -o copyData
@@ -16,4 +17,10 @@ else
     git commit -m "$dt"
 
     echo -e "\nBackup commited successfully"
+elif [ "$1" == "restore" ]
+then
+    echo -e "Restoring HEAD backup...\n"
+    mongorestore --db INGInious copyData/INGInious/
+else
+    echo -e "Usage:\nuncode_backup push\nuncode_backup create\nuncode_backup restore\n"
 fi
