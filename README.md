@@ -4,7 +4,7 @@
 
 Before you start, we recommend that you review the documentation of [proxy settings](proxy.md) and the documentation of [firewall settings](firewall.md). You can avoid problems related to the configuration of this modules by reading and applying the considerations mentioned there.
 
-## Steps to deploy the server using Apache
+## Steps to deploy
 
 0. Have a machine with CentOS 7 and git
 
@@ -48,20 +48,9 @@ Otherwise, if you want to separate the grading machines from the rest of the app
 
     *Running this command will enable the backend service, which means that even after reboot it will be run by the init procedure.*
 
-* Run `./run.sh --distributed` to deploy the apache service and the backend service. You should be able to have the application working by now (except for the submission grading)
+* Run `./run.sh --distributed` to deploy the lighttpd, nginx and the backend service. You should be able to have the application working by now (except for the submission grading)
 
 * Go to [Grading host deployment documentation](https://github.com/JuezUN/Deployment/tree/master/grader-host) to deploy any number of hosts that will be used as grading machines.
-
-### HTTPS
-
-HTTPS can be enable with your own certificate. However, the approach we are going to take is to configure https with a program called `certboot` which is a tool that lets you secure your web application for free.
-
-* You'll need a domain name pointing to the server ip address so that you can prove you own the domain. you can get it wherever you want to, there are paid and free dns services. We have used https://www.noip.com for staging. It worked correctly and it's free.
-
-* Modify the file `/etc/httpd/conf/httpd.conf`. In the `<VirtualHost>` directive change `example.com` to the domain name you just got.
-
-* Go to [HTTPS on Centos7 + Apache](https://certbot.eff.org/lets-encrypt/centosrhel7-apache) tutorial to follow the instructions. (It is not complicated, just 2 or 3 commands).
-
 
 # Configuration
 
