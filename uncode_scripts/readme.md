@@ -14,7 +14,7 @@ Note that **sudo** is required because we are restarting system level services.
 
 ## uncode_linter_restart
 
-This command is used to restart the linter web service. Important: the current working directory when executing this script must be the root of the Deployment repository folder because it contains the file `docker-compose.yml` which is needed by the script.
+This command is used to **update and restart** the linter web service. Important: the current working directory when executing this script must be the root of the Deployment repository folder because it contains the file `docker-compose.yml` which is needed by the script. If the image is already up to date, then it only restarts the service.
 
 Usage: 
 
@@ -61,7 +61,7 @@ Pushes the non pushed backups (commits) to the remote repository.
 
 ```
 cd /path/to/databaseBakup/repo
-uncode_database_backup restore
+uncode_database_backup push
 ```
 
 Depending on how you configured the access to the repo you'll may be asked for your username and password to be able to push to remote.
