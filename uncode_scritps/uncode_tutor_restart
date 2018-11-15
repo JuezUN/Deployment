@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ ! -f docker-compose.yml ]; then
+    echo "docker-compose.yml not found, cd into to Deployment folder"
+    exit
+fi
+
+echo "Restarting python tutor"
+docker-compose up -d --no-deps python-tutor
+docker-compose restart python-tutor
+
+echo "Python tutor restarted successfully"
