@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+
+if [ "$1" == "push" ]
+then
+    echo -e "Pushing backups to remote...\n"
+    git push
+    echo -e "\nBackup(s) pushed successfully" 
+else
+    echo -e "Creating backup...\n"
+    rm -r copyData/
+    mongodump -d INGInious -o copyData
+    git add --all
+
+    dt=$(date '+%d/%m/%Y %H:%M:%S');
+    git commit -m "$dt"
+
+    echo -e "\nBackup commited successfully"
+fi
