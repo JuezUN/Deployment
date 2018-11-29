@@ -10,4 +10,4 @@ fi
 chmod +x ./uncode_scripts/uncode*
 cp ./uncode_scripts/uncode* /usr/bin
 
-echo "Installation successful"
+echo "uncode scripts installation successful"
