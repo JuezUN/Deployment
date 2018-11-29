@@ -25,8 +25,6 @@ cd /opt/tutor/OnlinePythonTutor/v4-cokapi
 chown -R ucokapi:ucokapi /opt/tutor
 
 npm install express
-npm install -g jshint
-
 
 #Install systemd service
 cp $deployment_path/deployment_scripts/cokapi.sh /usr/local/bin
