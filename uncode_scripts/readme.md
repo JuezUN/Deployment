@@ -1,5 +1,13 @@
 # UNcode scripts documentation
 
+## Installation
+
+You can install this scripts to the system by running the command `sudo install_uncode_scripts.sh` on the root of the Deployment folder. 
+
+Otherwise if you called `install_prerequisites.sh` script, they are already installed.
+
+If you call the command again (with either option), the scripts will be updated with whatever version you have in the Deployment repository.
+
 ## uncode_webapp_restart
 
 This command is used to restart the web application, it restarts the services of nginx, lighttpd and mongod. 
