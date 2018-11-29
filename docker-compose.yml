@@ -8,6 +8,8 @@ services:
     restart: always
   python-tutor:
     image: unjudge/onlinepythontutor
+    environment:
+      - COKAPI_ENDPOINT=uncode.unal.edu.co/cokapi
     ports:
       - "${PYTHON_TUTOR_PORT}:8003"
     restart: always
