@@ -35,10 +35,8 @@ This command is used to restart the web application, it restarts the services of
 Usage:
 
 ``` 
-sudo uncode_webapp_restart
+uncode_webapp_restart
 ```
-
-Note that **sudo** is required because we are restarting system level services.
 
 ## uncode_linter_restart
 
