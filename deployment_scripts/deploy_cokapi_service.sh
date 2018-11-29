@@ -27,13 +27,13 @@ npm install -g jshint
 
 
 #Install systemd service
-cd "$(dirname "$0")"
+current_path=$(pwd)
 
-cp cokapi.sh /usr/local/bin
+cp $current_path/deployment_scripts/cokapi.sh /usr/local/bin
 chown ucokapi:ucokapi /usr/local/bin/cokapi.sh
 chmod +x /usr/local/bin/cokapi.sh
 
-cp cokapi.service /etc/systemd/system
+cp $current_path/deployment_scripts/cokapi.service /etc/systemd/system
 chmod 664 /etc/systemd/system/cokapi.service
 
 systemctl daemon-reload
