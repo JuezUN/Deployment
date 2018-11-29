@@ -3,6 +3,7 @@
 #this script installs the prerequisites needed to run the Judge
 
 #install INGInious dependencies
+chmod +x *.sh
 chmod +x deployment_scripts/*.sh
 bash deployment_scripts/install_basic_dependencies.sh
 sudo bash deployment_scripts/install_mongodb.sh
