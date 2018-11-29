@@ -1,9 +1,6 @@
 #!/bin/bash
 
-if [ ! -f docker-compose.yml ]; then
-    echo "docker-compose.yml not found, cd into to Deployment folder."
-    exit
-fi
+cd $DEPLOYMENT_HOME
 
 echo "Updating and restarting linter-web-service..."
 docker-compose up -d --no-deps linter-service
