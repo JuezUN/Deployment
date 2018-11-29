@@ -1,0 +1,16 @@
+[Unit]
+Description=Cokapi - Pythontutor backend for C++ and other languages
+StartLimitBurst=300
+StartLimitIntervalSec=600
+After=network.target
+
+[Service]
+User=ucokapi
+Group=ucokapi
+WorkingDirectory=/opt/tutor/OnlinePythonTutor/v4-cokapi
+ExecStart=/usr/local/bin/cokapi.sh
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

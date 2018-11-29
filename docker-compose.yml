@@ -11,10 +11,3 @@ services:
     ports:
       - "${PYTHON_TUTOR_PORT}:8003"
     restart: always
-  cokapi:
-    image: unjudge/cokapi
-    ports:
-      - "${COKAPI_PORT}:3000"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    restart: always

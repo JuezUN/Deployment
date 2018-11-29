@@ -16,3 +16,4 @@ fi
 
 sudo bash deployment_scripts/deploy_nginx_server.sh
 sudo bash deployment_scripts/deploy_lighttpd_server.sh
+sudo bash deployment_scripts/deploy_cokapi_service.sh
