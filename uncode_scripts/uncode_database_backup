@@ -1,0 +1,34 @@
+#!/bin/bash
+set -e
+
+if [ "$1" == "push" ]
+then
+    echo -e "Pushing backups to remote...\n"
+    git push
+    echo -e "\nBackup(s) pushed successfully" 
+elif [ "$1" == "create" ]
+then
+    echo -e "Creating backup...\n"
+    rm -r copyData/
+    mongodump -d INGInious -o copyData
+    git add --all
+
+    dt=$(date '+%d/%m/%Y %H:%M:%S');
+    git commit -m "$dt"
+
+    echo -e "\nBackup commited successfully"
+elif [ "$1" == "restore" ]
+then
+    if [ -n "$2" ]
+    then
+        echo -e "Restoring $2 backup...\n"
+        git checkout $2
+    else
+        echo -e "Restoring HEAD backup...\n"
+    fi
+
+    mongorestore --db INGInious copyData/INGInious/
+else
+    echo -e "Usage:\nuncode_database_backup push\nuncode_database_backup create\nuncode_database_backup restore"
+    echo -e "uncode_database_backup restore COMMIT_HASH"
+fi
