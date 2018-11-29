@@ -31,6 +31,18 @@ cd /path/to/Deployment/folder
 uncode_linter_restart
 ```
 
+## uncode_tutor_restart
+
+This command is used to update and restart the tutor services which are python-tutor and cokapi. python-tutor is deployed as a docker container while cokapi is deployed as a systemd service.
+
+Usage: 
+
+```
+cd /path/to/Deployment/folder
+uncode_tutor_restart
+```
+
+
 ## uncode_database_backup
 
 This command is used to manage the backups of the database, with this command you can **create** a backup locally, **restore** a backup and **push** one or more backups to the remote repository.
