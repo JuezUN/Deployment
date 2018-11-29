@@ -48,12 +48,23 @@ uncode_database_backup create
 ```
 
 ### Restore
-Takes whatever backup data you currently have in the HEAD of the repository and restores the database with that data.
+This command has two behaviors
 
-```
-cd /path/to/databaseBakup/repo
-uncode_database_backup restore
-```
+1. Takes whatever backup data you currently have in the HEAD of the repository and restores the database with that data.
+
+    ```
+    cd /path/to/databaseBakup/repo
+    uncode_database_backup restore
+    ```
+
+2. Takes the backup at commit `COMMIT_HASH` and restores the database with that data.
+
+    ```
+    cd /path/to/databaseBakup/repo
+    uncode_database_backup restore COMMIT_HASH
+    ```
+
+    Note: When you run this command, the repository is checked out to `COMMIT_HASH` commit. You might want to get it back to master or the old HEAD after executing it.
 
 ### Push
 Pushes the non pushed backups (commits) to the remote repository.
