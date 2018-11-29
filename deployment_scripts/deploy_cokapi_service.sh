@@ -24,3 +24,18 @@ chown -R ucokapi:ucokapi /opt/tutor
 
 npm install express
 npm install -g jshint
+
+
+#Install systemd service
+cd "$(dirname "$0")"
+
+cp cokapi.sh /usr/local/bin
+chown ucokapi:ucokapi /usr/local/bin/cokapi.sh
+chmod +x /usr/local/bin/cokapi.sh
+
+cp cokapi.service /etc/systemd/system
+chmod 664 /etc/systemd/system/cokapi.service
+
+systemctl daemon-reload
+systemctl enable cokapi.service
+systemctl start cokapi.service
