@@ -1,9 +1,6 @@
 #!/bin/bash
 
-if [ ! -f docker-compose.yml ]; then
-    echo "docker-compose.yml not found, cd into to Deployment folder."
-    exit
-fi
+cd $DEPLOYMENT_HOME
 
 #Restart and update docker container
 echo "Updating and restarting python-tutor..."

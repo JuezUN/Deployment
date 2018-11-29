@@ -35,19 +35,16 @@ This command is used to restart the web application, it restarts the services of
 Usage:
 
 ``` 
-sudo uncode_webapp_restart
+uncode_webapp_restart
 ```
-
-Note that **sudo** is required because we are restarting system level services.
 
 ## uncode_linter_restart
 
-This command is used to **update and restart** the linter web service. Important: the current working directory when executing this script must be the root of the Deployment repository folder because it contains the file `docker-compose.yml` which is needed by the script. If the image is already up to date, then it only restarts the service.
+This command is used to **update and restart** the linter web service.
 
 Usage: 
 
 ```
-cd /path/to/Deployment/folder
 uncode_linter_restart
 ```
 
@@ -58,7 +55,6 @@ This command is used to update and restart the tutor services which are python-t
 Usage: 
 
 ```
-cd /path/to/Deployment/folder
 uncode_tutor_restart
 ```
 
