@@ -7,7 +7,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-chmod +x ./uncode_scripts/*.sh
-cp ./uncode_scripts/*.sh /usr/bin
+chmod +x ./uncode_scripts/uncode*
+cp ./uncode_scripts/uncode* /usr/bin
 
 echo "Installation successful"
