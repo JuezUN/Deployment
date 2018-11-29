@@ -11,8 +11,10 @@ id -u ucokapi > /dev/null 2>&1
 if [ $? -ne 0 ]
 then
     useradd ucokapi
-    usermod -aG ucokapi $(whoami)
 fi
+
+usermod -aG ucokapi $(whoami)
+usermod -aG docker ucokapi
 
 docker pull unjudge/opt-cpp-backend
 docker tag unjudge/opt-cpp-backend:latest pgbovine/opt-cpp-backend:v1
