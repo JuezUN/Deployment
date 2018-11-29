@@ -8,6 +8,16 @@ Otherwise if you called `install_prerequisites.sh` script, they are already inst
 
 If you call the command again (with either option), the scripts will be updated with whatever version you have in the Deployment repository.
 
+## uncode_status
+
+Shows the output of the `top` command but filtered to the processes related with UNCode. It is useful for monitoring proposes.
+
+Usage:
+
+``` 
+uncode_status
+```
+
 ## uncode_webapp_restart
 
 This command is used to restart the web application, it restarts the services of nginx, lighttpd and mongod. 
