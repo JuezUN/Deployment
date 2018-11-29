@@ -19,7 +19,14 @@ then
     echo -e "\nBackup commited successfully"
 elif [ "$1" == "restore" ]
 then
-    echo -e "Restoring HEAD backup...\n"
+    if [ -z "$2" ]
+    then
+        echo -e "Restoring $2 backup...\n"
+        git checkout $2
+    else
+        echo -e "Restoring HEAD backup...\n"
+    fi
+
     mongorestore --db INGInious copyData/INGInious/
 else
     echo -e "Usage:\nuncode_backup push\nuncode_backup create\nuncode_backup restore\n"
