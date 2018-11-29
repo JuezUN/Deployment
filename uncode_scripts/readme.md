@@ -18,6 +18,16 @@ Usage:
 uncode_status
 ```
 
+## uncode_full_restart
+
+Restarts all the services that UNCode depends on, including the database, and the plugin services.
+
+Usage:
+
+``` 
+uncode_full_restart
+```
+
 ## uncode_webapp_restart
 
 This command is used to restart the web application, it restarts the services of nginx, lighttpd and mongod. 
