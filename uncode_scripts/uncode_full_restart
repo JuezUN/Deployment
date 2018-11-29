@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+echo "Full restart of UNCode started"
+
+sudo uncode_webapp_restart
+uncode_linter_restart
+uncode_tutor_restart
+
+echo "UNCode Restarted successfully"
