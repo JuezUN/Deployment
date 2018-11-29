@@ -29,6 +29,6 @@ then
 
     mongorestore --db INGInious copyData/INGInious/
 else
-    echo -e "Usage:\nuncode_backup push\nuncode_backup create\nuncode_backup restore"
-    echo -e "uncode_backup restore COMMIT_HASH"
+    echo -e "Usage:\nuncode_database_backup push\nuncode_database_backup create\nuncode_database_backup restore"
+    echo -e "uncode_database_backup restore COMMIT_HASH"
 fi
