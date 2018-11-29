@@ -7,6 +7,7 @@ chmod +x deployment_scripts/*.sh
 bash deployment_scripts/install_basic_dependencies.sh
 sudo bash deployment_scripts/install_mongodb.sh
 bash deployment_scripts/install_node.sh
+sudo bash install_uncode_scripts.sh
 
 echo "installing nginx + lighttpd with fastcgi"
 bash deployment_scripts/install_nginx.sh
