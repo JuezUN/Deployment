@@ -67,7 +67,7 @@ Currently, the backups are being stored using git, so you'll need to have access
 
 Set up:
 ```
-git clone https://gitlab.com/amrondonp/databasebackup
+git clone https://gitlab.com/UNCode/db_backup
 ```
 
 Or another private repository you are using for database backups.
