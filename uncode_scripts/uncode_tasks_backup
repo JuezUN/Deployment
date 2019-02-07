@@ -19,6 +19,14 @@ then
 
     echo -e "\nBackup(s) pushed successfully"
 
+elif [ "$1" == "push" ]
+then
+    echo -e "Pushing backups to remote...\n"
+
+    git push -u origin master
+
+    echo -e "\nBackup(s) pushed successfully"
+
 elif [ "$1" == "restore" ]
 then
     sudo git pull origin master
@@ -33,6 +41,6 @@ then
     sudo chown -R lighttpd:lighttpd *
 
 else
-    echo -e "Usage:\nuncode_tasks_backup create\nuncode_tasks_backup restore"
+    echo -e "Usage:\nuncode_tasks_backup push\nuncode_tasks_backup create\nuncode_tasks_backup restore"
     echo -e "uncode_tasks_backup restore COMMIT_HASH"
 fi
