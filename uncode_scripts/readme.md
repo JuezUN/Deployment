@@ -114,3 +114,47 @@ uncode_database_backup push
 Depending on how you configured the access to the repo you'll may be asked for your username and password to be able to push to remote.
 
 
+## uncode_tasks_backup
+
+This command is used to manage the backups of the tasks, with this command you can **create** a backup and push it 
+and **restore** a backup to the remote repository.
+
+Currently, the backups are being stored using git, so you'll need to have access to the tasks backup private repository.
+
+Set up:
+```
+cd /var/www/INGInious/tasks #Location of tasks.
+git init
+git remote add origin https://gitlab.com/UNCode/tasks
+```
+
+Or another private repository you are using for tasks backups.
+
+Usage:
+
+### Create 
+
+Makes a snapshot of the current tasks, commits it and push it to the remote repository with the day and time as commit name.
+
+```
+uncode_database_backup create
+```
+
+Depending on how you configured the access to the repo you'll may be asked for your username and password to be able to push to remote.
+
+### Restore
+This command has two behaviors
+
+1. Takes whatever backup data you currently have in the HEAD of the repository and restores the database with that data.
+
+    ```
+    uncode_database_backup restore
+    ```
+
+2. Takes the backup at commit `COMMIT_HASH` and restores the database with that data.
+
+    ```
+    uncode_database_backup restore COMMIT_HASH
+    ```
+
+    Note: When you run this command, the repository is checked out to `COMMIT_HASH` commit. You might want to get it back to master or the old HEAD after executing it.
