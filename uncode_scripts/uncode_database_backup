@@ -9,7 +9,7 @@ then
 elif [ "$1" == "create" ]
 then
     echo -e "Creating backup...\n"
-    rm -r copyData/
+    rm -rf copyData/
     mongodump -d INGInious -o copyData
     git add --all
 
