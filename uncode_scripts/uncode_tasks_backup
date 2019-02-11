@@ -1,0 +1,40 @@
+#!/bin/bash
+set -e
+
+cd /var/www/INGInious/tasks/
+
+if [ "$1" == "create" ]
+then
+    echo -e "Creating backup...\n"
+
+    sudo git add --all
+    dt=$(date '+%d/%m/%Y %H:%M:%S');
+    sudo git commit -m "$dt"
+
+    echo -e "\nBackup committed successfully"
+
+elif [ "$1" == "push" ]
+then
+    echo -e "Pushing backups to remote...\n"
+
+    sudo git push -u origin master
+
+    echo -e "\nBackup(s) pushed successfully"
+
+elif [ "$1" == "restore" ]
+then
+    sudo git pull origin master
+    if [ -n "$2" ]
+    then
+        echo -e "Restoring $2 backup...\n"
+        sudo git checkout $2
+    else
+        echo -e "Restoring HEAD backup...\n"
+    fi
+
+    sudo chown -R lighttpd:lighttpd *
+
+else
+    echo -e "Usage:\nuncode_tasks_backup push\nuncode_tasks_backup create\nuncode_tasks_backup restore"
+    echo -e "uncode_tasks_backup restore COMMIT_HASH"
+fi
