@@ -30,7 +30,7 @@ uncode_full_restart
 
 ## uncode_webapp_restart
 
-This command is used to restart the web application, it restarts the services of nginx, lighttpd and mongod. 
+This command is used to restart the web application, it restarts the services of **nginx**, **lighttpd** and **mongod**. 
 
 Usage:
 
@@ -116,14 +116,14 @@ Depending on how you configured the access to the repo you'll may be asked for y
 
 ## uncode_tasks_backup
 
-This command is used to manage the backups of the tasks, with this command you can **create** a backup and push it 
+This command is used to manage the backups of the tasks, with this command you can **create** a backup, **push** it 
 and **restore** a backup to the remote repository.
 
 Currently, the backups are being stored using git, so you'll need to have access to the tasks backup private repository.
 
 Set up:
 ```
-cd /var/www/INGInious/tasks #Location of tasks.
+cd /var/www/INGInious/ #Location of tasks.
 git init
 git remote add origin https://gitlab.com/UNCode/tasks.git
 git config user.name "Your Name"
@@ -131,15 +131,26 @@ git config user.email you@example.com
 ```
 
 Or another private repository you are using for tasks backups.
+After setting up the repository you **has to do `uncode_tasks_backup restore`**.
 
 Usage:
 
 ### Create 
 
-Makes a snapshot of the current tasks, commits it and push it to the remote repository with the day and time as commit name.
+Makes a snapshot of the current tasks, commits it with the day and time as commit name.
 
 ```
 uncode_tasks_backup create
+```
+
+This commit is not push it to the remote repository, please try `uncode_tasks_backup push`. 
+
+### Push
+Pushes the non pushed backups (commits) to the remote repository.
+
+
+```
+uncode_tasks_backup push
 ```
 
 Depending on how you configured the access to the repo you'll may be asked for your username and password to be able to push to remote.
@@ -160,13 +171,3 @@ This command has two behaviors
     ```
 
     **Note:** When you run this command, the repository is checked out to `COMMIT_HASH` commit. You might want to get it back to master or the old HEAD after executing it.
-
-### Push
-Pushes the non pushed backups (commits) to the remote repository.
-
-
-```
-uncode_tasks_backup push
-```
-
-Depending on how you configured the access to the repo you'll may be asked for your username and password to be able to push to remote.

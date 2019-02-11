@@ -11,19 +11,13 @@ then
     dt=$(date '+%d/%m/%Y %H:%M:%S');
     sudo git commit -m "$dt"
 
-    echo -e "\nBackup commited successfully"
-
-    echo -e "Pushing backups to remote...\n"
-
-    git push -u origin master
-
-    echo -e "\nBackup(s) pushed successfully"
+    echo -e "\nBackup committed successfully"
 
 elif [ "$1" == "push" ]
 then
     echo -e "Pushing backups to remote...\n"
 
-    git push -u origin master
+    sudo git push -u origin master
 
     echo -e "\nBackup(s) pushed successfully"
 
@@ -33,7 +27,7 @@ then
     if [ -n "$2" ]
     then
         echo -e "Restoring $2 backup...\n"
-        git checkout $2
+        sudo git checkout $2
     else
         echo -e "Restoring HEAD backup...\n"
     fi
