@@ -8,7 +8,7 @@ BRANCH=""
 while getopts "b:" opt; do
     case $opt in
         b)
-            BRANCH = $OPTARG
+            BRANCH=$OPTARG
             ;;
         :)
             echo "Option -$OPTARG requires an argument" >&2
