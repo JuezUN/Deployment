@@ -171,3 +171,19 @@ This command has two behaviors
     ```
 
     **Note:** When you run this command, the repository is checked out to `COMMIT_HASH` commit. You might want to get it back to master or the old HEAD after executing it.
+
+## uncode_update_server
+
+This command updates the server with latest version of UNcode's INGInious. To use it just write the next command:
+
+    ```
+    uncode_update_server
+    ```
+
+This update can also be done with a branch adding the tag -b in command as follows:
+
+    ```
+    uncode_update_server -b <branch_name>
+    ```
+
+After installing the new packages, it restarts the webapp to make the server work with the new code.
