@@ -11,6 +11,8 @@ echo "building base container"
 [[ "$(docker images -q ingi/inginious-c-base 2> /dev/null)" == "" ]] && docker pull unjudge/inginious-c-base
 echo "building default container"
 [[ "$(docker images -q ingi/inginious-c-default 2> /dev/null)" == "" ]] && docker pull unjudge/inginious-c-default
+echo "building uncode base container"
+[[ "$(docker images -q unjudge/uncode-c-base 2> /dev/null)" == "" ]] && docker pull unjudge/uncode-c-base
 echo "building multilang container"
 [[ "$(docker images -q ingi/inginious-c-multilang 2> /dev/null)" == "" ]] && docker pull unjudge/inginious-c-multilang
 docker tag unjudge/inginious-c-base ingi/inginious-c-base
