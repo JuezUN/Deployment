@@ -70,7 +70,15 @@ Set up:
 git clone https://gitlab.com/UNCode/db_backup.git
 ```
 
+or
+
+```
+git clone git@gitlab.com:UNCode/db_backup.git
+```
+
 Or another private repository you are using for database backups.
+
+**Note:** If you want to set up **automatic backups** take a look at this [documentation](https://github.com/JuezUN/INGInious/wiki/How-to-set-up-backups) on how to automatically do the backup.
 
 Usage:
 
@@ -125,13 +133,14 @@ Set up:
 ```
 cd /var/www/INGInious/ #Location of tasks.
 git init
-git remote add origin https://gitlab.com/UNCode/tasks.git
+git remote add origin https://gitlab.com/UNCode/tasks.git or the SSH URL
 git config user.name "Your Name"
 git config user.email you@example.com
 ```
 
-Or another private repository you are using for tasks backups.
-After setting up the repository you **has to do `uncode_tasks_backup restore`**.
+Or another private repository you are using for tasks backups. 
+
+**Note:** If you want to set up **automatic backups** take a look at this [documentation](https://github.com/JuezUN/INGInious/wiki/How-to-set-up-backups) on how to automatically do the backup.
 
 Usage:
 
@@ -176,14 +185,14 @@ This command has two behaviors
 
 This command updates the server with latest version of UNcode's INGInious. To use it just write the next command:
 
-    ```
+    ​```
     uncode_update_server
-    ```
+    ​```
 
 This update can also be done with a branch adding the tag -b in command as follows:
 
-    ```
+    ​```
     uncode_update_server -b <branch_name>
-    ```
+    ​```
 
 After installing the new packages, it restarts the webapp to make the server work with the new code.
