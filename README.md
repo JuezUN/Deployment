@@ -60,6 +60,12 @@ Otherwise, if you want to separate the grading machines from the rest of the app
 
 This file specifies which plugins will run when the judge deploys, also is needed that the settings for the SMTP server are set properly (i.e. username and password), if you want to.
 
+### FastCGI.conf
+
+File located in conf/lighttpd/conf.d/fastcgi.conf, this file specifies the configuration related to fastcgi and the processes that lighttpd will create to handle requests.
+The options to focus on are *max-procs* and *min-procs*, these options specify the processes that fastCGI will create. Here we recommend to leave the same value for both options, 
+as this will create an static number of process.
+
 # UNCode scripts
 
 These are some helpful scripts or commands that will help on managing the server. If you want to know more about them please go to the folder *uncode_scripts* and read the documentation inside it. You will learn how to restart the services, make automatic backups, among others.
