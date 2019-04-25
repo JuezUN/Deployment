@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#update server with latest container images.
+
+cd $DEPLOYMENT_HOME
+
+sudo bash deployment_scripts/build_all_containers.sh
