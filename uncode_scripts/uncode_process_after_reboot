@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#update server with latest container images.
+
+cd $DEPLOYMENT_HOME
+
+./setup_environment.sh && source env.sh
+uncode_update_containers
+uncode_full_restart
