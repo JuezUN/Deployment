@@ -10,5 +10,8 @@ current_path=$(pwd)
 rm -rf /etc/nginx
 cp -r $current_path/config/nginx /etc/
 
+rm -rf /etc/nginx/conf.d/inginious.conf
+cp $current_path/tools_host/config/nginx/tools.conf /etc/nginx/conf.d/
+
 systemctl enable nginx
 systemctl restart nginx

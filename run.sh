@@ -24,7 +24,7 @@ do
     esac
 done
 
-if [ "$TOOLS_DISTRIBUTED" -eq "1" ]
+if [ "$TOOLS_DISTRIBUTED" -eq "0" ]
 then
     docker-compose up -d
     sudo bash deployment_scripts/deploy_cokapi_service.sh
