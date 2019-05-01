@@ -6,4 +6,4 @@ cd $DEPLOYMENT_HOME
 
 ./setup_environment.sh && source env.sh
 uncode_update_containers
-uncode_full_restart
+uncode_webapp_restart

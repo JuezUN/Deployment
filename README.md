@@ -101,7 +101,7 @@ When you reboot the server, you will see that the front end will work fine but i
 1. Go into the *Deployment* directory.
 2. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as proxy and ports used by the backend microservices).
 3. If you are deploying the agent in a single machine, run the command `sudo bash deployment_scripts/build_all_containers.sh`
-4. Run the command `uncode_full_restart`in order to restart all services and make everything work correctly.
+4. Run the command `uncode_webapp_restart`in order to restart all services and make everything work correctly.
 
 You are all set, try submitting code and see if it works.
 
