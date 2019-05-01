@@ -8,5 +8,5 @@ sudo bash tools_host/deploy_nginx_server_tools.sh
 
 sudo bash deployment_scripts/deploy_cokapi_service.sh
 
-sudo systemctl restart nginx,service
-sudo sustemctl restart cokapi.service
+sudo systemctl restart nginx.service
+sudo systemctl restart cokapi.service
