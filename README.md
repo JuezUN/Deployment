@@ -72,6 +72,7 @@ These are some helpful scripts or commands that will help on managing the server
 
 # What to do if server reboots
 
+**Manual reboot:**
 When you reboot the server, you will see that the front end will work fine but if you try  to submit code it won't work. To fix that you just have to follow next few steps:
 
 1. Go into the *Deployment* directory.
@@ -80,6 +81,18 @@ When you reboot the server, you will see that the front end will work fine but i
 4. Run the command `uncode_full_restart`in order to restart all services and make everything work correctly.
 
 You are all set, try submitting code and see if it works.
+
+**Automatic reboot:**
+
+You can create a cron job that executes at startup, so you don't have to worry setting the environment.
+
+If you run the command `sudo crontab -e` to see the current crons. The cron job related to this process looks like:
+
+```  
+@reboot (sleep 300; /usr/bin/uncode_process_after_reboot)
+```
+
+Where the first line defines the cron job to reboot the server and second cron will run on startup, it will sleep for 300  seconds while server finishes startup and then it runs the command `uncode_process_after_reboot`.
 
 # Common problems
 
