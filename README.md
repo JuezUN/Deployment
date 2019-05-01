@@ -34,11 +34,33 @@ Before you start, we recommend that you review the documentation of [proxy setti
 
 9. Modify the `configuration.yaml` file to use the setup you want.
 
-If you want to deploy the entire application in a single machine, then
+If you want to **deploy the entire application in a single machine**, then
 
 - Execute the script `./run.sh`
 
-Otherwise, if you want to separate the grading machines from the rest of the application
+If you want to **deploy the tools in a separate machine** from the rest of the application, follow next steps if that is the case:
+
+- In `/etc/nginx/conf.d/inginious.conf` file, change url to proxy the linter, tutor and cokapi services. Instead of proxy pass to localhost, it should have the url (IP or domain name). It should look as follows:
+
+  ```
+    location /cokapi/ {
+      proxy_pass http://<IP or damain_name>/cokapi/;
+    }
+
+    location /linter/ {
+      proxy_pass http://<IP or damain_name>/linter/;
+    }
+
+    location /tutor/ {
+      proxy_pass http://<IP or damain_name>/tutor/;
+    }
+  ```
+
+- Run the command `./run.sh --distributed-tools`. This parameter will tell the deployment to do not deploy tools services in the same machine.
+
+- Go to [tools host deployment documentation](tools_host/README.md) to deploy this services in another services.
+
+Otherwise, if you want to **separate the grading machines** from the rest of the application
 
 - Have *n>=1* machines with CentOS 7 that can communicate to the main machine via tcp protocol
 
@@ -53,6 +75,8 @@ Otherwise, if you want to separate the grading machines from the rest of the app
 - Run `./run.sh --distributed` to deploy the lighttpd, nginx and the backend service. You should be able to have the application working by now (except for the submission grading)
 
 - Go to [Grading host deployment documentation](https://github.com/JuezUN/Deployment/tree/master/grader-host) to deploy any number of hosts that will be used as grading machines.
+
+**NOTE:** If you are deploying the agents and tools in separate machines, you can run the command `./run.sh --distributed --distributed-tools` with both parameters.
 
 # Configuration
 
