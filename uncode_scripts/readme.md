@@ -50,7 +50,8 @@ uncode_linter_restart
 
 ## uncode_tutor_restart
 
-This command is used to update and restart the tutor services which are python-tutor and cokapi. python-tutor is deployed as a docker container while cokapi is deployed as a systemd service.
+This command is used to update and restart the tutor services which are python-tutor, python-tutor-py2 and cokapi. 
+python-tutor and python-tutor-py2 are deployed as a docker container while cokapi is deployed as a systemd service.
 
 Usage: 
 
