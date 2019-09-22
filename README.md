@@ -54,6 +54,10 @@ If you want to **deploy the tools in a separate machine** from the rest of the a
     location /tutor/ {
       proxy_pass http://<IP or damain_name>/tutor/;
     }
+  
+    location /tutor_py2/ {
+      proxy_pass http://<IP or damain_name>/tutor_py2/;
+    }
   ```
 
 - Run the command `./run.sh --distributed-tools`. This parameter will tell the deployment to do not deploy tools services in the same machine.
