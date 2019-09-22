@@ -4,11 +4,15 @@ set -e
 if [ "$1" == "push" ]
 then
     echo -e "Pushing backups to remote...\n"
-    git push
+    git push -f origin master
+    rm -rf .git/
     echo -e "\nBackup(s) pushed successfully" 
 elif [ "$1" == "create" ]
 then
     echo -e "Creating backup...\n"
+    rm -rf .git/
+    git init
+    git remote add origin $DB_REPOSIRITORY
     rm -rf copyData/
     mongodump -d INGInious -o copyData
     git add --all

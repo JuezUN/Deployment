@@ -61,19 +61,14 @@ uncode_tutor_restart
 
 ## uncode_database_backup
 
-This command is used to manage the backups of the database, with this command you can **create** a backup locally, **restore** a backup and **push** one or more backups to the remote repository.
+This command is used to manage the backups of the database, with this command you can **create** a backup locally, **restore** a backup and **push** only the last backup in the repository.
 
 Currently, the backups are being stored using git, so you'll need to have access to the database backup private repository.
 
 Set up:
 ```
-git clone https://gitlab.com/UNCode/db_backup.git
-```
-
-or
-
-```
-git clone git@gitlab.com:UNCode/db_backup.git
+sudo vi /etc/environment
+DB_REPOSIRITORY=git@gitlab.com:UNCode/db_backup.git
 ```
 
 Or another private repository you are using for database backups.
@@ -85,6 +80,7 @@ Usage:
 ### Create 
 
 Makes a snapshot of the current database and commits it with the day and time as commit name.
+This initializes the Git repository to start a new commit and keep the real size of repository.
 
 ```
 cd /path/to/databaseBakup/repo
@@ -111,7 +107,7 @@ This command has two behaviors
     Note: When you run this command, the repository is checked out to `COMMIT_HASH` commit. You might want to get it back to master or the old HEAD after executing it.
 
 ### Push
-Pushes the non pushed backups (commits) to the remote repository.
+Pushes the non pushed backup (commit) to the remote repository.
 
 
 ```
