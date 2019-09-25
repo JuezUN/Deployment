@@ -5,15 +5,15 @@ if [ "$1" == "push" ]
 then
     echo -e "Pushing backups to remote...\n"
     git push -f origin master
-    rm -rf .git/
     echo -e "\nBackup(s) pushed successfully" 
 elif [ "$1" == "create" ]
 then
     echo -e "Creating backup...\n"
-    rm -rf .git/
-    git init
-    git remote add origin $DB_REPOSIRITORY
-    rm -rf copyData/
+    sudo git --filter-branch --force --tree-filter 'rm -rf copyData' HEAD
+    sudo git reflog expire --expire=now --all && sudo git gc --prune --aggressive
+    sudo git update-ref -d HEAD
+    sudo git push -f origin master
+#    rm -rf copyData/
     mongodump -d INGInious -o copyData
     git add --all
 

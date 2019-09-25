@@ -68,7 +68,7 @@ Currently, the backups are being stored using git, so you'll need to have access
 Set up:
 ```
 sudo vi /etc/environment
-DB_REPOSIRITORY=git@gitlab.com:UNCode/db_backup.git
+git clone git@gitlab.com:UNCode/db_backup.git
 ```
 
 Or another private repository you are using for database backups.
