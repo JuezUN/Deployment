@@ -10,6 +10,15 @@ services:
     image: unjudge/onlinepythontutor
     environment:
       - COKAPI_ENDPOINT=uncode.unal.edu.co/cokapi
+      - PY_CMD=python3
     ports:
       - "${PYTHON_TUTOR_PORT}:8003"
+    restart: always
+  python-tutor-py2:
+    image: unjudge/onlinepythontutor_py2
+    environment:
+      - COKAPI_ENDPOINT=uncode.unal.edu.co/cokapi
+      - PY_CMD=python
+    ports:
+      - "${PYTHON_PY2_TUTOR_PORT}:8003"
     restart: always
