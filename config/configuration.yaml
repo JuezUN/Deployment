@@ -3,6 +3,9 @@ backup_directory: /var/www/INGInious/backup
 
 local-config:
     tmp_dir: /var/www/INGInious/tmp
+    concurrency: 3 # Number of cores running grading containers concurrently.
+
+log_level: WARNING # WARNING, INFO or DEBUG
 
 smtp:
     sendername: UNcode@unal.edu.co
@@ -23,16 +26,21 @@ use_minified_js: true
 plugins:
   - plugin_module: inginious.frontend.plugins.statistics
   - plugin_module: inginious.frontend.plugins.multilang
-    linter_url: "uncode.unal.edu.co/linter/"
-    python_tutor_url: "uncode.unal.edu.co/tutor/"
+    linter_url: "http://uncode.unal.edu.co/linter/"
+    python_tutor_url: "http://uncode.unal.edu.co/tutor/"
+    python_tutor_url_py2: "http://uncode.unal.edu.co/tutor_py2/"
   - plugin_module: inginious.frontend.plugins.grader_generator
   - plugin_module: inginious.frontend.plugins.custom_input
   - plugin_module: inginious.frontend.plugins.UN_template
-  - plugin_module: inginious.frontend.plugins.problem_bank
-  - plugin_module: inginious.frontend.plugins.UNCode
-  - plugin_module: inginious.frontend.plugins.register_students
   - plugin_module: inginious.frontend.plugins.auth.google_auth
     id: "google_auth"
     client_id: "<your_google_secret_id>"
     client_secret: "<your_google_secret_key>"
     domain: "unal.edu.co"
+  - plugin_module: inginious.frontend.plugins.problem_bank
+  - plugin_module: inginious.frontend.plugins.tasks_cache
+  - plugin_module: inginious.frontend.plugins.UNCode
+    used_grading_environments: ["multiple_languages", "HDL", "Data Science"]
+    used_subproblem_types: ["code_multiple_languages", "code_file_multiple_languages"]
+  - plugin_module: inginious.frontend.plugins.register_students
+  - plugin_module: inginious.frontend.plugins.plagiarism
