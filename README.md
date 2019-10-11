@@ -28,6 +28,8 @@ Before you start, we recommend that you review the documentation of [proxy setti
    ​      
      *Make sure you DON'T run this command with sudo as the user is the one that should be able to use the applications (not sudo)*
 
+   **Note**: Check the *File system docker driver* with `docker info`, this should say `overlay2`. If not, check bellow in common problems to fix this.
+
 7. Logout and log back in to the server so that the user can use mongo and docker without `sudo`.
 
 8. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as proxy and ports used by the backend microservices).
@@ -127,6 +129,7 @@ Where the first line defines the cron job to reboot the server and second cron w
 There are some problems that you might find when deploying the services. 
 
 - Docker compose says that the ports of the micro services are not specified. Solution: Make sure you run the command `source env.sh`
+- Docker file system driver should be `overlay2`, to check the config of docker, run `docker info` and the `Storage docker` should say overlay2. In case it is not the case, check the docker [documentation](https://docs.docker.com/storage/storagedriver/overlayfs-driver/) to change the File system docker driver.
 - Mongo DB fails to start after a reboot. There is an unsolved issue with systemd and mongod service that prevents it from starting correctly at boot. Until this issue is solved, the following workaround will start mongodb as INGInious needs.
   `sudo mongod -f /etc/mongod.conf`
 - If you copy files into the **tasks** folder, the owner of new files may be different of *ligttpd* so you must change the owner of these files. For that, run the next command recursively on all the files inside **tasks** folder: `sudo chown -R lighttpd:lighttpd /var/www/INGInious/tasks/*`.
