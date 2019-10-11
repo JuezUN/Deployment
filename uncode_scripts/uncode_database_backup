@@ -1,38 +1,36 @@
 #!/bin/bash
 set -e
 
-if [ "$1" == "push" ]
+if [ "$1" == "upload" ]
 then
-    echo -e "Pushing backups to remote...\n"
-    git push -f origin master
-    echo -e "\nBackup(s) pushed successfully" 
+    echo -e "Uploading backups to remote...\n"
+    gdrive upload copyData.tar.gz
+    rm -rf *
+    echo -e "\nBackup uploaded successfully"
 elif [ "$1" == "create" ]
 then
     echo -e "Creating backup...\n"
-    sudo git filter-branch --force --tree-filter 'rm -rf copyData' HEAD
-    sudo git reflog expire --expire=now --all && sudo git gc --prune=now --aggressive
-#    sudo git update-ref -d HEAD
-    sudo git push -f origin master
-#    rm -rf copyData/
-    mongodump -d INGInious -o copyData
-    git add --all
+    gdrive delete $(gdrive list --no-header | cut -d ' ' -f1)
 
     dt=$(date '+%d/%m/%Y %H:%M:%S');
-    git commit -m "$dt"
+    git add --all
 
-    echo -e "\nBackup commited successfully"
+    tar -zvcf "$dt.tar.gz" copyData
+
+    rm -f ~/dbBackupID
+    echo $(gdrive list --no-header | cut -d ' ' -f1) > ~/dbBackupID
+
+    echo -e "\nBackup created successfully"
 elif [ "$1" == "restore" ]
 then
-    if [ -n "$2" ]
-    then
-        echo -e "Restoring $2 backup...\n"
-        git checkout $2
-    else
-        echo -e "Restoring HEAD backup...\n"
-    fi
+    gdrive download $(cat ~/dbBackupID)
+
+    tar -zxvf *.tar.gz
 
     mongorestore --db INGInious copyData/INGInious/
+
+    rm -rf *
+    echo -e "\nBackup restored successfully"
 else
     echo -e "Usage:\nuncode_database_backup push\nuncode_database_backup create\nuncode_database_backup restore"
-    echo -e "uncode_database_backup restore COMMIT_HASH"
 fi
