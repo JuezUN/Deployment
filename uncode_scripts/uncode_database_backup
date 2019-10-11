@@ -4,21 +4,26 @@ set -e
 if [ "$1" == "upload" ]
 then
     echo -e "Uploading backups to remote...\n"
-    gdrive upload copyData.tar.gz
+    if [ ! -z "$(gdrive list --no-header)" ]
+    then
+      gdrive delete $(gdrive list --no-header | cut -d ' ' -f1)
+    fi
+
+    gdrive upload $(ls *.tar.gz)
+
+    rm -f ~/dbBackupID
+    echo $(gdrive list --no-header | cut -d ' ' -f1) > ~/dbBackupID
     rm -rf *
     echo -e "\nBackup uploaded successfully"
 elif [ "$1" == "create" ]
 then
     echo -e "Creating backup...\n"
-    gdrive delete $(gdrive list --no-header | cut -d ' ' -f1)
 
-    dt=$(date '+%d/%m/%Y %H:%M:%S');
-    git add --all
+    rm -rf *
+    mongodump -d INGInious -o copyData
 
-    tar -zvcf "$dt.tar.gz" copyData
-
-    rm -f ~/dbBackupID
-    echo $(gdrive list --no-header | cut -d ' ' -f1) > ~/dbBackupID
+    dt=$(date '+%d-%m-%Y-%H.%M.%S');
+    tar -zcvf "$dt.tar.gz" copyData
 
     echo -e "\nBackup created successfully"
 elif [ "$1" == "restore" ]
