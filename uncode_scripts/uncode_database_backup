@@ -37,5 +37,5 @@ then
     rm -rf *
     echo -e "\nBackup restored successfully"
 else
-    echo -e "Usage:\nuncode_database_backup push\nuncode_database_backup create\nuncode_database_backup restore"
+    echo -e "Usage:\nuncode_database_backup update\nuncode_database_backup create\nuncode_database_backup restore"
 fi
