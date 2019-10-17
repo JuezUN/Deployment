@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ "$1" == "active" ]
+then
+  mv /usr/share/nginx/html/maintenance_off.html /usr/share/nginx/html/maintenance_on.html
+elif [ "$1" == "deactive" ]
+then
+  mv /usr/share/nginx/html/maintenance_on.html /usr/share/nginx/html/maintenance_off.html
+else
+  echo "Usage: the only options available are 'active' and 'deactive'."
+fi
