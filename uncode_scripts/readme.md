@@ -83,7 +83,15 @@ uncode_tutor_restart
 
 ## uncode_database_backup
 
-This command is used to manage the backups of the database, with this command you can **create** a backup locally, **restore** a backup and **push** only the last backup in Google drive.
+This command is used to manage the backups of the database, with this command you can **create**  and **upload** a backup
+to Google Drive and **restore** the backup from Google drive.
+Additionally, you can pass arguments to indicate if that backup is either manual or automatic.
+
+A **manual** backup is when you want to create and upload a backup with a given name, you also are
+able to create as many manual backups as you want.
+
+An **Automatic** backup refers to those done by the crone job and only the last
+backup is kept.  
 
 Currently, the backups are being stored using Google Drive, so you need to follow the steps described [here](https://github.com/JuezUN/INGInious/wiki/How-to-set-up-backups)
 to set up the Google Drive credentials and *GDrive* program. 
@@ -95,33 +103,52 @@ mkdir /path/to/databaseBakupDir/
 
 Usage:
 
-### Create 
+### Manual Create 
 
-Makes a snapshot of the current database and compresses it to a *.tar.gz* file, 
-with the day and time as file name.
-
-```
-cd /path/to/databaseBakupDir/
-uncode_database_backup create
-```
-
-### Restore
-This command downloads the last backup from drive and restores the database with that data.
+Makes a snapshot of the current database and compresses it to a *.tar.gz* file,
+this receives an argument using the flag `-m` receiving the name you want to give to the backup.
 
 ```
 cd /path/to/databaseBakupDir/
-uncode_database_backup restore
+uncode_database_backup -m <backup_name> create
+```
+
+### Automatic create 
+
+Makes a snapshot of the current database and compresses it to a *.tar.gz* file
+using the current date as name. To indicate it is automatic, use the flag `-a`.
+
+This creates and uploads the backup, also, deletes the last automatic backup.
+
+```
+cd /path/to/databaseBakupDir/
+uncode_database_backup -a create
+```
+
+### Manual Restore
+This command downloads the backup using the given id using the flag `-i-` from drive 
+and restores the database with that data.
+
+Replace the `<id_backup_to_restore>` with the file ID of the desired backup
+you want to restore. To see all backups done run `gdrive list`.
+
+```
+cd /path/to/databaseBakupDir/
+uncode_database_backup -i <id_backup_to_restore> restore
 ```
 
 When the database is restored, the downloaded files are removed.
 
-### Upload
-Uploads the *.tar.gz* compressed file containing the database to Google Drive. 
+### Automatic restore
+This command downloads the backup using the given taking the automatic backup using the
+flag `-a` and restores the database with that data.
 
 ```
 cd /path/to/databaseBakupDir/
-uncode_database_backup push
+uncode_database_backup -a restore
 ```
+
+When the database is restored, the downloaded files are removed.
 
 ## uncode_tasks_backup
 
