@@ -8,12 +8,12 @@ function automatic_backup() {
   echo -e "\nUploading backups to remote...\n"
   gdrive upload $(ls *.tar.gz)
 
-  previous_backup = $(cat ~/dbBackupID)
+  previous_backup=$(cat ~/dbBackupID)
   rm -f ~/dbBackupID
   echo $(gdrive list --no-header | cut -d ' ' -f1) >~/dbBackupID
   rm -rf *
 
-  if [ ! -z $previous_backup ]; then
+  if [ ! -z "$previous_backup" ]; then
     gdrive delete $previous_backup
   fi
   echo -e "\nBackup uploaded successfully"
@@ -34,6 +34,7 @@ function create_backup() {
   rm -rf *
   mongodump -d INGInious -o copyData
 
+  echo -e "Compressing DB to $1.tar.gz"
   tar -zcvf "$1.tar.gz" copyData
 
   echo -e "\nBackup created successfully"
@@ -92,7 +93,7 @@ if [ "$1" == "create" ]; then
     echo -e "\nAutomatic backup created successfully"
   else
     echo -e "\nCreating manual backup"
-    automatic_backup $manual_backup_name
+    manual_backup $manual_backup_name
     echo -e "\nManual backup created successfully"
   fi
 elif [ "$1" == "restore" ]; then
