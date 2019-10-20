@@ -57,44 +57,50 @@ function restore_backup() {
   echo -e "\nBackup restored successfully"
 }
 
+manual_backup_name=""
+manual_restore_id=""
+is_automatic_backup=false
+
+while getopts "am:i:" opt; do
+  case $opt in
+  a)
+    is_automatic_backup=true
+    ;;
+  m)
+    manual_backup_name=$OPTARG
+    ;;
+  i)
+    manual_restore_id=$OPTARG
+    ;;
+  :)
+    echo "Option -$OPTARG requires an argument" >&2
+    exit 1
+    ;;
+  \?)
+    echo "Invalid option -$OPTARG" >&2
+    exit 1
+    ;;
+  esac
+done
+
+shift $((OPTIND - 1))
+
 if [ "$1" == "create" ]; then
-  while getopts "am:" opt; do
-    case $opt in
-    a)
-      echo -e "\nCreating automatic backup"
-      automatic_backup
-      echo -e "\nAutomatic backup created successfully"
-      ;;
-    m)
-      echo -e "\nCreating manual backup"
-      automatic_backup $OPTARG
-      echo -e "\nManual backup created successfully"
-      ;;
-    \?)
-      echo "Invalid option -$OPTARG" >&2
-      exit 1
-      ;;
-    esac
-  done
+  if [ "$is_automatic_backup" = true ]; then
+    echo -e "\nCreating automatic backup"
+    automatic_backup
+    echo -e "\nAutomatic backup created successfully"
+  else
+    echo -e "\nCreating manual backup"
+    automatic_backup $manual_backup_name
+    echo -e "\nManual backup created successfully"
+  fi
 elif [ "$1" == "restore" ]; then
-  while getopts "ai:" opt; do
-    case $opt in
-    i)
-      restore_backup $OPTARG
-      ;;
-    a)
-      restore_backup
-      ;;
-    :)
-      echo "Option -$OPTARG requires an argument" >&2
-      exit 1
-      ;;
-    \?)
-      echo "Invalid option -$OPTARG" >&2
-      exit 1
-      ;;
-    esac
-  done
+  if [ "$is_automatic_backup" = true ]; then
+    restore_backup
+  else
+    restore_backup $is_automatic_backup
+  fi
 else
-  echo -e "Usage:\nuncode_database_backup create (-a or -m)\nuncode_database_backup restore (-a or -i <id>)"
+  echo -e "Usage:\nuncode_database_backup (-a or -m) create\nuncode_database_backup (-a or -i <id>) restore"
 fi
