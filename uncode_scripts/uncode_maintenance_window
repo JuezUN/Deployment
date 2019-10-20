@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if [ "$1" == "active" ]
+if [ "$1" == "activate" ]
 then
-  mv /usr/share/nginx/html/maintenance_off.html /usr/share/nginx/html/maintenance_on.html
-elif [ "$1" == "deactive" ]
+  sudo mv /usr/share/nginx/html/maintenance_off.html /usr/share/nginx/html/maintenance_on.html
+elif [ "$1" == "deactivate" ]
 then
-  mv /usr/share/nginx/html/maintenance_on.html /usr/share/nginx/html/maintenance_off.html
+  sudo mv /usr/share/nginx/html/maintenance_on.html /usr/share/nginx/html/maintenance_off.html
 else
-  echo "Usage: the only options available are 'active' and 'deactive'."
+  echo "Usage: the only options available are 'activate' and 'deactivate'."
 fi
