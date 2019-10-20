@@ -1,41 +1,100 @@
 #!/bin/bash
 set -e
 
-if [ "$1" == "upload" ]
-then
-    echo -e "Uploading backups to remote...\n"
-    if [ ! -z "$(gdrive list --no-header)" ]
-    then
-      gdrive delete $(gdrive list --no-header | cut -d ' ' -f1)
-    fi
+function automatic_backup() {
+  dt=$(date '+%d-%m-%Y-%H.%M.%S')
+  create_backup $dt
 
-    gdrive upload $(ls *.tar.gz)
+  echo -e "\nUploading backups to remote...\n"
+  gdrive upload $(ls *.tar.gz)
 
-    rm -f ~/dbBackupID
-    echo $(gdrive list --no-header | cut -d ' ' -f1) > ~/dbBackupID
-    rm -rf *
-    echo -e "\nBackup uploaded successfully"
-elif [ "$1" == "create" ]
-then
-    echo -e "Creating backup...\n"
+  previous_backup = $(cat ~/dbBackupID)
+  rm -f ~/dbBackupID
+  echo $(gdrive list --no-header | cut -d ' ' -f1) >~/dbBackupID
+  rm -rf *
 
-    rm -rf *
-    mongodump -d INGInious -o copyData
+  if [ ! -z $previous_backup ]; then
+    gdrive delete $previous_backup
+  fi
+  echo -e "\nBackup uploaded successfully"
+}
 
-    dt=$(date '+%d-%m-%Y-%H.%M.%S');
-    tar -zcvf "$dt.tar.gz" copyData
+function manual_backup() {
+  create_backup $1
+  echo -e "\nUploading backups to remote...\n"
+  gdrive upload $(ls *.tar.gz)
 
-    echo -e "\nBackup created successfully"
-elif [ "$1" == "restore" ]
-then
-    gdrive download $(cat ~/dbBackupID)
+  rm -rf *
+  echo -e "\nBackup uploaded successfully"
+}
 
-    tar -zxvf *.tar.gz
+function create_backup() {
+  echo -e "\nCreating backup...\n"
 
-    mongorestore --db INGInious copyData/INGInious/
+  rm -rf *
+  mongodump -d INGInious -o copyData
 
-    rm -rf *
-    echo -e "\nBackup restored successfully"
+  tar -zcvf "$1.tar.gz" copyData
+
+  echo -e "\nBackup created successfully"
+}
+
+function restore_backup() {
+  id=""
+  if [ -z "$1" ]; then
+    id=$(cat ~/dbBackupID)
+  else
+    id=$1
+  fi
+
+  echo -e "\nRestoring backup from id: $id"
+  gdrive download $id
+  tar -zxvf *.tar.gz
+
+  mongorestore --db INGInious copyData/INGInious/
+
+  rm -rf *
+  echo -e "\nBackup restored successfully"
+}
+
+if [ "$1" == "create" ]; then
+  while getopts "am:" opt; do
+    case $opt in
+    a)
+      echo -e "\nCreating automatic backup"
+      automatic_backup
+      echo -e "\nAutomatic backup created successfully"
+      ;;
+    m)
+      echo -e "\nCreating manual backup"
+      automatic_backup $OPTARG
+      echo -e "\nManual backup created successfully"
+      ;;
+    \?)
+      echo "Invalid option -$OPTARG" >&2
+      exit 1
+      ;;
+    esac
+  done
+elif [ "$1" == "restore" ]; then
+  while getopts "ai:" opt; do
+    case $opt in
+    i)
+      restore_backup $OPTARG
+      ;;
+    a)
+      restore_backup
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument" >&2
+      exit 1
+      ;;
+    \?)
+      echo "Invalid option -$OPTARG" >&2
+      exit 1
+      ;;
+    esac
+  done
 else
-    echo -e "Usage:\nuncode_database_backup update\nuncode_database_backup create\nuncode_database_backup restore"
+  echo -e "Usage:\nuncode_database_backup create (-a or -m)\nuncode_database_backup restore (-a or -i <id>)"
 fi
