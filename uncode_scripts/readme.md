@@ -8,6 +8,27 @@ Otherwise if you called `install_prerequisites.sh` script, they are already inst
 
 If you call the command again (with either option), the scripts will be updated with whatever version you have in the Deployment repository.
 
+## uncode_maintenance_window
+
+This command activates a maintenance window page so users know when we are 
+in maintenance. This page is shown via nginx.
+
+Usage:
+
+#### Activate
+To activate the maintenance window and show the page, run the command:
+
+``` 
+uncode_maintenance_window activate 
+```
+
+#### Deactivate
+To deactivate the maintenance window and stop showing the page, run the command:
+
+``` 
+uncode_maintenance_window deactivate 
+```
+
 ## uncode_status
 
 Shows the output of the `top` command but filtered to the processes related with UNCode. It is useful for monitoring proposes.
