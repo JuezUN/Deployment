@@ -38,7 +38,7 @@ plugins:
     client_secret: "<your_google_secret_key>"
     domain: "unal.edu.co"
   - plugin_module: inginious.frontend.plugins.problem_bank
-  - plugin_module: inginious.frontend.plugins.tasks_cache
+  - plugin_module: inginious.frontend.plugins.task_cache
   - plugin_module: inginious.frontend.plugins.UNCode
     used_grading_environments: ["multiple_languages", "HDL", "Data Science"]
     used_subproblem_types: ["code_multiple_languages", "code_file_multiple_languages"]
