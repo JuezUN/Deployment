@@ -10,12 +10,12 @@ function automatic_backup() {
 
   previous_backup=$(cat ~/dbBackupID)
   rm -f ~/dbBackupID
-  echo $(gdrive list --no-header | cut -d ' ' -f1) >~/dbBackupID
+  backupsIds=$(gdrive list --no-header | cut -d ' ' -f1)
+  # Get the last backed up file
+  echo $(echo $backupsIds | cut -d ' ' -f1) > ~/dbBackupID
   rm -rf *
 
-  if [ ! -z "$previous_backup" ]; then
-    gdrive delete $previous_backup
-  fi
+  [ ! -z "$previous_backup" ] && gdrive delete $previous_backup
   echo -e "\nBackup uploaded successfully"
 }
 
