@@ -8,11 +8,11 @@ function automatic_backup() {
   echo -e "\nUploading backups to remote...\n"
   gdrive upload $(ls *.tar.gz)
 
-  previous_backup=$(cat ~/dbBackupID)
-  rm -f ~/dbBackupID
+  previous_backup=$(cat /tmp/dbBackupID)
+  rm -f /tmp/dbBackupID
   backupsIds=$(gdrive list --no-header | cut -d ' ' -f1)
   # Get the last backed up file
-  echo $(echo $backupsIds | cut -d ' ' -f1) > ~/dbBackupID
+  echo $(echo $backupsIds | cut -d ' ' -f1) > /tmp/dbBackupID
   rm -rf *
 
   [ ! -z "$previous_backup" ] && gdrive delete $previous_backup
