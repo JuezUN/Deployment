@@ -1,6 +1,7 @@
-version: '2'
+version: '3'
 services:
   metabase:
+    container_name: metabase
     image: metabase/metabase:v0.33.6
     environment:
       - MB_DB_FILE=/metabase.db
@@ -9,5 +10,5 @@ services:
     volumes:
       - ~/metabase.db/metabase.db.mv.db:/metabase.db/metabase.db.mv.db
       - ~/metabase.db/metabase.db.trace.db:/metabase.db/metabase.db.trace.db
-    network_mode: host
+#    network_mode: host
     restart: always
