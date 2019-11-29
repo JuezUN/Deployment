@@ -1,0 +1,93 @@
+2019-10-31 10:33:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "DATABASECHANGELOGLOCK" not found; SQL statement:
+SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42102-197]
+2019-11-29 00:08:53 database: close
+org.h2.message.DbException: Cannot delete file "/metabase.db/metabase.db.mv.db" [90025-197]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.store.fs.FilePathDisk.delete(FilePathDisk.java:160)
+	at org.h2.store.fs.FilePathWrapper.delete(FilePathWrapper.java:88)
+	at org.h2.store.fs.FileUtils.delete(FileUtils.java:66)
+	at org.h2.mvstore.MVStoreTool.compact(MVStoreTool.java:449)
+	at org.h2.mvstore.db.MVTableEngine$Store.close(MVTableEngine.java:386)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1439)
+	at org.h2.engine.Database.close(Database.java:1336)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:63)
+Caused by: org.h2.jdbc.JdbcSQLException: Cannot delete file "/metabase.db/metabase.db.mv.db" [90025-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 10 more
+2019-11-29 00:10:14 database: close
+org.h2.message.DbException: Cannot delete file "/metabase.db/metabase.db.mv.db" [90025-197]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.store.fs.FilePathDisk.delete(FilePathDisk.java:160)
+	at org.h2.store.fs.FilePathWrapper.delete(FilePathWrapper.java:88)
+	at org.h2.store.fs.FileUtils.delete(FileUtils.java:66)
+	at org.h2.mvstore.MVStoreTool.compact(MVStoreTool.java:449)
+	at org.h2.mvstore.db.MVTableEngine$Store.close(MVTableEngine.java:386)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1439)
+	at org.h2.engine.Database.close(Database.java:1336)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:63)
+Caused by: org.h2.jdbc.JdbcSQLException: Cannot delete file "/metabase.db/metabase.db.mv.db" [90025-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 10 more
+2019-11-29 00:40:49 database: close
+org.h2.message.DbException: Cannot delete file "/metabase.db/metabase.db.mv.db" [90025-197]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.store.fs.FilePathDisk.delete(FilePathDisk.java:160)
+	at org.h2.store.fs.FilePathWrapper.delete(FilePathWrapper.java:88)
+	at org.h2.store.fs.FileUtils.delete(FileUtils.java:66)
+	at org.h2.mvstore.MVStoreTool.compact(MVStoreTool.java:449)
+	at org.h2.mvstore.db.MVTableEngine$Store.close(MVTableEngine.java:386)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1439)
+	at org.h2.engine.Database.close(Database.java:1336)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:63)
+Caused by: org.h2.jdbc.JdbcSQLException: Cannot delete file "/metabase.db/metabase.db.mv.db" [90025-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 10 more
+2019-11-29 00:52:28 database: close
+org.h2.message.DbException: Cannot delete file "/metabase.db/metabase.db.mv.db" [90025-197]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.store.fs.FilePathDisk.delete(FilePathDisk.java:160)
+	at org.h2.store.fs.FilePathWrapper.delete(FilePathWrapper.java:88)
+	at org.h2.store.fs.FileUtils.delete(FileUtils.java:66)
+	at org.h2.mvstore.MVStoreTool.compact(MVStoreTool.java:449)
+	at org.h2.mvstore.db.MVTableEngine$Store.close(MVTableEngine.java:386)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1439)
+	at org.h2.engine.Database.close(Database.java:1336)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:63)
+Caused by: org.h2.jdbc.JdbcSQLException: Cannot delete file "/metabase.db/metabase.db.mv.db" [90025-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 10 more
+2019-11-29 01:15:29 database: close
+org.h2.message.DbException: Cannot delete file "/metabase.db/metabase.db.mv.db" [90025-197]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.store.fs.FilePathDisk.delete(FilePathDisk.java:160)
+	at org.h2.store.fs.FilePathWrapper.delete(FilePathWrapper.java:88)
+	at org.h2.store.fs.FileUtils.delete(FileUtils.java:66)
+	at org.h2.mvstore.MVStoreTool.compact(MVStoreTool.java:449)
+	at org.h2.mvstore.db.MVTableEngine$Store.close(MVTableEngine.java:386)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1439)
+	at org.h2.engine.Database.close(Database.java:1336)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:63)
+Caused by: org.h2.jdbc.JdbcSQLException: Cannot delete file "/metabase.db/metabase.db.mv.db" [90025-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 10 more
+2019-11-29 01:35:47 database: close
+org.h2.message.DbException: Cannot delete file "/metabase.db/metabase.db.mv.db" [90025-197]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.store.fs.FilePathDisk.delete(FilePathDisk.java:160)
+	at org.h2.store.fs.FilePathWrapper.delete(FilePathWrapper.java:88)
+	at org.h2.store.fs.FileUtils.delete(FileUtils.java:66)
+	at org.h2.mvstore.MVStoreTool.compact(MVStoreTool.java:449)
+	at org.h2.mvstore.db.MVTableEngine$Store.close(MVTableEngine.java:386)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1439)
+	at org.h2.engine.Database.close(Database.java:1336)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:63)
+Caused by: org.h2.jdbc.JdbcSQLException: Cannot delete file "/metabase.db/metabase.db.mv.db" [90025-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 10 more
