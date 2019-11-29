@@ -3,6 +3,5 @@
 echo "Setting up metabse"
 
 mkdir ~/metabase.db
-cd ../config/metabase
-cp *.db ~/metabase.db/
-docker-compose up -d
+cp config/metabase/*.db ~/metabase.db/
+docker-compose -f config/metabase/docker-compose.yml up -d
