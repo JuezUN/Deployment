@@ -1,0 +1,12 @@
+version: '3'
+services:
+  uncode_metabase:
+    container_name: uncode_metabase
+    image: metabase/metabase
+    environment:
+      - MB_DB_FILE=/metabase.db
+    volumes:
+      - ~/metabase.db/metabase.db.mv.db:/metabase.db/metabase.db.mv.db
+      - ~/metabase.db/metabase.db.trace.db:/metabase.db/metabase.db.trace.db
+    network_mode: host
+    restart: always
