@@ -36,7 +36,7 @@ function automatic_backup() {
   rm -rf *
 
   #[ ! -z "$previous_backup" ] && gdrive delete $previous_backup
-  delete_old_backups()
+  delete_old_backups
   echo -e "\nBackup uploaded successfully"
 }
 
