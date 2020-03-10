@@ -1,7 +1,27 @@
 #!/bin/bash
 
-#update server with latest container images.
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
 
-cd $DEPLOYMENT_HOME
+echo "Pulling grading containers"
+echo "Pulling base container"
 
-sudo bash deployment_scripts/build_all_containers.sh
+docker pull unjudge/inginious-c-base
+echo "Pulling default container"
+docker pull unjudge/inginious-c-default
+echo "Pulling uncode base container"
+docker pull unjudge/uncode-c-base
+echo "Pulling multilang container"
+docker pull unjudge/inginious-c-multilang
+echo "Pulling hdl container"
+docker pull unjudge/hdl-uncode
+echo "Pulling notebook container"
+docker pull unjudge/inginious-c-notebook
+
+docker tag unjudge/inginious-c-base ingi/inginious-c-base
+docker tag unjudge/inginious-c-default ingi/inginious-c-default
+docker tag unjudge/inginious-c-multilang ingi/inginious-c-multilang
+docker tag unjudge/hdl-uncode ingi/hdl-uncode
+docker tag unjudge/inginious-c-notebook ingi/inginious-c-notebook
