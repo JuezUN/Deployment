@@ -2,6 +2,7 @@
 set -e
 
 function delete_old_backups(){
+  daymonth=(0 24 21 24 23 24 23 24 24 23 24 23 24)
   #Deleting backups older than "onepermonth" months
   mlast=$(date --date="-${onepermonth} months"  '+%Y-%m-%d')
   for bk in $(gdrive list --no-header --order createdTime -q "createdTime < \"${mlast}\" and trashed = false and 'me' in owners and  name contains 'bk' and name contains 'tar.gz'" | cut -d ' ' -f1)
@@ -11,11 +12,12 @@ function delete_old_backups(){
 
   #Deleting backups older than "ndays" days saving one per month
   dlast=$(date --date="-${ndays} day"  '+%Y-%m-%d')
-  for bk in $(gdrive list --no-header --order createdTime -q "createdTime < \"${dlast}\" and trashed = false and 'me' in owners and  name contains 'bk' and name contains 'tar.gz'" | awk '{split($(NF-1),d,"-");print $1","d[3]}')
+  for bk in $(gdrive list --no-header --order createdTime -q "createdTime < \"${dlast}\" and trashed = false and 'me' in owners and  name contains 'bk' and name contains 'tar.gz'" | awk '{split($(NF-1),d,"-");print $1","d[3]","d[2]'})
   do
     idbk=$(echo $bk | cut -d ',' -f1)
     day=$(echo $bk | cut -d ',' -f2)
-    if [ "$day" -gt 8 ]; then
+    month=$(echo $bk | cut -d ',' -f3)
+    if [ "$day" -le ${daymonth[$month]} ]; then
         gdrive delete $idbk
     fi
   done
