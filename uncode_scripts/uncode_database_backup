@@ -1,24 +1,22 @@
 #!/bin/bash
 set -e
 
-function delete_old_backups(){
+function delete_old_backups() {
   daymonth=(0 24 21 24 23 24 23 24 24 23 24 23 24)
   #Deleting backups older than "onepermonth" months
-  mlast=$(date --date="-${onepermonth} months"  '+%Y-%m-%d')
-  for bk in $(gdrive list --no-header --order createdTime -q "createdTime < \"${mlast}\" and trashed = false and 'me' in owners and  name contains 'bk' and name contains 'tar.gz'" | cut -d ' ' -f1)
-  do
+  mlast=$(date --date="-${onepermonth} months" '+%Y-%m-%d')
+  for bk in $(gdrive list --no-header --order createdTime -q "createdTime < \"${mlast}\" and trashed = false and 'me' in owners and  name contains 'bk' and name contains 'tar.gz'" | cut -d ' ' -f1); do
     gdrive delete $bk
   done
 
   #Deleting backups older than "ndays" days saving one per month
-  dlast=$(date --date="-${ndays} day"  '+%Y-%m-%d')
-  for bk in $(gdrive list --no-header --order createdTime -q "createdTime < \"${dlast}\" and trashed = false and 'me' in owners and  name contains 'bk' and name contains 'tar.gz'" | awk '{split($(NF-1),d,"-");print $1","d[3]","d[2]'})
-  do
+  dlast=$(date --date="-${ndays} day" '+%Y-%m-%d')
+  for bk in $(gdrive list --no-header --order createdTime -q "createdTime < \"${dlast}\" and trashed = false and 'me' in owners and  name contains 'bk' and name contains 'tar.gz'" | awk '{split($(NF-1),d,"-");print $1","d[3]","d[2]'}); do
     idbk=$(echo $bk | cut -d ',' -f1)
     day=$(echo $bk | cut -d ',' -f2)
     month=$(echo $bk | cut -d ',' -f3)
     if [ "$day" -le ${daymonth[$month]} ]; then
-        gdrive delete $idbk
+      gdrive delete $idbk
     fi
   done
 }
@@ -28,16 +26,9 @@ function automatic_backup() {
   create_backup $dt
 
   echo -e "\nUploading backups to remote...\n"
-  gdrive upload $(ls *.tar.gz)
+  gdrive upload $dt.tar.gz
+  rm -f $dt.tar.gz
 
-  previous_backup=$(cat /tmp/dbBackupID)
-  rm -f /tmp/dbBackupID
-  backupsIds=$(gdrive list --no-header | cut -d ' ' -f1)
-  # Get the last backed up file
-  echo $(echo $backupsIds | cut -d ' ' -f1) > /tmp/dbBackupID
-  rm -rf *
-
-  #[ ! -z "$previous_backup" ] && gdrive delete $previous_backup
   delete_old_backups
   echo -e "\nBackup uploaded successfully"
 }
@@ -54,7 +45,6 @@ function manual_backup() {
 function create_backup() {
   echo -e "\nCreating backup...\n"
 
-#  rm -rf *.tar.gz
   mongodump -d INGInious -o copyData
 
   echo -e "Compressing DB to $1.tar.gz"
@@ -66,8 +56,7 @@ function create_backup() {
 function restore_backup() {
   id=""
   if [ -z "$1" ]; then
-    echo "Set the ID of backup you want to restore. Run `gdrive list` to see available uploaded backups."
-#    id=$(cat ~/dbBackupID)
+    echo "Set the ID of backup you want to restore. Run $(gdrive list) to see available uploaded backups."
   else
     id=$1
   fi
@@ -90,7 +79,6 @@ is_automatic_backup=false
 onepermonth=12
 #Number of days that ALL backups are saved
 ndays=30
-
 
 while getopts "am:i:" opt; do
   case $opt in
