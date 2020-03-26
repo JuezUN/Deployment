@@ -45,6 +45,7 @@ function manual_backup() {
 function create_backup() {
   echo -e "\nCreating backup...\n"
 
+  rm -rf copyData/
   mongodump -d INGInious -o copyData
 
   echo -e "Compressing DB to $1.tar.gz"
