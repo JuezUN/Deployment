@@ -1,8 +1,30 @@
 #!/bin/bash
 set -e
 
+function delete_old_backups(){
+  daymonth=(0 24 21 24 23 24 23 24 24 23 24 23 24)
+  #Deleting backups older than "onepermonth" months
+  mlast=$(date --date="-${onepermonth} months"  '+%Y-%m-%d')
+  for bk in $(gdrive list --no-header --order createdTime -q "createdTime < \"${mlast}\" and trashed = false and 'me' in owners and  name contains 'bk' and name contains 'tar.gz'" | cut -d ' ' -f1)
+  do
+    gdrive delete $bk
+  done
+
+  #Deleting backups older than "ndays" days saving one per month
+  dlast=$(date --date="-${ndays} day"  '+%Y-%m-%d')
+  for bk in $(gdrive list --no-header --order createdTime -q "createdTime < \"${dlast}\" and trashed = false and 'me' in owners and  name contains 'bk' and name contains 'tar.gz'" | awk '{split($(NF-1),d,"-");print $1","d[3]","d[2]'})
+  do
+    idbk=$(echo $bk | cut -d ',' -f1)
+    day=$(echo $bk | cut -d ',' -f2)
+    month=$(echo $bk | cut -d ',' -f3)
+    if [ "$day" -le ${daymonth[$month]} ]; then
+        gdrive delete $idbk
+    fi
+  done
+}
+
 function automatic_backup() {
-  dt=$(date '+%d-%m-%Y-%H.%M.%S')
+  dt="bk"$(date '+%d-%m-%Y-%H.%M.%S')
   create_backup $dt
 
   echo -e "\nUploading backups to remote...\n"
@@ -15,7 +37,8 @@ function automatic_backup() {
   echo $(echo $backupsIds | cut -d ' ' -f1) > /tmp/dbBackupID
   rm -rf *
 
-  [ ! -z "$previous_backup" ] && gdrive delete $previous_backup
+  #[ ! -z "$previous_backup" ] && gdrive delete $previous_backup
+  delete_old_backups
   echo -e "\nBackup uploaded successfully"
 }
 
@@ -62,6 +85,12 @@ function restore_backup() {
 manual_backup_name=""
 manual_restore_id=""
 is_automatic_backup=false
+
+#Number of months that just one backup per month is saved
+onepermonth=12
+#Number of days that ALL backups are saved
+ndays=30
+
 
 while getopts "am:i:" opt; do
   case $opt in
