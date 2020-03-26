@@ -22,16 +22,16 @@ function automatic_backup() {
 function manual_backup() {
   create_backup $1
   echo -e "\nUploading backups to remote...\n"
-  gdrive upload $(ls *.tar.gz)
+  gdrive upload $(ls $1.tar.gz)
 
-  rm -rf *
+  rm -f $1.tar.gz
   echo -e "\nBackup uploaded successfully"
 }
 
 function create_backup() {
   echo -e "\nCreating backup...\n"
 
-  rm -rf *
+#  rm -rf *.tar.gz
   mongodump -d INGInious -o copyData
 
   echo -e "Compressing DB to $1.tar.gz"
@@ -43,18 +43,19 @@ function create_backup() {
 function restore_backup() {
   id=""
   if [ -z "$1" ]; then
-    id=$(cat ~/dbBackupID)
+    echo "Set the ID of backup you want to restore. Run `gdrive list` to see available uploaded backups."
+#    id=$(cat ~/dbBackupID)
   else
     id=$1
   fi
 
   echo -e "\nRestoring backup from id: $id"
   gdrive download $id
-  tar -zxvf *.tar.gz
+  tar -zxvf $1.tar.gz
 
   mongorestore --db INGInious copyData/INGInious/
 
-  rm -rf *
+  rm -f $1.tar.gz
   echo -e "\nBackup restored successfully"
 }
 
