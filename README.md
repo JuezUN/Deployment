@@ -35,6 +35,7 @@ Before you start, we recommend that you review the documentation of [proxy setti
 8. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as proxy and ports used by the backend microservices).
 
 9. Modify the `configuration.yaml` file to use the setup you want.
+    - In `configuration.yaml` in the backend option, set it to `backend: tcp://127.0.0.1:2000`
 
 If you want to **deploy the entire application in a single machine**, then
 
@@ -66,21 +67,8 @@ If you want to **deploy the tools in a separate machine** from the rest of the a
 
 - Go to [tools host deployment documentation](tools_host/README.md) to deploy this services in another services.
 
-Otherwise, if you want to **separate the grading machines** from the rest of the application
-
-- Have *n>=1* machines with CentOS 7 that can communicate to the main machine via tcp protocol
-
-- In `configuration.yaml` in the backend option, set it to `backend: tcp://127.0.0.1:2000`
-
-- Run `sudo ./install_backend_service.sh` to setup the backend as a systemd service so that you don't have to manage it manually.
-
-  *You will be requested a password for the backend user, this user is the one who is going to own the backend service*
-
-  *Running this command will enable the backend service, which means that even after reboot it will be run by the init procedure.*
-
-- Run `./run.sh --distributed` to deploy the lighttpd, nginx and the backend service. You should be able to have the application working by now (except for the submission grading)
-
-- Go to [Grading host deployment documentation](https://github.com/JuezUN/Deployment/tree/master/grader-host) to deploy any number of hosts that will be used as grading machines.
+Go to [Grading host deployment documentation](https://github.com/JuezUN/Deployment/tree/master/grader-host) to deploy 
+any number of hosts that will be used as grading machines, these grader machines will be attached 
 
 **NOTE:** If you are deploying the agents and tools in separate machines, you can run the command `./run.sh --distributed --distributed-tools` with both parameters.
 
