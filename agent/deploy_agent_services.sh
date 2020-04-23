@@ -33,6 +33,8 @@ cp agent/units/mcq_agent.service /etc/systemd/system
 chmod 664 /etc/systemd/system/docker_agent.service
 chmod 664 /etc/systemd/system/mcq_agent.service
 
+sudo chmod 775 -R /var/www/INGInious
+
 cp agent/units/inginious_agents.conf /etc/sysconfig
 
 systemctl daemon-reload

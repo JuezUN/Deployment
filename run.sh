@@ -35,5 +35,5 @@ bash deployment_scripts/deploy_metabase.sh
 sudo bash deployment_scripts/deploy_nginx_server.sh
 sudo bash deployment_scripts/deploy_lighttpd_server.sh
 
-sudo bash agent/deploy_agent_services.sh
+sudo ./agent/deploy_agent_services.sh
 sudo systemctl start docker_agent && sudo systemctl start mcq_agent
