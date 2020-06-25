@@ -31,6 +31,7 @@ sudo ./install_backend_service.sh
 sudo systemctl start backend.service
 
 bash deployment_scripts/deploy_metabase.sh
+sudo bash deployment_scripts/deploy_mongo_express.sh
 
 sudo bash deployment_scripts/deploy_nginx_server.sh
 sudo bash deployment_scripts/deploy_lighttpd_server.sh
