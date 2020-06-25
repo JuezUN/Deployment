@@ -3,8 +3,9 @@
 username=""
 password=""
 
-while [[ -z "$username" && -z "$password" ]]
+while [[ -z "$username" || -z "$password" ]]
 do
+    echo
     read -p 'Mongo Express Username: ' username
     read -sp 'Mongo Express Password: ' password
 done
