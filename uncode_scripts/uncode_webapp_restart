@@ -1,20 +1,19 @@
 #!/bin/bash
 echo "Restarting uncode..."
 
-echo "Restarting backend 1/5"
+echo "Restarting lighttpd 1/5"
+sudo service lighttpd restart
+
+echo "Restarting backend 2/5"
 sudo service backend restart
 
-echo "Restarting agents 2/5"
+echo "Restarting agents 3/5"
 sudo service mcq_agent restart
 sudo service docker_agent restart
 
-echo "Restarting lighttpd 3/5"
-sudo service lighttpd restart
-
-echo "Restarting nginx 4/5"
-sudo service nginx restart
-
-echo "Restarting mongod 5/5"
+echo "Restarting mongod 4/5"
 sudo service mongod restart
 
+echo "Restarting nginx 5/5"
+sudo service nginx restart
 echo "Uncode restarted successfully"
