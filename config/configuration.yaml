@@ -26,8 +26,8 @@ use_minified_js: true
 plugins:
   - plugin_module: inginious.frontend.plugins.statistics
   - plugin_module: inginious.frontend.plugins.multilang
-    linter_url: "https://uncode.unal.edu.co/linter/"
-    python_tutor_url: "https://uncode.unal.edu.co/tutor/"
+    linter_url: "http://<domain>/linter/"
+    python_tutor_url: "http://<domain>/tutor/"
     use_wavedrom: True
   - plugin_module: inginious.frontend.plugins.grader_generator
   - plugin_module: inginious.frontend.plugins.custom_input
