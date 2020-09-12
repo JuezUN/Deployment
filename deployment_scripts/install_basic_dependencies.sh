@@ -6,6 +6,7 @@
 parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 cd "$parent_path"
 
-sudo yum install -y epel-release https://centos7.iuscommunity.org/ius-release.rpm
+sudo yum install -y https://repo.ius.io/ius-release-el7.rpm
 sudo yum install -y git gcc libtidy python35u python35u-pip python35u-devel zeromq-devel
+sudo pip install --upgrade pip
 bash ./install_docker.sh
