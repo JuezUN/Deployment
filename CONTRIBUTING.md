@@ -58,8 +58,7 @@ Feel free to contact the maintainers if that's a concern.
 Chat with us on [Gitter][gitter_url]. 
 We will reply for sure on weekdays at GMT-5 time.
 
-[development_url]: https://github.com/JuezUN/INGInious/wiki/Setup-development-environment
 [contribute_github_url]: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
 [github_flow_url]: https://guides.github.com/introduction/flow/index.html
-[license_url]: https://github.com/JuezUN/INGInious/blob/master/LICENSE
+[license_url]: https://github.com/JuezUN/Deployment/blob/master/LICENSE
 [gitter_url]: https://gitter.im/uncode-unal/community

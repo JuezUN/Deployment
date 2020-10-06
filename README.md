@@ -7,7 +7,6 @@
 [![CLA assistant](https://cla-assistant.io/readme/badge/JuezUN/Deployment)][cla_url]
 [![Gitter](https://badges.gitter.im/uncode-unal/community.svg)][gitter_url]
 
-
 This repository contains all necessary scripts to automatically deploy UNCode with all of its features.
 Here you'll find a step-by-step guide to deploy it in a **CentOS 7** server to be able to host your courses.
 
@@ -161,4 +160,4 @@ Project page: <https://juezun.github.io/UNCode_page/>
 [codacy_badge_url]: https://www.codacy.com/gh/JuezUN/Deployment/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JuezUN/Deployment&amp;utm_campaign=Badge_Grade
 [cla_url]: https://cla-assistant.io/JuezUN/Deployment
 [gitter_url]:https://gitter.im/uncode-unal/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
-[contributing_url]: https://github.com/JuezUN/Deplooyment/blob/master/CONTRIBUTING.md
+[contributing_url]: https://github.com/JuezUN/Deployment/blob/master/CONTRIBUTING.md
