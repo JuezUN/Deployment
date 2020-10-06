@@ -154,9 +154,9 @@ Project page: <https://juezun.github.io/UNCode_page/>
 
 [grader_host_url]: https://github.com/JuezUN/Deployment/tree/master/grader-host
 [uncode_scripts_url]: https://github.com/JuezUN/Deployment/tree/master/uncode_scripts
-[license_url]: https://github.com/JuezUN/Development/blob/master/LICENSE
-[contributors_url]: https://github.com/JuezUN/Development/graphs/contributors
-[issues_url]: https://github.com/JuezUN/Development/issues
+[license_url]: https://github.com/JuezUN/Deployment/blob/master/LICENSE
+[contributors_url]: https://github.com/JuezUN/Deployment/graphs/contributors
+[issues_url]: https://github.com/JuezUN/Deployment/issues
 [codacy_badge_url]: https://www.codacy.com/gh/JuezUN/Deployment/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JuezUN/Deployment&amp;utm_campaign=Badge_Grade
 [cla_url]: https://cla-assistant.io/JuezUN/Deployment
 [gitter_url]:https://gitter.im/uncode-unal/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
