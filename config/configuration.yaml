@@ -3,9 +3,9 @@ backup_directory: /var/www/INGInious/backup
 
 local-config:
     tmp_dir: /var/www/INGInious/tmp
-    concurrency: 1 # Number of cores running grading containers concurrently. This must be equal to the number of cores.
+    concurrency: 6 # Equal to the number of cores
 
-log_level: WARNING # WARNING, INFO or DEBUG
+log_level: WARNING # INFO or DEBUG
 
 smtp:
     sendername: <sender_email>
@@ -45,4 +45,3 @@ plugins:
   - plugin_module: inginious.frontend.plugins.plagiarism
   - plugin_module: inginious.frontend.plugins.code_preview
   - plugin_module: inginious.frontend.plugins.analytics
-

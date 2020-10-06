@@ -1,4 +1,17 @@
-# Deployment
+# UNCode Deployment 
+
+[![License](https://img.shields.io/github/license/JuezUN/Deployment?style=plastic)][license_url]
+[![Contributors](https://img.shields.io/github/contributors/JuezUN/Deployment?style=plastic)][contributors_url]
+[![GitHub issues](https://img.shields.io/github/issues/JuezUN/Deployment?style=plastic)][issues_url]
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/cb814cff25be4fb89e97be55aa29fbbf)][codacy_badge_url]
+[![CLA assistant](https://cla-assistant.io/readme/badge/JuezUN/Deployment)][cla_url]
+[![Gitter](https://badges.gitter.im/uncode-unal/community.svg)][gitter_url]
+
+
+This repository contains all necessary scripts to automatically deploy UNCode with all of its features.
+Here you'll find a step-by-step guide to deploy it in a **CentOS 7** server to be able to host your courses.
+
+For more information, please refer to the project page: <https://juezun.github.io/UNCode_page>
 
 ## Before you start
 
@@ -67,12 +80,12 @@ If you want to **deploy the tools in a separate machine** from the rest of the a
 
 - Go to [tools host deployment documentation](tools_host/README.md) to deploy this services in another services.
 
-Go to [Grading host deployment documentation](https://github.com/JuezUN/Deployment/tree/master/grader-host) to deploy 
+Go to [Grading host deployment documentation][grader_host_url] to deploy 
 any number of hosts that will be used as grading machines, these grader machines will be attached 
 
 **NOTE:** If you are deploying the agents and tools in separate machines, you can run the command `./run.sh --distributed --distributed-tools` with both parameters.
 
-# Configuration
+## Configuration
 
 ### Configuration.yaml
 
@@ -84,13 +97,13 @@ File located in conf/lighttpd/conf.d/fastcgi.conf, this file specifies the confi
 The options to focus on are *max-procs* and *min-procs*, these options specify the processes that fastCGI will create. Here we recommend to leave the same value for both options, 
 as this will create an static number of process.
 
-# UNCode scripts
+## UNCode scripts
 
-These are some helpful scripts or commands that will help on managing the server. If you want to know more about them please go to the folder *uncode_scripts* and read the documentation inside it. You will learn how to restart the services, make automatic backups, among others.
+These are some helpful scripts or commands that will help on managing the server. If you want to know more about them please go to [uncode_scripts][uncode_scripts_url] and read the documentation inside it. You will learn how to restart the services, make automatic backups, among others.
 
-# What to do if server reboots
+## What to do if server reboots
 
-**Manual reboot:**
+### Manual reboot
 When you reboot the server, you will see that the front end will work fine but if you try  to submit code it won't work. To fix that you just have to follow next few steps:
 
 1. Go into the *Deployment* directory.
@@ -100,19 +113,19 @@ When you reboot the server, you will see that the front end will work fine but i
 
 You are all set, try submitting code and see if it works.
 
-**Automatic reboot:**
+### Automatic reboot
 
 You can create a cron job that executes at startup, so you don't have to worry setting the environment.
 
 If you run the command `sudo crontab -e` to see the current crons. The cron job related to this process looks like:
 
-```  
+```bash
 @reboot (sleep 300; /usr/bin/uncode_process_after_reboot)
 ```
 
 Where the first line defines the cron job to reboot the server and second cron will run on startup, it will sleep for 300  seconds while server finishes startup and then it runs the command `uncode_process_after_reboot`.
 
-# Common problems
+## Common problems
 
 There are some problems that you might find when deploying the services. 
 
@@ -121,3 +134,31 @@ There are some problems that you might find when deploying the services.
 - Mongo DB fails to start after a reboot. There is an unsolved issue with systemd and mongod service that prevents it from starting correctly at boot. Until this issue is solved, the following workaround will start mongodb as INGInious needs.
   `sudo mongod -f /etc/mongod.conf`
 - If you copy files into the **tasks** folder, the owner of new files may be different of *ligttpd* so you must change the owner of these files. For that, run the next command recursively on all the files inside **tasks** folder: `sudo chown -R lighttpd:lighttpd /var/www/INGInious/tasks/*`.
+
+## Contributing
+
+Go to [CONTRIBUTING][contributing_url] to see the guidelines and how to start contributing to UNCode.
+
+## License
+
+Distributed under the AGPL-3.0 License. See [LICENSE][license_url] for more information.
+
+## Contact
+
+In case of technical questions, please use the [gitter communication channel][gitter_url].
+
+In case you want to host your course on our deployment, email us on: <uncode_fibog@unal.edu.co>
+
+UNCode: <https://uncode.unal.edu.co>
+
+Project page: <https://juezun.github.io/UNCode_page/>
+
+[grader_host_url]: https://github.com/JuezUN/Deployment/tree/master/grader-host
+[uncode_scripts_url]: https://github.com/JuezUN/Deployment/tree/master/uncode_scripts
+[license_url]: https://github.com/JuezUN/Development/blob/master/LICENSE
+[contributors_url]: https://github.com/JuezUN/Development/graphs/contributors
+[issues_url]: https://github.com/JuezUN/Development/issues
+[codacy_badge_url]: https://www.codacy.com/gh/JuezUN/Deployment/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=JuezUN/Deployment&amp;utm_campaign=Badge_Grade
+[cla_url]: https://cla-assistant.io/JuezUN/Deployment
+[gitter_url]:https://gitter.im/uncode-unal/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+[contributing_url]: https://github.com/JuezUN/Deplooyment/blob/master/CONTRIBUTING.md
