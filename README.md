@@ -92,9 +92,19 @@ This file specifies which plugins will run when the judge deploys, also is neede
 
 ### FastCGI.conf
 
-File located in conf/lighttpd/conf.d/fastcgi.conf, this file specifies the configuration related to fastcgi and the processes that lighttpd will create to handle requests.
+File located in /etc/lighttpd/conf.d/fastcgi.conf, this file specifies the configuration related to fastcgi and the processes that lighttpd will create to handle requests.
 The options to focus on are *max-procs* and *min-procs*, these options specify the processes that fastCGI will create. Here we recommend to leave the same value for both options, 
-as this will create an static number of process.
+ as this will create an static number of process.
+
+### Nginx
+
+File located in /etc/nginx/conf.d/uncode.conf, this file specifies the reverse proxy rules that are processed by nginx,
+Modify the server_name and the IP, as well as other settings you think should be configured.
+
+### Python tutor and linter
+
+Modify the `docker-compose.yml` file, which deploys these services, as you want. You can set different memory limits
+ according to your necessities. 
 
 ## UNCode scripts
 

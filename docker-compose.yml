@@ -6,6 +6,10 @@ services:
     ports:
       - "${LINTER_PORT}:4567"
     restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 3000M # Limit memory usage to 3GB
   python-tutor:
     image: unjudge/onlinepythontutor
     environment:
@@ -14,3 +18,7 @@ services:
     ports:
       - "${PYTHON_TUTOR_PORT}:8003"
     restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 2000M # Limit memory usage to 2GB
