@@ -10,6 +10,7 @@ services:
       resources:
         limits:
           memory: 3000M # Limit memory usage to 3GB
+          cpus: "2" # Set a custom memory usage
   python-tutor:
     image: unjudge/onlinepythontutor
     environment:
