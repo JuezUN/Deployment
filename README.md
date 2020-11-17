@@ -10,7 +10,7 @@
 This repository contains all necessary scripts to automatically deploy UNCode with all of its features.
 Here you'll find a step-by-step guide to deploy it in a **CentOS 7** server to be able to host your courses.
 
-For more information, please refer to the project page: <https://juezun.github.io/UNCode_page>
+For more information, please refer to the project page: <https://juezun.github.io>
 
 ## Before you start
 
@@ -160,7 +160,7 @@ In case you want to host your course on our deployment, email us on: <uncode_fib
 
 UNCode: <https://uncode.unal.edu.co>
 
-Project page: <https://juezun.github.io/UNCode_page/>
+Project page: <https://juezun.github.io/>
 
 [grader_host_url]: https://github.com/JuezUN/Deployment/tree/master/grader-host
 [uncode_scripts_url]: https://github.com/JuezUN/Deployment/tree/master/uncode_scripts
