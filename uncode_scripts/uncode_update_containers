@@ -10,6 +10,8 @@ echo "Pulling uncode base container"
 docker pull unjudge/uncode-c-base
 echo "Pulling multilang container"
 docker pull unjudge/inginious-c-multilang
+echo "Pulling datascience container"
+docker pull unjudge/inginious-c-datascience
 echo "Pulling hdl container"
 docker pull unjudge/hdl-uncode
 echo "Pulling notebook container"
@@ -18,5 +20,6 @@ docker pull unjudge/inginious-c-notebook
 docker tag unjudge/inginious-c-base ingi/inginious-c-base
 docker tag unjudge/inginious-c-default ingi/inginious-c-default
 docker tag unjudge/inginious-c-multilang ingi/inginious-c-multilang
+docker tag unjudge/inginious-c-datascience ingi/inginious-c-datascience
 docker tag unjudge/hdl-uncode ingi/hdl-uncode
 docker tag unjudge/inginious-c-notebook ingi/inginious-c-notebook
