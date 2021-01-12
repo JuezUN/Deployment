@@ -48,7 +48,8 @@ Before you start, we recommend that you review the documentation of [proxy setti
 
 9. Logout and log back in to the server so that the user can use mongo and docker without `sudo`.
 
-10. Modify the `configuration.yaml` file to use the setup you want, this is in the folder `config`. In the backend option, set it to `backend: tcp://127.0.0.1:2000`. For more information, see the [Documentation][config_reference].
+10. Modify the `configuration.yaml` file to use the setup you want, this is in the folder `config`. In the backend option, set it to `backend: tcp://127.0.0.1:2000`, in the `multilang` plugin options, set the IP or domain corresponding to this machine.
+    For more information, see the [Documentation][config_reference].
 
 11. Execute the script `./run.sh`.
 
@@ -63,15 +64,15 @@ In previous steps, you have deployed the necessary services to run submissions o
 
         ```
         location /cokapi/ {
-          proxy_pass http://<IP or damain_name>/cokapi/;
+          proxy_pass http://<IP or damain_name tools machine>/cokapi/;
         }
         
         location /linter/ {
-          proxy_pass http://<IP or damain_name>/linter/;
+          proxy_pass http://<IP or damain_name tools machine>/linter/;
         }
         
         location /tutor/ {
-          proxy_pass http://<IP or damain_name>/tutor/;
+          proxy_pass http://<IP or damain_name tools machine>/tutor/;
         }
         ```
     
