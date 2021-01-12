@@ -4,10 +4,14 @@
 
 #install tools dependencies
 chmod +x *.sh
-chmod +x ../deployment_scripts/*.sh
-bash ../deployment_scripts/install_basic_dependencies.sh
-bash ../deployment_scripts/install_node.sh
-sudo bash ../install_uncode_scripts.sh
+chmod +x $DEPLOYMENT_HOME/deployment_scripts/*.sh
+bash $DEPLOYMENT_HOME/deployment_scripts/install_basic_dependencies.sh
+bash $DEPLOYMENT_HOME/deployment_scripts/install_node.sh
+
+# Install the UNCode scripts related to the tools
+chmod +x $DEPLOYMENT_HOME/uncode_scripts/uncode*
+cp $DEPLOYMENT_HOME/uncode_scripts/uncode_linter_restart /usr/bin
+cp $DEPLOYMENT_HOME/uncode_scripts/uncode_tutor_restart /usr/bin
 
 echo "installing nginx"
-bash ../deployment_scripts/install_nginx.sh
+bash $DEPLOYMENT_HOME/deployment_scripts/install_nginx.sh

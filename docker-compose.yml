@@ -14,7 +14,7 @@ services:
   python-tutor:
     image: unjudge/onlinepythontutor
     environment:
-      - COKAPI_ENDPOINT=uncode.unal.edu.co/cokapi
+      - "COKAPI_ENDPOINT=${UNCODE_DOMAIN}/cokapi" # Update with the correct domain or IP where python tutor is deployed
       - PY_CMD=python3
     ports:
       - "${PYTHON_TUTOR_PORT}:8003"

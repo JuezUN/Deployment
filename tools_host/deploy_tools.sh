@@ -1,12 +1,6 @@
 #!/bin/bash
 
-cd ..
+docker-compose --compatibility -f $DEPLOYMENT_HOME/docker-compose.yml up -d
+sudo bash $DEPLOYMENT_HOME/tools_host/deploy_cokapi_service.sh
 
-docker-compose up -d
-
-sudo bash tools_host/deploy_nginx_server_tools.sh
-
-sudo bash deployment_scripts/deploy_cokapi_service.sh
-
-sudo systemctl restart nginx.service
 sudo systemctl restart cokapi.service

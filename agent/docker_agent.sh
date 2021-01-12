@@ -9,4 +9,4 @@ then
     exit 1
 fi
 
-inginious-agent-docker tcp://$BACKEND_HOST:2001
+inginious-agent-docker tcp://$BACKEND_HOST:2001 --concurrency $(($(nproc) - 1))

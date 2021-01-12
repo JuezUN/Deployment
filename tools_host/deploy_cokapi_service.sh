@@ -29,11 +29,11 @@ chown -R ucokapi:ucokapi /opt/tutor
 npm install express
 
 #Install systemd service
-cp $deployment_path/deployment_scripts/cokapi.sh /usr/local/bin
+cp $DEPLOYMENT_HOME/tools_host/cokapi/cokapi.sh /usr/local/bin
 chown ucokapi:ucokapi /usr/local/bin/cokapi.sh
 chmod +x /usr/local/bin/cokapi.sh
 
-cp $deployment_path/deployment_scripts/cokapi.service /etc/systemd/system
+cp $DEPLOYMENT_HOME/tools_host/cokapi/cokapi.service /etc/systemd/system
 chmod 664 /etc/systemd/system/cokapi.service
 
 systemctl daemon-reload

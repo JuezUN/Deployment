@@ -1,0 +1,12 @@
+version: '3'
+services:
+  uncode_metabase:
+    container_name: uncode_metabase
+    image: config/config
+    environment:
+      - MB_DB_FILE=/config.db
+    volumes:
+      - ~/config-db/config.db.mv.db:/config.db/config.db.mv.db
+      - ~/config-db/config.db.trace.db:/config.db/config.db.trace.db
+    network_mode: host
+    restart: always

@@ -5,13 +5,11 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-current_path=$(pwd)
-
 rm -rf /etc/nginx
-cp -r $current_path/config/nginx /etc/
+cp -r $DEPLOYMENT_HOME/tools_host/config/nginx /etc/
 
 rm -rf /etc/nginx/conf.d/inginious.conf
-cp $current_path/tools_host/config/nginx/tools.conf /etc/nginx/conf.d/
+cp $DEPLOYMENT_HOME/tools_host/config/nginx/tools.conf /etc/nginx/conf.d/
 
 systemctl enable nginx
 systemctl restart nginx

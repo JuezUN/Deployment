@@ -38,51 +38,69 @@ Before you start, we recommend that you review the documentation of [proxy setti
 
 6. Install the prerequisites, you can use `./install_prerequisites.sh` to do this. 
    ​      
-     *Make sure you DON'T run this command with sudo as the user is the one that should be able to use the applications (not sudo)*
+    *Make sure you DON'T run this command with sudo as the user is the one that should be able to use the applications (not sudo)*
 
    **Note**: Check the *File system docker driver* with `docker info`, this should say `overlay2`. If not, check bellow in common problems to fix this.
 
 7. Logout and log back in to the server so that the user can use mongo and docker without `sudo`.
 
-8. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as proxy and ports used by the backend microservices).
+8. Modify the the environmental variable `UNCODE_DOMAIN` with the correct UNCode domain or IP. To do so, modify the file `env.sh`.
 
-9. Modify the `configuration.yaml` file to use the setup you want.
+9. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as proxy and ports used by the backend microservices).
+
+10. Modify the `configuration.yaml` file to use the setup you want.
     - In `configuration.yaml` in the backend option, set it to `backend: tcp://127.0.0.1:2000`
 
-If you want to **deploy the entire application in a single machine**, then
+11. Execute the script `./run.sh`.
 
-- Execute the script `./run.sh`
+### Deploy linter and python tutor
 
-If you want to **deploy the tools in a separate machine** from the rest of the application, follow next steps if that is the case:
+In previous steps, you have deployed the necessary services to run submissions on UNCode, as well as the frontend. However, if you want to install the linter and python tutor services (tools), here there are two options:
 
-- In `/etc/nginx/conf.d/inginious.conf` file, change url to proxy the linter, tutor and cokapi services. Instead of proxy pass to localhost, it should have the url (IP or domain name). It should look as follows:
+- If you want to deploy these tools within the same machine, run the command `./tools_host/deploy_tools.sh` to deploy them. There are not any additional settings to be done.
 
-  ```
-    location /cokapi/ {
-      proxy_pass http://<IP or damain_name>/cokapi/;
-    }
+- If you want to **deploy the tools in a separate machine** from the rest of the application, follow next steps:
+    1. In `/etc/nginx/conf.d/inginious.conf` file, change the url to proxy the linter, tutor and cokapi services. Instead of proxy pass to localhost, set the domain name or IP of the server where you are deploying these tools. It should look as follows:
 
-    location /linter/ {
-      proxy_pass http://<IP or damain_name>/linter/;
-    }
+        ```
+        location /cokapi/ {
+          proxy_pass http://<IP or damain_name>/cokapi/;
+        }
+        
+        location /linter/ {
+          proxy_pass http://<IP or damain_name>/linter/;
+        }
+        
+        location /tutor/ {
+          proxy_pass http://<IP or damain_name>/tutor/;
+        }
+        ```
 
-    location /tutor/ {
-      proxy_pass http://<IP or damain_name>/tutor/;
-    }
-  
-    location /tutor_py2/ {
-      proxy_pass http://<IP or damain_name>/tutor_py2/;
-    }
-  ```
+    2. Go to [tools host deployment documentation](tools_host/README.md) to deploy these services in another server.
 
-- Run the command `./run.sh --distributed-tools`. This parameter will tell the deployment to do not deploy tools services in the same machine.
+### Add additional grading machines
 
-- Go to [tools host deployment documentation](tools_host/README.md) to deploy this services in another services.
+In case you want to add more machines to grade more submission concurrently, go to [Grading host deployment documentation][grader_host_url] to deploy any number of hosts that will be used as grading machines.
 
-Go to [Grading host deployment documentation][grader_host_url] to deploy 
-any number of hosts that will be used as grading machines, these grader machines will be attached 
+### Deploy metabase
 
-**NOTE:** If you are deploying the agents and tools in separate machines, you can run the command `./run.sh --distributed --distributed-tools` with both parameters.
+Metabase is a service for data analytics. This is connected to the UNCode's database, that is why you must deploy service within the same machine.
+
+Run the commands:
+```bash
+chmod +x ./metabase/*.sh
+sudo ./metabase/deploy_metabase.sh
+```
+
+### Deploy Mongo express
+
+To allow some determined users, a mongo express service is deployed with docker to graphically access to the DB. Deploy this service in the same machine as the Database.
+
+Run the command:
+
+```bash
+sudo bash deployment_scripts/deploy_mongo_express.sh
+```
 
 ## Configuration
 
@@ -110,7 +128,7 @@ Modify the `docker-compose.yml` file, which deploys these services, as you want.
 
 These are some helpful scripts or commands that will help on managing the server. If you want to know more about them please go to [uncode_scripts][uncode_scripts_url] and read the documentation inside it. You will learn how to restart the services, make automatic backups, among others.
 
-## What to do if server reboots
+## What to do if server reboots?
 
 ### Manual reboot
 When you reboot the server, you will see that the front end will work fine but if you try  to submit code it won't work. To fix that you just have to follow next few steps:
