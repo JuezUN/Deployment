@@ -18,11 +18,10 @@ chown -R lighttpd:lighttpd /var/www/INGInious
 mkdir -p /var/cache/lighttpd/compress
 chown -R lighttpd:lighttpd /var/cache/lighttpd/compress
 
-current_path=$(pwd)
-cp $current_path/config/configuration.yaml /var/www/INGInious/
+cp $DEPLOYMENT_HOME/config/configuration.yaml /var/www/INGInious/
 
 rm -rf /etc/lighttpd
-cp -r $current_path/config/lighttpd /etc/
+cp -r $DEPLOYMENT_HOME/config/lighttpd /etc/
 
 systemctl enable lighttpd
 systemctl restart lighttpd

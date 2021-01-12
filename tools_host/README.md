@@ -13,18 +13,23 @@ The tools machine can be independently deployed and scaled without disturbing th
    ```bash
    cd Deployment
    chmod +x *.sh
+   chmod +x tools_host/*.sh
    ```
 
-5. Modify the the environmental variable `UNCODE_DOMAIN` with the correct UNCode domain or IP. To do so, modify the file `env.sh`.
+4. Modify the the environmental variable `UNCODE_DOMAIN` with the correct UNCode domain or IP. To do so, modify the file `env.sh`.
 
-6. Run the command `../setup_environment.sh && source ../env.sh` to set the environment variables (such as proxy and ports used by the microservices).
+5. Run the command `setup_environment.sh && source env.sh` to set the environment variables (such as proxy and ports used by the microservices).
 
-7. Make the .sh files executable `chmod +x *.sh`.
+6. Install the prerequisites, you can use `./tools_host/install_tools_prerequisites.sh` to do this. 
+   ​      
+    *Make sure you DON'T run this command with sudo as the user is the one that should be able to use the applications (not sudo)*
 
-8. Install the tools prerequisites with `./tools_prerequisites.sh`.
+   **Note**: Check the *File system docker driver* with `docker info`, this should say `overlay2`. If not, check bellow in common problems to fix this.
 
-9. Run the command `./run.sh` to deploy the linter, python tutor, cokapi and nginx services.
+7. Logout and log back in to the server so that the user can use mongo and docker without `sudo`.
 
-10. Edit the file `/etc/nginx/conf.d/uncode_tools.conf` adding the machine IP or domain name. Also, you may want to allow some specific IPs which can do requests to this server.  
+8. Run the command `./tools_host/run.sh` to deploy the linter, python tutor, cokapi and nginx services.
 
-    ​
+9. Edit the file `/etc/nginx/conf.d/uncode_tools.conf` adding the machine IP or domain name. Also, you may want to allow some specific IPs which can do requests to this server.
+
+10. Restart Nginx to load changes: `sudo service nginx restart`.

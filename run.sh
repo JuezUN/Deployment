@@ -1,12 +1,15 @@
 #!/bin/bash
 
 sudo chmod +x $DEPLOYMENT_HOME/deployment_scripts/*
+sudo chmod +x $DEPLOYMENT_HOME/backend/*
+sudo chmod +x $DEPLOYMENT_HOME/agent/*
+
 bash $DEPLOYMENT_HOME/deployment_scripts/update_server.sh
 bash $DEPLOYMENT_HOME/deployment_scripts/setup_problem_bank.sh
 
-sudo bash $DEPLOYMENT_HOME/deployment_scripts/build_all_containers.sh
+sudo $DEPLOYMENT_HOME/deployment_scripts/build_all_containers.sh
 
-sudo bash $DEPLOYMENT_HOME/backend/install_backend_service.sh
+sudo $DEPLOYMENT_HOME/backend/install_backend_service.sh
 sudo systemctl start backend.service
 
 sudo bash $DEPLOYMENT_HOME/deployment_scripts/deploy_nginx_server.sh

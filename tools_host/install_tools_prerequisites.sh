@@ -3,7 +3,7 @@
 #this script installs the prerequisites needed for linter and python tutor tools.
 
 #install tools dependencies
-chmod +x *.sh
+chmod +x $DEPLOYMENT_HOME/*.sh
 chmod +x $DEPLOYMENT_HOME/deployment_scripts/*.sh
 bash $DEPLOYMENT_HOME/deployment_scripts/install_basic_dependencies.sh
 bash $DEPLOYMENT_HOME/deployment_scripts/install_node.sh
@@ -12,6 +12,7 @@ bash $DEPLOYMENT_HOME/deployment_scripts/install_node.sh
 chmod +x $DEPLOYMENT_HOME/uncode_scripts/uncode*
 cp $DEPLOYMENT_HOME/uncode_scripts/uncode_linter_restart /usr/bin
 cp $DEPLOYMENT_HOME/uncode_scripts/uncode_tutor_restart /usr/bin
+cp $DEPLOYMENT_HOME/uncode_scripts/uncode_update_tools /usr/bin
 
 echo "installing nginx"
 bash $DEPLOYMENT_HOME/deployment_scripts/install_nginx.sh

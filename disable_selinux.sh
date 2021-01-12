@@ -7,5 +7,5 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-sudo cat ./config/selinux.txt > /etc/selinux/config
+sudo cat $DEPLOYMENT_HOME/config/selinux.txt > /etc/selinux/config
 sudo shutdown -r now

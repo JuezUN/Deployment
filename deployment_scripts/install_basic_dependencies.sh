@@ -9,4 +9,4 @@ cd "$parent_path"
 sudo yum install -y https://repo.ius.io/ius-release-el7.rpm
 sudo yum install -y git gcc libtidy python35u python35u-pip python35u-devel zeromq-devel
 sudo pip3.5 install --upgrade pip
-bash ./install_docker.sh
+bash $DEPLOYMENT_HOME/install_docker.sh

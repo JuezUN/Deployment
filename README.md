@@ -30,26 +30,25 @@ Before you start, we recommend that you review the documentation of [proxy setti
 
    `chmod +x *.sh`
 
-5. Disable selinux
+5. Modify the the environmental variable `UNCODE_DOMAIN` with the correct UNCode domain or IP. To do so, modify the file `env.sh`.
+
+6. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as ports used by the different microservices).
+
+7. Disable selinux
 
    `sudo ./disable_selinux.sh`
 
    *Running this command will cause the server to restart automatically so that the changes are applied*
 
-6. Install the prerequisites, you can use `./install_prerequisites.sh` to do this. 
+8. Install the prerequisites, you can use `./install_prerequisites.sh` to do this. 
    ​      
     *Make sure you DON'T run this command with sudo as the user is the one that should be able to use the applications (not sudo)*
 
    **Note**: Check the *File system docker driver* with `docker info`, this should say `overlay2`. If not, check bellow in common problems to fix this.
 
-7. Logout and log back in to the server so that the user can use mongo and docker without `sudo`.
+9. Logout and log back in to the server so that the user can use mongo and docker without `sudo`.
 
-8. Modify the the environmental variable `UNCODE_DOMAIN` with the correct UNCode domain or IP. To do so, modify the file `env.sh`.
-
-9. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as proxy and ports used by the backend microservices).
-
-10. Modify the `configuration.yaml` file to use the setup you want.
-    - In `configuration.yaml` in the backend option, set it to `backend: tcp://127.0.0.1:2000`
+10. Modify the `configuration.yaml` file to use the setup you want, this is in the folder `config`. In the backend option, set it to `backend: tcp://127.0.0.1:2000`. For more information, see the [Documentation][config_reference].
 
 11. Execute the script `./run.sh`.
 
@@ -75,8 +74,10 @@ In previous steps, you have deployed the necessary services to run submissions o
           proxy_pass http://<IP or damain_name>/tutor/;
         }
         ```
-
-    2. Go to [tools host deployment documentation](tools_host/README.md) to deploy these services in another server.
+    
+    2. Modify the `configuration.yaml` file in `/var/www/INGInious/` in the `multilang` plugin, setting the correct IP of the tools machine. Restart the lighttpd service after saving.
+    
+    3. Go to [tools host deployment documentation](tools_host/README.md) to deploy these services in another server.
 
 ### Add additional grading machines
 
@@ -189,3 +190,4 @@ Project page: <https://juezun.github.io/>
 [cla_url]: https://cla-assistant.io/JuezUN/Deployment
 [gitter_url]:https://gitter.im/uncode-unal/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 [contributing_url]: https://github.com/JuezUN/Deployment/blob/master/CONTRIBUTING.md
+[config_reference]: https://github.com/JuezUN/INGInious/wiki/Configuration-reference
