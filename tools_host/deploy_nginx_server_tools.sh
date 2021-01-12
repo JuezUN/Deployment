@@ -6,10 +6,10 @@ if [ "$EUID" -ne 0 ]
 fi
 
 rm -rf /etc/nginx
-cp -r $DEPLOYMENT_HOME/tools_host/config/nginx /etc/
+cp -r $DEPLOYMENT_HOME/config/nginx /etc/
 
-rm -rf /etc/nginx/conf.d/inginious.conf
-cp $DEPLOYMENT_HOME/tools_host/config/nginx/tools.conf /etc/nginx/conf.d/
+rm -f /etc/nginx/conf.d/*
+cp $DEPLOYMENT_HOME/tools_host/config/nginx/uncode_tools.conf /etc/nginx/conf.d/
 
 systemctl enable nginx
 systemctl restart nginx
