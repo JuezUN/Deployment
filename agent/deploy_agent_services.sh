@@ -19,7 +19,6 @@ fi
 sudo usermod -aG agent agent
 sudo usermod -aG docker agent
 sudo usermod -aG lighttpd agent
-
 sudo usermod -aG agent $(whoami)
 
 cp $DEPLOYMENT_HOME/agent/docker_agent.sh /usr/local/bin

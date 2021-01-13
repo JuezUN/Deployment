@@ -63,16 +63,16 @@ In previous steps, you have deployed the necessary services to run submissions o
     1. In `/etc/nginx/conf.d/inginious.conf` file, change the url to proxy the linter, tutor and cokapi services. Instead of proxy pass to localhost, set the domain name or IP of the server where you are deploying these tools. It should look as follows:
 
         ```
-        location /cokapi/ {
-          proxy_pass http://<IP or damain_name tools machine>/cokapi/;
+        location /cokapi {
+          proxy_pass http://<IP or damain_name tools machine>/cokapi;
         }
         
-        location /linter/ {
-          proxy_pass http://<IP or damain_name tools machine>/linter/;
+        location /linter {
+          proxy_pass http://<IP or damain_name tools machine>/linter;
         }
         
-        location /tutor/ {
-          proxy_pass http://<IP or damain_name tools machine>/tutor/;
+        location /tutor {
+          proxy_pass http://<IP or damain_name tools machine>/tutor;
         }
         ```
     
