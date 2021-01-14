@@ -48,22 +48,25 @@ To be able to share the tasks folder with the agent services, run the command:
     127.0.0.1   localhost localhost.localdomain
     ::1         localhost localhost.localdomain
     10.142.0.3 backendhost
+    
+7. Set the Server private IP of the main server, where the frontend is deployed. Modify the the files `./agent/docker_agent.sh` and `./agent/mcq_agent.sh`
+    To check the private IP of the main server, run `hostname -I | awk '{print $1}'`.
 
-7. Install the agent prerequisites with `./agent_prerequisites.sh`
+8. Install the agent prerequisites with `./agent_prerequisites.sh`
 
-8. Disable selinux
+9. Disable selinux
 
    `sudo ./disable_selinux.sh`
 
    *Running this command will cause the server to restart automatically so that the changes are applied*
 
-9. Install the grading containers `sudo $DEPLOYMENT_HOME/deployment_scripts/build_all_containers.sh`
+10. Install the grading containers `sudo $DEPLOYMENT_HOME/deployment_scripts/build_all_containers.sh`
 
-10. Install the agent services with `sudo $DEPLOYMENT_HOME/agent/grader-host/install_services.sh`
+11. Install the agent services with `sudo $DEPLOYMENT_HOME/agent/grader-host/install_services.sh`
 
         Make sure the BACKEND service is running in the main server and you can see the its host.
 
-11. To verify that the deployment was successful, check the logs on the backend machine service and verify that it registered the agents you just deployed. It should look something like the following. It indicates that the agents said 'hello' to the backend and that everything is ready to use.
+12. To verify that the deployment was successful, check the logs on the backend machine service and verify that it registered the agents you just deployed. It should look something like the following. It indicates that the agents said 'hello' to the backend and that everything is ready to use.
 
     ```bash
     $ journalctl -b -u backend | grep hello

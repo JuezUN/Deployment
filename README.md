@@ -18,7 +18,7 @@ Before you start, we recommend that you review the documentation of [proxy setti
 
 ## Steps to deploy
 
-1. Have a machine with CentOS 7 and git
+1. Have a machine with CentOS 7 and git: `sudo yum install -y git`
 
 2. Make sure that there is a password set for root and the user that will execute the scripts
 
@@ -49,7 +49,12 @@ Before you start, we recommend that you review the documentation of [proxy setti
 9. Modify the `configuration.yaml` file to use the setup you want, this is in the folder `config`. In the backend option, set it to `backend: tcp://127.0.0.1:2000`, in the `multilang` plugin options, set the IP or domain corresponding to this machine.
     For more information, see the [Documentation][config_reference].
 
-10. Execute the script `./run.sh`.
+10. Modify the config file of nginx in `config/nginx/conf.d/uncode.conf` with the correct modifications and IP
+
+11. Set the Server private IP in the files `./backend/backend.sh`, `./agent/docker_agent.sh`, and `./agent/mcq_agent.sh`. This must be the IP if this server.
+    To check the private IP, run `hostname -I | awk '{print $1}'`.
+
+12. Execute the script `./run.sh`.
 
 ### Deploy linter and python tutor
 
