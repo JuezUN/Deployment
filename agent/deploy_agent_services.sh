@@ -7,8 +7,6 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-echo -e "$UNCODE_DOMAIN   backendhost\n" | sudo tee -a /etc/hosts
-
 # Create agent user and group
 id -u agent > /dev/null 2>&1
 if [ $? -ne 0 ]

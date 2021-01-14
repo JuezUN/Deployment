@@ -16,6 +16,8 @@ fi
 
 usermod -aG backend $(whoami)
 
+echo -e "$(hostname -I | awk '{print $1}')   backendhost\n" | sudo tee -a /etc/hosts
+
 cp $DEPLOYMENT_HOME/backend/backend.sh /usr/local/bin
 chown backend:backend /usr/local/bin/backend.sh
 chmod +x /usr/local/bin/backend.sh

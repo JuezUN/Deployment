@@ -41,21 +41,29 @@ To be able to share the tasks folder with the agent services, run the command:
 
 5. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as ports used by the different microservices).
 
-6. Install the agent prerequisites with `./agent_prerequisites.sh`
+6. Add `X.X.X.X backendhost` to your `/etc/hosts` file where `X.X.X.X` is the ip address of the backend, for example 
 
-7. Disable selinux
+    ```
+    $ cat /etc/hosts
+    127.0.0.1   localhost localhost.localdomain
+    ::1         localhost localhost.localdomain
+    10.142.0.3 backendhost
+
+7. Install the agent prerequisites with `./agent_prerequisites.sh`
+
+8. Disable selinux
 
    `sudo ./disable_selinux.sh`
 
    *Running this command will cause the server to restart automatically so that the changes are applied*
 
-8. Install the grading containers `sudo $DEPLOYMENT_HOME/deployment_scripts/build_all_containers.sh`
+9. Install the grading containers `sudo $DEPLOYMENT_HOME/deployment_scripts/build_all_containers.sh`
 
-9. Install the agent services with `sudo $DEPLOYMENT_HOME/agent/grader-host/install_services.sh`
+10. Install the agent services with `sudo $DEPLOYMENT_HOME/agent/grader-host/install_services.sh`
 
         Make sure the BACKEND service is running in the main server and you can see the its host.
 
-10. To verify that the deployment was successful, check the logs on the backend machine service and verify that it registered the agents you just deployed. It should look something like the following. It indicates that the agents said 'hello' to the backend and that everything is ready to use.
+11. To verify that the deployment was successful, check the logs on the backend machine service and verify that it registered the agents you just deployed. It should look something like the following. It indicates that the agents said 'hello' to the backend and that everything is ready to use.
 
     ```bash
     $ journalctl -b -u backend | grep hello

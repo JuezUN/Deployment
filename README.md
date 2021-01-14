@@ -30,28 +30,26 @@ Before you start, we recommend that you review the documentation of [proxy setti
 
    `chmod +x *.sh`
 
-5. Modify the the environmental variable `UNCODE_DOMAIN` with the correct UNCode domain or IP. To do so, modify the file `env.sh`.
+5. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as ports used by the different microservices).
 
-6. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as ports used by the different microservices).
-
-7. Disable selinux
+6. Disable selinux
 
    `sudo ./disable_selinux.sh`
 
    *Running this command will cause the server to restart automatically so that the changes are applied*
 
-8. Install the prerequisites, you can use `./install_prerequisites.sh` to do this. 
+7. Install the prerequisites, you can use `./install_prerequisites.sh` to do this. 
    ​      
     *Make sure you DON'T run this command with sudo as the user is the one that should be able to use the applications (not sudo)*
 
    **Note**: Check the *File system docker driver* with `docker info`, this should say `overlay2`. If not, check bellow in common problems to fix this.
 
-9. Logout and log back in to the server so that the user can use mongo and docker without `sudo`.
+8. Logout and log back in to the server so that the user can use mongo and docker without `sudo`.
 
-10. Modify the `configuration.yaml` file to use the setup you want, this is in the folder `config`. In the backend option, set it to `backend: tcp://127.0.0.1:2000`, in the `multilang` plugin options, set the IP or domain corresponding to this machine.
+9. Modify the `configuration.yaml` file to use the setup you want, this is in the folder `config`. In the backend option, set it to `backend: tcp://127.0.0.1:2000`, in the `multilang` plugin options, set the IP or domain corresponding to this machine.
     For more information, see the [Documentation][config_reference].
 
-11. Execute the script `./run.sh`.
+10. Execute the script `./run.sh`.
 
 ### Deploy linter and python tutor
 
