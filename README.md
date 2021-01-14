@@ -142,18 +142,6 @@ When you reboot the server, you will see that the front end will work fine but i
 
 You are all set, try submitting code and see if it works.
 
-### Automatic reboot
-
-You can create a cron job that executes at startup, so you don't have to worry setting the environment.
-
-If you run the command `sudo crontab -e` to see the current crons. The cron job related to this process looks like:
-
-```bash
-@reboot (sleep 300; /usr/bin/uncode_process_after_reboot)
-```
-
-Where the first line defines the cron job to reboot the server and second cron will run on startup, it will sleep for 300  seconds while server finishes startup and then it runs the command `uncode_process_after_reboot`.
-
 ## Common problems
 
 There are some problems that you might find when deploying the services. 
@@ -182,7 +170,7 @@ UNCode: <https://uncode.unal.edu.co>
 
 Project page: <https://juezun.github.io/>
 
-[grader_host_url]: https://github.com/JuezUN/Deployment/tree/master/grader-host
+[grader_host_url]: https://github.com/JuezUN/Deployment/tree/master/agent/grader-host
 [uncode_scripts_url]: https://github.com/JuezUN/Deployment/tree/master/uncode_scripts
 [license_url]: https://github.com/JuezUN/Deployment/blob/master/LICENSE
 [contributors_url]: https://github.com/JuezUN/Deployment/graphs/contributors

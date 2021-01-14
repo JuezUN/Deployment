@@ -2,7 +2,7 @@
 
 #Installs the software needed to run an inginious grading agent
 
-chmod +x .$DEPLOYMENT_HOME/deployment_scripts/*.sh
+chmod +x $DEPLOYMENT_HOME/deployment_scripts/*.sh
 bash $DEPLOYMENT_HOME/deployment_scripts/install_basic_dependencies.sh
 bash $DEPLOYMENT_HOME/deployment_scripts/install_nfs.sh
 

@@ -28,3 +28,6 @@ chown -R backend:backend /var/backend/
 
 systemctl daemon-reload
 systemctl enable backend.service
+
+firewall-cmd --permanent --add-port 2001/tcp
+firewall-cmd --reload

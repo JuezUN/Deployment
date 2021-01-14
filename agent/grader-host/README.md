@@ -20,7 +20,10 @@ Each agent registers itself to the backend and then the backend delegates the re
 
 ### Changes on main server
 
-To be able to share the tasks folder with the agent services, run the command `sudo $DEPLOYMENT_HOME/deployment_scripts/deploy_nfs_server.sh`.
+To be able to share the tasks folder with the agent services, run the command: 
+    ```bash
+    sudo $DEPLOYMENT_HOME/deployment_scripts/add_grader_server.sh
+    ```
 
 ### Steps to deploy a grading host (agent)
 
@@ -38,31 +41,21 @@ To be able to share the tasks folder with the agent services, run the command `s
 
 5. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as ports used by the different microservices).
 
-6. Disable selinux
+6. Install the agent prerequisites with `./agent_prerequisites.sh`
+
+7. Disable selinux
 
    `sudo ./disable_selinux.sh`
 
    *Running this command will cause the server to restart automatically so that the changes are applied*
 
-7. Install the agent prerequisites with `./agent_prerequisites.sh`
-    *Logout and login again* so that you can use docker without sudo
-
 8. Install the grading containers `sudo $DEPLOYMENT_HOME/deployment_scripts/build_all_containers.sh`
 
-9. Add `X.X.X.X backendhost` to your `/etc/hosts` file where `X.X.X.X` is the IP address of the main server, for example 
+9. Install the agent services with `sudo $DEPLOYMENT_HOME/agent/grader-host/install_services.sh`
 
-    ```
-    $ nano /etc/hosts
-    127.0.0.1   localhost localhost.localdomain
-    ::1         localhost localhost.localdomain
-    10.142.0.3 backendhost
-    ```
+        Make sure the BACKEND service is running in the main server and you can see the its host.
 
-10. Install the agent services with `sudo $DEPLOYMENT_HOME/grader-host/install_services.sh`
-
-    Make sure the BACKEND service is running in the main server and you can see the its host.
-
-11. To verify that the deployment was successful, check the logs on the backend machine service and verify that it registered the agents you just deployed. It should look something like the following. It indicates that the agents said 'hello' to the backend and that everything is ready to use.
+10. To verify that the deployment was successful, check the logs on the backend machine service and verify that it registered the agents you just deployed. It should look something like the following. It indicates that the agents said 'hello' to the backend and that everything is ready to use.
 
     ```bash
     $ journalctl -b -u backend | grep hello
