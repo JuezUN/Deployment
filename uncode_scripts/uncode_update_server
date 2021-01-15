@@ -30,7 +30,7 @@ else
     sudo -H pip3.6 install --upgrade git+https://github.com/JuezUN/INGInious.git
 fi
 
-sudo npm install --prefix /usr/lib/python3.6/site-packages/inginious/frontend/plugins/problem_bank/react_app/
-sudo npm run build --prefix /usr/lib/python3.6/site-packages/inginious/frontend/plugins/problem_bank/react_app/
+sudo npm install --prefix /usr/local/lib/python3.6/site-packages/inginious/frontend/plugins/problem_bank/react_app/
+sudo npm run build --prefix /usr/local/lib/python3.6/site-packages/inginious/frontend/plugins/problem_bank/react_app/
 
 uncode_webapp_restart
