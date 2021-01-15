@@ -21,9 +21,10 @@ Each agent registers itself to the backend and then the backend delegates the re
 ### Changes on main server
 
 To be able to share the tasks folder with the agent services, run the command: 
-    ```bash
-    sudo $DEPLOYMENT_HOME/deployment_scripts/add_grader_server.sh
-    ```
+    
+```bash
+sudo $DEPLOYMENT_HOME/deployment_scripts/add_grader_server.sh
+```
 
 ### Steps to deploy a grading host (agent)
 
@@ -33,40 +34,37 @@ To be able to share the tasks folder with the agent services, run the command:
     
     ```bash
     chmod +x *.sh
-    chmod +x agent/*.sh
-    chmod +x grader-host/*.sh
+    chmod +x -R agent/*.sh
     ```
 
-4. Modify the the environmental variable `UNCODE_DOMAIN` with the correct UNCode domain or IP. To do so, modify the file `env.sh`.
+4. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as ports used by the different microservices).
 
-5. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as ports used by the different microservices).
-
-6. Add `X.X.X.X backendhost` to your `/etc/hosts` file where `X.X.X.X` is the ip address of the backend, for example 
+5. Add `X.X.X.X backendhost` to your `/etc/hosts` file where `X.X.X.X` is the ip address of the backend, for example 
 
     ```
-    $ cat /etc/hosts
+    $ nano /etc/hosts
     127.0.0.1   localhost localhost.localdomain
     ::1         localhost localhost.localdomain
     10.142.0.3 backendhost
+    ```
     
-7. Set the Server private IP of the main server, where the frontend is deployed. Modify the the files `./agent/docker_agent.sh` and `./agent/mcq_agent.sh`
     To check the private IP of the main server, run `hostname -I | awk '{print $1}'`.
 
-8. Install the agent prerequisites with `./agent_prerequisites.sh`
+6. Install the agent prerequisites with `$DEPLOYMENT_HOME/agent/grader-host/agent_prerequisites.sh`
 
-9. Disable selinux
+7. Disable selinux
 
-   `sudo ./disable_selinux.sh`
+   ```bash
+   sudo ./disable_selinux.sh
+   ```
 
    *Running this command will cause the server to restart automatically so that the changes are applied*
 
-10. Install the grading containers `sudo $DEPLOYMENT_HOME/deployment_scripts/build_all_containers.sh`
+8. Install the agent services with `sudo $DEPLOYMENT_HOME/agent/grader-host/install_services_host.sh`
+    
+    Make sure the BACKEND service is running in the main server and you can see the its host.
 
-11. Install the agent services with `sudo $DEPLOYMENT_HOME/agent/grader-host/install_services.sh`
-
-        Make sure the BACKEND service is running in the main server and you can see the its host.
-
-12. To verify that the deployment was successful, check the logs on the backend machine service and verify that it registered the agents you just deployed. It should look something like the following. It indicates that the agents said 'hello' to the backend and that everything is ready to use.
+9. To verify that the deployment was successful, check the logs on the backend machine service and verify that it registered the agents you just deployed. It should look something like the following. It indicates that the agents said 'hello' to the backend and that everything is ready to use.
 
     ```bash
     $ journalctl -b -u backend | grep hello

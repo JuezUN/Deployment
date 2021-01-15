@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sudo bash $DEPLOYMENT_HOME/deployment_scripts/install_nfs.sh
-
 mkdir -p /var/www/INGInious
 mkdir -p /var/www/INGInious/tasks
 

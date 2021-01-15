@@ -7,6 +7,8 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+echo "Installing the backend service"
+
 # Create backend user if does not exist
 id -u backend > /dev/null 2>&1
 if [ $? -ne 0 ]
@@ -28,8 +30,11 @@ chmod 664 /etc/systemd/system/backend.service
 mkdir -p /var/backend/
 chown -R backend:backend /var/backend/
 
+cp $DEPLOYMENT_HOME/backend/env_backend.conf /etc/sysconfig
+
 systemctl daemon-reload
 systemctl enable backend.service
+systemctl start backend.service
 
 firewall-cmd --permanent --add-port 2001/tcp
 firewall-cmd --reload

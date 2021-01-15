@@ -7,6 +7,8 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+echo "Deploying Docker and MCQ agents to run submission"
+
 # Create agent user and group
 id -u agent > /dev/null 2>&1
 if [ $? -ne 0 ]
@@ -33,7 +35,7 @@ chmod 664 /etc/systemd/system/mcq_agent.service
 
 sudo chmod 775 -R /var/www/INGInious
 
-cp $DEPLOYMENT_HOME/agent/units/inginious_agents.conf /etc/sysconfig
+cp $DEPLOYMENT_HOME/agent/units/env_agents.conf /etc/sysconfig
 
 systemctl daemon-reload
 systemctl enable docker_agent.service

@@ -10,4 +10,4 @@ then
 fi
 
 # Set the Private IP of the main server, where the backend is located.
-inginious-agent-docker tcp://<Private IP>:2001 --concurrency $(($(nproc) - 1))
+inginious-agent-docker tcp://$BACKEND_HOST:2001 --concurrency $(($(nproc) - 1))

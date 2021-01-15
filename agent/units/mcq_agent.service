@@ -8,7 +8,7 @@ After=docker.service
 [Service]
 User=agent
 Group=agent
-EnvironmentFile=/etc/sysconfig/inginious_agents.conf
+EnvironmentFile=/etc/sysconfig/env_agents.conf
 WorkingDirectory=/var/www/INGInious/
 ExecStart=/usr/local/bin/mcq_agent.sh
 Restart=always

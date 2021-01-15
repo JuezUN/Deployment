@@ -10,4 +10,4 @@ then
 fi
 
 # Set the Private IP of the main server, where the backend is located.
-inginious-agent-mcq tcp://<Private IP>:2001
+inginious-agent-mcq tcp://$BACKEND_HOST:2001

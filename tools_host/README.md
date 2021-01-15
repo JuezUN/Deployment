@@ -11,9 +11,9 @@ The tools machine can be independently deployed and scaled without disturbing th
 3. Inside the Deployment folder, make the .sh files runnable
 
    ```bash
-   cd Deployment
    chmod +x *.sh
    chmod +x tools_host/*.sh
+   chmod +x deployment_scripts/*.sh
    ```
 
 4. Modify the the environmental variable `UNCODE_DOMAIN` with the correct UNCode domain or IP. To do so, modify the file `env.sh`.
@@ -22,7 +22,7 @@ The tools machine can be independently deployed and scaled without disturbing th
 
 6. Disable selinux
 
-   `sudo ./disable_selinux.sh`
+   `sudo ./deployment_scripts/disable_selinux.sh`
 
    *Running this command will cause the server to restart automatically so that the changes are applied*
 

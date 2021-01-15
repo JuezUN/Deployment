@@ -5,8 +5,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
-cd "$parent_path"
+echo "Installing NodeJS"
 
 cp $DEPLOYMENT_HOME/config/mongodb.repo  /etc/yum.repos.d/
 

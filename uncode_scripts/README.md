@@ -2,7 +2,7 @@
 
 ## Installation
 
-You can install this scripts to the system by running the command `sudo install_uncode_scripts.sh` on the root of the Deployment folder. 
+You can install this scripts to the system by running the command `sudo ./deployment_scripts/install_uncode_scripts.sh` on the root of the Deployment folder. 
 
 Otherwise if you called `install_prerequisites.sh` script, they are already installed.
 

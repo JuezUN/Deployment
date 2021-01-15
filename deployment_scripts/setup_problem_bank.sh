@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "installing problem-bank react"
+echo "Building problem-bank plugin"
 if [ -n "$http_proxy" ]
 then
   sudo npm config set proxy $http_proxy

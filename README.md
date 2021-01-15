@@ -28,13 +28,16 @@ Before you start, we recommend that you review the documentation of [proxy setti
 
 4. Inside the Deployment folder, make the .sh files runnable
 
-   `chmod +x *.sh`
+   ```bash
+   chmod +x *.sh
+   chmod +x deployment_scripts/*.sh
+   ```
 
 5. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as ports used by the different microservices).
 
 6. Disable selinux
 
-   `sudo ./disable_selinux.sh`
+   `sudo ./deployment_scripts/disable_selinux.sh`
 
    *Running this command will cause the server to restart automatically so that the changes are applied*
 
@@ -51,10 +54,7 @@ Before you start, we recommend that you review the documentation of [proxy setti
 
 10. Modify the config file of nginx in `config/nginx/conf.d/uncode.conf` with the correct modifications and IP
 
-11. Set the Server private IP in the files `./backend/backend.sh`, `./agent/docker_agent.sh`, and `./agent/mcq_agent.sh`. This must be the IP if this server.
-    To check the private IP, run `hostname -I | awk '{print $1}'`.
-
-12. Execute the script `./run.sh`.
+11. Execute the script `./run.sh`.
 
 ### Deploy linter and python tutor
 

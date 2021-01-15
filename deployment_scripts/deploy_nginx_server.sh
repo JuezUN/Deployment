@@ -5,6 +5,8 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+echo -e "Deploying Nginx service\n"
+
 rm -rf /etc/nginx
 cp -r $DEPLOYMENT_HOME/config/nginx /etc/
 

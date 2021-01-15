@@ -7,7 +7,9 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+echo "Installing UNCode scripts to manage the server"
+
 chmod +x $DEPLOYMENT_HOME/uncode_scripts/uncode*
 cp $DEPLOYMENT_HOME/uncode_scripts/uncode* /usr/bin
 
-echo "uncode scripts installation successful"
+echo "UNCode scripts installation successful"

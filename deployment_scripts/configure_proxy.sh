@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#this configures the docker http proxy environment variables to work
+# This configures the docker http proxy environment variables to work
 
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
