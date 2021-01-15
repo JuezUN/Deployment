@@ -35,8 +35,6 @@ chmod 664 /etc/systemd/system/mcq_agent.service
 
 sudo chmod 775 -R /var/www/INGInious
 
-cp $DEPLOYMENT_HOME/agent/units/env_agents.conf /etc/sysconfig
-
 systemctl daemon-reload
 systemctl enable docker_agent.service
 systemctl enable mcq_agent.service

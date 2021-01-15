@@ -7,7 +7,6 @@ After=network.target
 [Service]
 User=backend
 Group=backend
-EnvironmentFile=/etc/sysconfig/env_backend.conf
 WorkingDirectory=/var/backend/
 ExecStart=/usr/local/bin/backend.sh
 Restart=always

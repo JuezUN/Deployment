@@ -12,7 +12,7 @@ chmod +x $DEPLOYMENT_HOME/tools_host/*.sh
 
 bash $DEPLOYMENT_HOME/deployment_scripts/install_basic_dependencies.sh
 sudo bash $DEPLOYMENT_HOME/deployment_scripts/install_mongodb.sh
-bash $DEPLOYMENT_HOME/deployment_scripts/install_node.sh
+sudo bash $DEPLOYMENT_HOME/deployment_scripts/install_node.sh
 sudo bash $DEPLOYMENT_HOME/deployment_scripts/install_uncode_scripts.sh
 
 echo -e "Installing nginx + lighttpd with fastcgi\n"

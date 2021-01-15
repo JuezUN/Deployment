@@ -30,8 +30,6 @@ chmod 664 /etc/systemd/system/backend.service
 mkdir -p /var/backend/
 chown -R backend:backend /var/backend/
 
-cp $DEPLOYMENT_HOME/backend/env_backend.conf /etc/sysconfig
-
 systemctl daemon-reload
 systemctl enable backend.service
 systemctl start backend.service
