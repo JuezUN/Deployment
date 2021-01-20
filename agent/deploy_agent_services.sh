@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Installs the services as systemd services
+# Installs the docker_agent and mcq_agent services as systemd services
 
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
   exit
 fi
 
-echo "Deploying Docker and MCQ agents to run submission"
+echo "Deploying Docker and MCQ agents to run submissions"
 
 # Create agent user and group
 id -u agent > /dev/null 2>&1

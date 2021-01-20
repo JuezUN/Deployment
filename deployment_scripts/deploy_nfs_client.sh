@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Script to deploy a new nfs client service which automatically mounts the shared folder. This folder corresponds to
+# the tasks file system.
+
 mkdir -p /var/www/INGInious
 mkdir -p /var/www/INGInious/tasks
 

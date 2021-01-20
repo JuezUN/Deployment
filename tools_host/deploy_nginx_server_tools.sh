@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Installs the Nginx reverse proxy service for the tools server
+
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
   exit

@@ -10,3 +10,8 @@ services:
       - ~/config-db/config.db.trace.db:/config.db/config.db.trace.db
     network_mode: host
     restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 4000M # Limit memory usage to 4GB
+          cpus: "1" # Set a custom cpu usage

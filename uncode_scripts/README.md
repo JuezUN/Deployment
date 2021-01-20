@@ -1,4 +1,4 @@
-# UNcode scripts documentation
+# UNCode scripts documentation
 
 ## Installation
 
@@ -15,17 +15,17 @@ in maintenance. This page is shown via nginx.
 
 Usage:
 
-#### Activate
+### Activate
 To activate the maintenance window and show the page, run the command:
 
-``` 
+```bash
 uncode_maintenance_window activate 
 ```
 
-#### Deactivate
+### Deactivate
 To deactivate the maintenance window and stop showing the page, run the command:
 
-``` 
+```bash
 uncode_maintenance_window deactivate 
 ```
 
@@ -35,51 +35,70 @@ Shows the output of the `top` command but filtered to the processes related with
 
 Usage:
 
-``` 
+```bash
 uncode_status
-```
-
-## uncode_full_restart
-
-Restarts all the services that UNCode depends on, including the database, and the plugin services.
-
-Usage:
-
-``` 
-uncode_full_restart
 ```
 
 ## uncode_webapp_restart
 
-This command is used to restart the web application, it restarts the services of **nginx**, **lighttpd** and **mongod**. 
+This command is used to restart the web application, it restarts the services `nginx`, `lighttpd`, `agents`, `backend` and `mongo`. 
 
 Usage:
 
-``` 
+```bash
 uncode_webapp_restart
+```
+
+## uncode_agent_restart
+
+This command is used to restart only the agent services, i.e. `docker_agent` and `mcq_agent`. This command is also available in the agent hosts.
+
+Usage:
+
+```bash
+uncode_agent_restart
 ```
 
 ## uncode_linter_restart
 
 This command is used to **update and restart** the linter web service.
 
-Usage: 
+Usage:
 
-```
+```bash
 uncode_linter_restart
 ```
 
 ## uncode_tutor_restart
 
-This command is used to update and restart the tutor services which are python-tutor, python-tutor-py2 and cokapi. 
-python-tutor and python-tutor-py2 are deployed as a docker container while cokapi is deployed as a systemd service.
+This command is used to update and restart the tutor services which are python-tutor and cokapi. 
+python-tutor are deployed as a docker container while cokapi is deployed as a systemd service.
 
-Usage: 
+Usage:
 
-```
+​```bash
 uncode_tutor_restart
 ```
 
+## uncode_tools_restart
+
+This command is used to **update and restart** the linter python tutor related web services.
+
+Usage:
+
+​```bash
+uncode_tools_restart
+```
+
+## uncode_update_tools
+
+This command updates the server with latest version of UNCode tools containers for linter and python tutor
+
+Usage:
+
+​```bash
+uncode_update_containers
+```
 
 ## uncode_database_backup
 
@@ -96,8 +115,7 @@ backup is kept.
 Currently, the backups are being stored using Google Drive, so you need to follow the steps described [here](https://github.com/JuezUN/INGInious/wiki/How-to-set-up-backups)
 to set up the Google Drive credentials and *GDrive* program. 
 
-Set up:
-```
+```bash
 mkdir /path/to/databaseBakupDir/
 ```
 
@@ -108,7 +126,7 @@ Usage:
 Makes a snapshot of the current database and compresses it to a *.tar.gz* file,
 this receives an argument using the flag `-m` receiving the name you want to give to the backup.
 
-```
+```bash
 cd /path/to/databaseBakupDir/
 uncode_database_backup -m <backup_name> create
 ```
@@ -120,7 +138,7 @@ using the current date as name. To indicate it is automatic, use the flag `-a`.
 
 This creates and uploads the backup, also, deletes the last automatic backup.
 
-```
+```bash
 cd /path/to/databaseBakupDir/
 uncode_database_backup -a create
 ```
@@ -132,7 +150,7 @@ and restores the database with that data.
 Replace the `<id_backup_to_restore>` with the file ID of the desired backup
 you want to restore. To see all backups done run `gdrive list`.
 
-```
+```bash
 cd /path/to/databaseBakupDir/
 uncode_database_backup -i <id_backup_to_restore> restore
 ```
@@ -143,7 +161,7 @@ When the database is restored, the downloaded files are removed.
 This command downloads the backup using the given taking the automatic backup using the
 flag `-a` and restores the database with that data.
 
-```
+```bash
 cd /path/to/databaseBakupDir/
 uncode_database_backup -a restore
 ```
@@ -157,8 +175,7 @@ and **restore** a backup to the remote repository.
 
 Currently, the backups are being stored using git, so you'll need to have access to the tasks backup private repository.
 
-Set up:
-```
+```bash
 cd /var/www/INGInious/ #Location of tasks.
 git init
 git remote add origin https://gitlab.com/UNCode/tasks.git or the SSH URL
@@ -176,7 +193,7 @@ Usage:
 
 Makes a snapshot of the current tasks, commits it with the day and time as commit name.
 
-```
+```bash
 uncode_tasks_backup create
 ```
 
@@ -186,7 +203,7 @@ This commit is not push it to the remote repository, please try `uncode_tasks_ba
 Pushes the non pushed backups (commits) to the remote repository.
 
 
-```
+```bash
 uncode_tasks_backup push
 ```
 
@@ -197,13 +214,13 @@ This command has two behaviors
 
 1. Takes whatever backup data you currently have in the HEAD of the repository and restores the tasks with that data.
 
-    ```
+    ```bash
     uncode_tasks_backup restore
     ```
 
 2. Takes the backup at commit `COMMIT_HASH` and restores the tasks with that data.
 
-    ```
+    ```bash
     uncode_tasks_backup restore COMMIT_HASH
     ```
 
@@ -211,16 +228,26 @@ This command has two behaviors
 
 ## uncode_update_server
 
-This command updates the server with latest version of UNcode's INGInious. To use it just write the next command:
+This command updates the server with latest version of UNcode. To use it just write the next command:
 
-    ​```
+    ​```bash
     uncode_update_server
     ​```
 
 This update can also be done with a branch adding the tag -b in command as follows:
 
-    ​```
+    ​```bash
     uncode_update_server -b <branch_name>
     ​```
 
 After installing the new packages, it restarts the webapp to make the server work with the new code.
+
+## uncode_update_containers
+
+This command updates the server with latest version of UNCode grading containers.
+
+Usage:
+
+​```bash
+uncode_update_containers
+​```

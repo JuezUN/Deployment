@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Installs the software needed to run an inginious grading agent
+# Installs the software needed to run a grading agent for UNCode
 
 chmod +x $DEPLOYMENT_HOME/deployment_scripts/*.sh
 bash $DEPLOYMENT_HOME/deployment_scripts/install_basic_dependencies.sh

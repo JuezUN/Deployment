@@ -1,8 +1,8 @@
-# Tools host deployment
+# UNCode - Tools host deployment
 
-The tools machine can be independently deployed and scaled without disturbing the web app deployment. In this machine will be deployed an **Nginx** service working as a reverse proxy to proxy the different incoming requests to the proper services. **Linter** and **Python tutor** deployed as a docker service plus **cokapi** service used by python tutor to process C++ code.
+The tools machine can be independently deployed and scaled without disturbing the webapp deployment. In this machine will be deployed an **Nginx** service working as a reverse proxy to proxy the different incoming requests to the proper services. **Linter** and **Python tutor** deployed as a docker service plus **cokapi** service used by python tutor to process C++ code.
 
-## Steps to deploy a tools host
+## Steps to deploy the tools host
 
 1. Have a machine with CentOS 7 and git installed `sudo yum install git`. 
 

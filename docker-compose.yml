@@ -9,7 +9,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1000M # Limit memory usage to 3GB
+          memory: 1000M # Limit memory usage to 1GB
           cpus: "1" # Set a custom cpu usage
   python-tutor:
     image: unjudge/onlinepythontutor

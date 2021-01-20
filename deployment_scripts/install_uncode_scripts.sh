@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Installs the uncode_scripts i.e. copies the scripts to the folder /usr/bin
+# Installs the uncode_scripts, it copies the scripts to the folder /usr/bin so these scripts are now runnable
 
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"

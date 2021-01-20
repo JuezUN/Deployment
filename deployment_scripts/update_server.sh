@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Update server with latest version of UNcode, a branch can also be specified to the script via the -b tag
+# Update server with latest version of UNCode, a branch can also be specified to the script via the -b tag
 
 BRANCH=""
 while getopts "b:" opt; do

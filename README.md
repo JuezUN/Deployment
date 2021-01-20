@@ -18,6 +18,8 @@ Before you start, we recommend that you review the documentation of [proxy setti
 
 ## Steps to deploy
 
+These steps will deploy the frontend services and the services to run submissions
+
 1. Have a machine with CentOS 7 and git: `sudo yum install -y git`
 
 2. Make sure that there is a password set for root and the user that will execute the scripts
@@ -26,14 +28,14 @@ Before you start, we recommend that you review the documentation of [proxy setti
 
    `git clone https://github.com/JuezUN/Deployment.git`
 
-4. Inside the Deployment folder, make the .sh files runnable
+4. Inside the Deployment folder, make the .sh files are runnable
 
    ```bash
    chmod +x *.sh
    chmod +x deployment_scripts/*.sh
    ```
 
-5. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as ports used by the different microservices).
+5. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as ports used by the different services).
 
 6. Disable selinux
 
@@ -41,7 +43,7 @@ Before you start, we recommend that you review the documentation of [proxy setti
 
    *Running this command will cause the server to restart automatically so that the changes are applied*
 
-7. Install the prerequisites, you can use `./install_prerequisites.sh` to do this. 
+7. Install the prerequisites, run `./install_prerequisites.sh` to do this. 
    ​      
     *Make sure you DON'T run this command with sudo as the user is the one that should be able to use the applications (not sudo)*
 
@@ -52,9 +54,13 @@ Before you start, we recommend that you review the documentation of [proxy setti
 9. Modify the `configuration.yaml` file to use the setup you want, this is in the folder `config`. In the backend option, set it to `backend: tcp://127.0.0.1:2000`, in the `multilang` plugin options, set the IP or domain corresponding to this machine.
     For more information, see the [Documentation][config_reference].
 
-10. Modify the config file of nginx in `config/nginx/conf.d/uncode.conf` with the correct modifications and IP
+10. Modify the config file of `Nginx` in `config/nginx/conf.d/uncode.conf` with the correct modifications and IP
 
-11. Execute the script `./run.sh`.
+11. Modify the config file of `lighttpd` in `config/lighttpd/conf.d/fastcgi.conf` setting the `max-procs` and `min-procs` that match the number of cores in your server and both values most be equal. 
+
+12. Execute the script `./run.sh`.
+
+13. (Optional) Now you will access to UNCode in the specified domain name or IP. In case you want to download a test course and set it up, run: `./add_test_course.sh`.
 
 ### Deploy linter and python tutor
 
@@ -63,7 +69,7 @@ In previous steps, you have deployed the necessary services to run submissions o
 - If you want to deploy these tools within the same machine, run the command `./tools_host/deploy_tools.sh` to deploy them. There are not any additional settings to be done.
 
 - If you want to **deploy the tools in a separate machine** from the rest of the application, follow next steps:
-    1. In `/etc/nginx/conf.d/inginious.conf` file, change the url to proxy the linter, tutor and cokapi services. Instead of proxy pass to localhost, set the domain name or IP of the server where you are deploying these tools. It should look as follows:
+    1. In `/etc/nginx/conf.d/uncode.conf` file, change the url to proxy the linter, tutor and cokapi services. Instead of proxy pass to localhost, set the domain name or IP of the server where you are deploying these tools. It should look as follows:
 
         ```
         location /cokapi {
@@ -79,55 +85,86 @@ In previous steps, you have deployed the necessary services to run submissions o
         }
         ```
     
-    2. Modify the `configuration.yaml` file in `/var/www/INGInious/` in the `multilang` plugin, setting the correct IP of the tools machine. Restart the lighttpd service after saving.
+    2. Modify the `configuration.yaml` file in `/var/www/INGInious/` in the `multilang` plugin, setting the IP or Domain name of this server, **NOT** the tools machine.
     
-    3. Go to [tools host deployment documentation](tools_host/README.md) to deploy these services in another server.
+    3. Restart the services with `uncode_webapp_restart`.
+    
+    4. Go to [tools host deployment documentation](tools_host/README.md) to deploy these services in another server.
 
 ### Add additional grading machines
 
-In case you want to add more machines to grade more submission concurrently, go to [Grading host deployment documentation][grader_host_url] to deploy any number of hosts that will be used as grading machines.
+In case you want to add more machines to grade more submissions concurrently, go to [Grading host deployment documentation][grader_host_url] to deploy any number of hosts that will be used as grading machines.
 
 ### Deploy metabase
 
-Metabase is a service for data analytics. This is connected to the UNCode's database, that is why you must deploy service within the same machine.
+Metabase is a service for data analytics. This is connected to the UNCode's database, that is why you must deploy this service within the same machine.
 
-Run the commands:
-```bash
-chmod +x ./metabase/*.sh
-sudo ./metabase/deploy_metabase.sh
-```
+1. Run the commands:
+    ```bash
+    chmod +x ./metabase/*.sh
+    sudo ./metabase/deploy_metabase.sh
+    ```
+
+2. Modify the file `/etc/nginx/conf.d/uncode.conf` and add the next proxy rules
+
+    ```bash
+    location /metabase/ {
+        proxy_pass http://localhost:3000/;
+    }
+    
+    location /app/ {
+        proxy_pass http://localhost:3000/;
+    }
+    ```
+
+3. Restart nginx with `sudo service nginx restart`
+
+4. You will access metabase in the path `/metabase` from your browser.
 
 ### Deploy Mongo express
 
-To allow some determined users, a mongo express service is deployed with docker to graphically access to the DB. Deploy this service in the same machine as the Database.
+Mongo express is a service deployed with docker to graphically access to the Mongo DB. Deploy this service in the same machine where the DB is stored.
 
-Run the command:
+1. Run the next command and set a username and password to Mongo Express as indicated when running the script.
+    ```bash
+    sudo bash $DEPLOYMENT_HOME/deployment_scripts/deploy_mongo_express.sh
+    ```
 
-```bash
-sudo bash deployment_scripts/deploy_mongo_express.sh
-```
+2. Modify the file `/etc/nginx/conf.d/uncode.conf` and add the next proxy rule:
+
+    ```bash
+    location /mongo_express/ {
+        proxy_pass http://localhost:8081;
+    }
+    ```
+
+3. Restart nginx with `sudo service nginx restart`
+
+4. You will access Mongo Express in the path `/mongo_express` from your browser.
 
 ## Configuration
 
 ### Configuration.yaml
 
-This file specifies which plugins will run when the judge deploys, also is needed that the settings for the SMTP server are set properly (i.e. username and password), if you want to.
+File deployed in `/var/www/INGInious`.
+
+This file specifies which plugins will run when UNCode deploys, set the options you think you need, as well as the corresponding plugins. See the [configuration reference][config_reference].
+
+Every time this file is modified you must restart lighttpd service to load changes.
 
 ### FastCGI.conf
 
-File located in /etc/lighttpd/conf.d/fastcgi.conf, this file specifies the configuration related to fastcgi and the processes that lighttpd will create to handle requests.
-The options to focus on are *max-procs* and *min-procs*, these options specify the processes that fastCGI will create. Here we recommend to leave the same value for both options, 
- as this will create an static number of process.
+File located in `/etc/lighttpd/conf.d/fastcgi.conf`. This file specifies the configuration related to fastcgi and the processes that lighttpd will create to handle requests.
+The options to focus on are `max-procs` and `min-procs`, these options specify the processes that fastCGI will create. Here we recommend to leave the same value for both options, as this will create an static number of process.
 
 ### Nginx
 
-File located in /etc/nginx/conf.d/uncode.conf, this file specifies the reverse proxy rules that are processed by nginx,
+Main configuration file: `/etc/nginx/conf.d/uncode.conf`. This file specifies the reverse proxy rules that are processed by nginx,
 Modify the server_name and the IP, as well as other settings you think should be configured.
 
 ### Python tutor and linter
 
-Modify the `docker-compose.yml` file, which deploys these services, as you want. You can set different memory limits
- according to your necessities. 
+Modify the `$DEPLOYMENT_HOME/docker-compose.yml` file, which deploys these services, as you want. You can set different memory limits according to your necessities. 
 
 ## UNCode scripts
 
@@ -135,20 +172,19 @@ These are some helpful scripts or commands that will help on managing the server
 
 ## What to do if server reboots?
 
-### Manual reboot
-When you reboot the server, you will see that the front end will work fine but if you try  to submit code it won't work. To fix that you just have to follow next few steps:
+When server reboots, you will see that the frontend will work fine but if you try to submit code it won't work. To fix this, follow next few steps:
 
-1. Go into the *Deployment* directory.
-2. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as proxy and ports used by the backend microservices).
-3. If you are deploying the agent in a single machine, run the command `sudo bash deployment_scripts/build_all_containers.sh`
-4. Run the command `uncode_webapp_restart`in order to restart all services and make everything work correctly.
+1. Run the command `$DEPLOYMENT_HOME/setup_environment.sh && source env.sh` to set the environment variables (such as proxy and ports used by the backend services).
+2. Run the command `sudo bash $DEPLOYMENT_HOME/deployment_scripts/build_all_containers.sh`
+3. Run the command `uncode_webapp_restart` in order to restart all services and load changes.
 
-You are all set, try submitting code and see if it works.
+You are all set, try submitting code and test the different services.
 
 ## Common problems
 
 There are some problems that you might find when deploying the services. 
 
+- Check the firewall rules. See the [documentation](firewall.md) we have wrote about this to allow some ports.
 - Docker compose says that the ports of the micro services are not specified. Solution: Make sure you run the command `source env.sh`
 - Docker file system driver should be `overlay2`, to check the config of docker, run `docker info` and the `Storage docker` should say overlay2. In case it is not the case, check the docker [documentation](https://docs.docker.com/storage/storagedriver/overlayfs-driver/) to change the File system docker driver.
 - Mongo DB fails to start after a reboot. There is an unsolved issue with systemd and mongod service that prevents it from starting correctly at boot. Until this issue is solved, the following workaround will start mongodb as INGInious needs.

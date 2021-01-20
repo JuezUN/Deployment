@@ -1,5 +1,5 @@
 [Unit]
-Description=MCQ Agent - Multiple Choice Questions Agent - grades MCQs  
+Description=MCQ Agent - Grades Multiple Choice Questions (MCQs)
 StartLimitBurst=300
 StartLimitIntervalSec=600
 After=network.target

@@ -28,7 +28,7 @@ chown -R ucokapi:ucokapi /opt/tutor
 
 npm install express
 
-#Install systemd service
+# Install systemd service
 cp $DEPLOYMENT_HOME/tools_host/cokapi/cokapi.sh /usr/local/bin
 chown ucokapi:ucokapi /usr/local/bin/cokapi.sh
 chmod +x /usr/local/bin/cokapi.sh

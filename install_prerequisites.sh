@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# This script installs the prerequisites needed to run the Judge
-
-# Install UNCode dependencies
+# This script installs the prerequisites needed to run the UNCode webapp
 
 echo "Installing the UNCode dependencies"
 
@@ -15,7 +13,7 @@ sudo bash $DEPLOYMENT_HOME/deployment_scripts/install_mongodb.sh
 sudo bash $DEPLOYMENT_HOME/deployment_scripts/install_node.sh
 sudo bash $DEPLOYMENT_HOME/deployment_scripts/install_uncode_scripts.sh
 
-echo -e "Installing nginx + lighttpd with fastcgi\n"
+echo -e "Installing Nginx and Lighttpd with fastcgi\n"
 bash $DEPLOYMENT_HOME/deployment_scripts/install_nginx.sh
 bash $DEPLOYMENT_HOME/deployment_scripts/install_lighttpd.sh
 

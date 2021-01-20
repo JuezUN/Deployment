@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Installs the services as systemd services
+# Installs the backend service as systemd services
 
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
@@ -18,6 +18,7 @@ fi
 
 usermod -aG backend $(whoami)
 
+# Sets the IP under `backendhost` in the list of hosts
 echo -e "$(hostname -I | awk '{print $1}')   backendhost\n" | sudo tee -a /etc/hosts
 
 cp $DEPLOYMENT_HOME/backend/backend.sh /usr/local/bin
@@ -34,5 +35,5 @@ systemctl daemon-reload
 systemctl enable backend.service
 systemctl start backend.service
 
-firewall-cmd --permanent --add-port 2001/tcp
-firewall-cmd --reload
+sudo firewall-cmd --permanent --add-port=2001/tcp
+sudo firewall-cmd --reload

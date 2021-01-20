@@ -1,5 +1,5 @@
 [Unit]
-Description=INGInious Backend - Orchestrator and interface of grading agents to the frontend
+Description=UNCode Backend - Orchestrator and interface of grading agents to the frontend
 StartLimitBurst=300
 StartLimitIntervalSec=600
 After=network.target

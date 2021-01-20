@@ -5,7 +5,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-echo -e "Deploying Nginx service\n"
+echo -e "Deploying Lighttpd server\n"
 
 echo "Adding lighttpd to mongo and docker group"
 usermod -aG docker lighttpd
