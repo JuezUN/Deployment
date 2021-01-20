@@ -28,7 +28,7 @@ These steps will deploy the frontend services and the services to run submission
 
    `git clone https://github.com/JuezUN/Deployment.git`
 
-4. Inside the Deployment folder, make the .sh files are runnable
+4. Inside the Deployment folder, make the .sh files runnable:
 
    ```bash
    chmod +x *.sh

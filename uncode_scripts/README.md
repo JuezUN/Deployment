@@ -2,7 +2,7 @@
 
 ## Installation
 
-You can install this scripts to the system by running the command `sudo ./deployment_scripts/install_uncode_scripts.sh` on the root of the Deployment folder. 
+You can install this scripts to the system by running the command `sudo $DEPLOYMENT_HOME/deployment_scripts/install_uncode_scripts.sh` on the root of the Deployment folder. 
 
 Otherwise if you called `install_prerequisites.sh` script, they are already installed.
 
@@ -76,7 +76,7 @@ python-tutor are deployed as a docker container while cokapi is deployed as a sy
 
 Usage:
 
-​```bash
+```bash
 uncode_tutor_restart
 ```
 
@@ -86,7 +86,7 @@ This command is used to **update and restart** the linter python tutor related w
 
 Usage:
 
-​```bash
+```bash
 uncode_tools_restart
 ```
 
@@ -96,7 +96,7 @@ This command updates the server with latest version of UNCode tools containers f
 
 Usage:
 
-​```bash
+```bash
 uncode_update_containers
 ```
 
@@ -202,7 +202,6 @@ This commit is not push it to the remote repository, please try `uncode_tasks_ba
 ### Push
 Pushes the non pushed backups (commits) to the remote repository.
 
-
 ```bash
 uncode_tasks_backup push
 ```
@@ -230,15 +229,15 @@ This command has two behaviors
 
 This command updates the server with latest version of UNcode. To use it just write the next command:
 
-    ​```bash
-    uncode_update_server
-    ​```
+```bash
+uncode_update_server
+```
 
 This update can also be done with a branch adding the tag -b in command as follows:
 
-    ​```bash
-    uncode_update_server -b <branch_name>
-    ​```
+```bash
+uncode_update_server -b <branch_name>
+```
 
 After installing the new packages, it restarts the webapp to make the server work with the new code.
 
@@ -248,6 +247,6 @@ This command updates the server with latest version of UNCode grading containers
 
 Usage:
 
-​```bash
+```bash
 uncode_update_containers
-​```
+```

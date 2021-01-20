@@ -3,8 +3,6 @@
 cd $DEPLOYMENT_HOME
 
 echo "Updating and restarting Linter web service..."
-echo "Updating and restarting Linter web service..."
-echo "Updating and restarting Linter web service..."
 
 docker pull unjudge/linter-web-service
 docker-compose --compatibility up -d --no-deps linter-service
