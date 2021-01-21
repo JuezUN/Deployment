@@ -102,7 +102,7 @@ Metabase is a service for data analytics. This is connected to the UNCode's data
 1. Run the commands:
     ```bash
     chmod +x ./metabase/*.sh
-    sudo ./metabase/deploy_metabase.sh
+    ./metabase/deploy_metabase.sh
     ```
 
 2. Modify the file `/etc/nginx/conf.d/uncode.conf` and add the next proxy rules
