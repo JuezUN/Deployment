@@ -5,8 +5,6 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-deployment_path=$(pwd)
-
 id -u ucokapi > /dev/null 2>&1
 if [ $? -ne 0 ]
 then
@@ -29,11 +27,11 @@ chown -R ucokapi:ucokapi /opt/tutor
 npm install express
 
 # Install systemd service
-cp $DEPLOYMENT_HOME/tools_host/cokapi/cokapi.sh /usr/local/bin
+cp "$DEPLOYMENT_HOME/tools_host/cokapi/cokapi.sh" /usr/local/bin
 chown ucokapi:ucokapi /usr/local/bin/cokapi.sh
 chmod +x /usr/local/bin/cokapi.sh
 
-cp $DEPLOYMENT_HOME/tools_host/cokapi/cokapi.service /etc/systemd/system
+cp "$DEPLOYMENT_HOME/tools_host/cokapi/cokapi.service" /etc/systemd/system
 chmod 664 /etc/systemd/system/cokapi.service
 
 systemctl daemon-reload

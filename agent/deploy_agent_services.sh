@@ -21,14 +21,14 @@ sudo usermod -aG docker agent
 sudo usermod -aG lighttpd agent
 sudo usermod -aG agent $(whoami)
 
-cp $DEPLOYMENT_HOME/agent/docker_agent.sh /usr/local/bin
-cp $DEPLOYMENT_HOME/agent/mcq_agent.sh /usr/local/bin
+cp "$DEPLOYMENT_HOME/agent/docker_agent.sh" "/usr/local/bin"
+cp "$DEPLOYMENT_HOME/agent/mcq_agent.sh" "/usr/local/bin"
 
 chown agent:agent /usr/local/bin/docker_agent.sh
 chown agent:agent /usr/local/bin/mcq_agent.sh
 
-cp $DEPLOYMENT_HOME/agent/units/docker_agent.service /etc/systemd/system
-cp $DEPLOYMENT_HOME/agent/units/mcq_agent.service /etc/systemd/system
+cp "$DEPLOYMENT_HOME/agent/units/docker_agent.service" "/etc/systemd/system"
+cp "$DEPLOYMENT_HOME/agent/units/mcq_agent.service" "/etc/systemd/system"
 
 chmod 664 /etc/systemd/system/docker_agent.service
 chmod 664 /etc/systemd/system/mcq_agent.service

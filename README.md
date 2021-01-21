@@ -170,7 +170,7 @@ Modify the `$DEPLOYMENT_HOME/docker-compose.yml` file, which deploys these servi
 
 These are some helpful scripts or commands that will help on managing the server. If you want to know more about them please go to [uncode_scripts][uncode_scripts_url] and read the documentation inside it. You will learn how to restart the services, make automatic backups, among others.
 
-## What to do if server reboots?
+## What to do if server reboots
 
 When server reboots, you will see that the frontend will work fine but if you try to submit code it won't work. To fix this, follow next few steps:
 

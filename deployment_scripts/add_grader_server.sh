@@ -2,7 +2,7 @@
 
 # Run script to run a new grader server for the backend service
 
-sudo bash $DEPLOYMENT_HOME/deployment_scripts/install_nfs.sh
+sudo bash "$DEPLOYMENT_HOME/deployment_scripts/install_nfs.sh"
 
 # Read the agent server IP to allow sharing the folder
 read -p "Enter agent server IP: " server_ip

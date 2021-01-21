@@ -7,7 +7,7 @@ fi
 
 echo "Installing NodeJS"
 
-cp $DEPLOYMENT_HOME/config/mongodb.repo  /etc/yum.repos.d/
+cp "$DEPLOYMENT_HOME/config/mongodb.repo"  /etc/yum.repos.d/
 
 yum -y install mongodb-org
 

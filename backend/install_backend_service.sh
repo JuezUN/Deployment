@@ -19,13 +19,13 @@ fi
 usermod -aG backend $(whoami)
 
 # Sets the IP under `backendhost` in the list of hosts
-echo -e "$(hostname -I | awk '{print $1}')   backendhost\n" | sudo tee -a /etc/hosts
+echo -e "$(hostname -I | awk 'NR==1{print $1}')   backendhost\n" | sudo tee -a /etc/hosts
 
-cp $DEPLOYMENT_HOME/backend/backend.sh /usr/local/bin
+cp "$DEPLOYMENT_HOME/backend/backend.sh" /usr/local/bin
 chown backend:backend /usr/local/bin/backend.sh
 chmod +x /usr/local/bin/backend.sh
 
-cp $DEPLOYMENT_HOME/backend/backend.service /etc/systemd/system
+cp "$DEPLOYMENT_HOME/backend/backend.service" /etc/systemd/system
 chmod 664 /etc/systemd/system/backend.service
 
 mkdir -p /var/backend/

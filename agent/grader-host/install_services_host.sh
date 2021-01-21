@@ -7,20 +7,20 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-bash $DEPLOYMENT_HOME/deployment_scripts/update_server.sh
-sudo $DEPLOYMENT_HOME/deployment_scripts/build_all_containers.sh
+bash "$DEPLOYMENT_HOME/deployment_scripts/update_server.sh"
+sudo "$DEPLOYMENT_HOME/deployment_scripts/build_all_containers.sh"
 
-sudo $DEPLOYMENT_HOME/deployment_scripts/deploy_nfs_client.sh
+sudo "$DEPLOYMENT_HOME/deployment_scripts/deploy_nfs_client.sh"
 
-sudo bash $DEPLOYMENT_HOME/agent/deploy_agent_services.sh
+sudo bash "$DEPLOYMENT_HOME/agent/deploy_agent_services.sh"
 
 sudo chown agent:agent /var/www/INGInious
 
 sudo systemctl start docker_agent && sudo systemctl start mcq_agent
 
 # Install the UNCode scripts related to the agent
-chmod +x $DEPLOYMENT_HOME/uncode_scripts/uncode*
-sudo cp $DEPLOYMENT_HOME/uncode_scripts/uncode_agent_restart /usr/bin
-sudo cp $DEPLOYMENT_HOME/uncode_scripts/uncode_update_server /usr/bin
-sudo cp $DEPLOYMENT_HOME/uncode_scripts/uncode_process_after_reboot /usr/bin
-sudo cp $DEPLOYMENT_HOME/uncode_scripts/uncode_update_containers /usr/bin
+chmod +x "$DEPLOYMENT_HOME/uncode_scripts/uncode*"
+sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_agent_restart" /usr/bin
+sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_update_server" /usr/bin
+sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_process_after_reboot" /usr/bin
+sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_update_containers" /usr/bin

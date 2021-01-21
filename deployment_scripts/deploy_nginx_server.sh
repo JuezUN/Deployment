@@ -8,9 +8,9 @@ fi
 echo -e "Deploying reverse proxy with Nginx\n"
 
 rm -rf /etc/nginx
-cp -r $DEPLOYMENT_HOME/config/nginx /etc/
+cp -r "$DEPLOYMENT_HOME/config/nginx" /etc/
 
-cp $DEPLOYMENT_HOME/config/maintenance_off.html /usr/share/nginx/html/
+cp "$DEPLOYMENT_HOME/config/maintenance_off.html" /usr/share/nginx/html/
 
 systemctl enable nginx
 systemctl restart nginx
