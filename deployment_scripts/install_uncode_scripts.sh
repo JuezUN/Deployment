@@ -10,6 +10,6 @@ fi
 echo "Installing UNCode scripts to manage the server"
 
 chmod +x $DEPLOYMENT_HOME/uncode_scripts/uncode*
-cp "$DEPLOYMENT_HOME/uncode_scripts/uncode*" /usr/bin
+cp $DEPLOYMENT_HOME/uncode_scripts/uncode* /usr/bin
 
 echo "UNCode scripts installation successful"
