@@ -19,7 +19,7 @@ sudo chown agent:agent /var/www/INGInious
 sudo systemctl start docker_agent && sudo systemctl start mcq_agent
 
 # Install the UNCode scripts related to the agent
-chmod +x "$DEPLOYMENT_HOME/uncode_scripts/uncode*"
+chmod +x $DEPLOYMENT_HOME/uncode_scripts/uncode*
 sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_agent_restart" /usr/bin
 sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_update_server" /usr/bin
 sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_process_after_reboot" /usr/bin

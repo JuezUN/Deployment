@@ -4,9 +4,9 @@
 
 echo "Installing the UNCode dependencies"
 
-chmod +x "$DEPLOYMENT_HOME/*.sh"
-chmod +x "$DEPLOYMENT_HOME/deployment_scripts/*.sh"
-chmod +x "$DEPLOYMENT_HOME/tools_host/*.sh"
+chmod +x $DEPLOYMENT_HOME/*.sh
+chmod +x $DEPLOYMENT_HOME/deployment_scripts/*.sh
+chmod +x $DEPLOYMENT_HOME/tools_host/*.sh
 
 bash "$DEPLOYMENT_HOME/deployment_scripts/install_basic_dependencies.sh"
 sudo bash "$DEPLOYMENT_HOME/deployment_scripts/install_mongodb.sh"
