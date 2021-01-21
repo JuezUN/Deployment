@@ -11,7 +11,7 @@ unzip /tmp/test_course.zip -d /tmp/test_course
 
 # Move test course to the tasks directory
 sudo mv /tmp/test_course/test /var/www/INGInious/tasks
-sudo chmod -R lighttpd:lighttpd /var/www/INGInious/tasks
+sudo chown -R lighttpd:lighttpd /var/www/INGInious/tasks
 
 # Remove downloaded files
 rm /tmp/test_course.zip

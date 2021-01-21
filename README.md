@@ -60,7 +60,7 @@ These steps will deploy the frontend services and the services to run submission
 
 12. Execute the script `./run.sh`.
 
-13. (Optional) Now you will access to UNCode in the specified domain name or IP. In case you want to download a test course and set it up, run: `./add_test_course.sh`.
+13. (Optional) Now you will access to UNCode in the specified domain name or IP. In case you want to download a test course and set it up, run: `./deployment_scripts/add_test_course.sh`.
 
 ### Deploy linter and python tutor
 

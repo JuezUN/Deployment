@@ -19,6 +19,7 @@ docker tag unjudge/opt-cpp-backend:latest pgbovine/opt-cpp-backend:v1
 
 mkdir -p /opt/tutor
 cd /opt/tutor/
+rm -rf /opt/tutor/OnlinePythonTutor/
 git clone https://github.com/JuezUN/OnlinePythonTutor.git
 cd /opt/tutor/OnlinePythonTutor/v4-cokapi
 

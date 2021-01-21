@@ -50,7 +50,11 @@ sudo $DEPLOYMENT_HOME/deployment_scripts/add_grader_server.sh
     
     To check the IP of the main server, run `hostname -I | awk 'NR==1{print $1}'`.
 
-5. Install the agent prerequisites with `$DEPLOYMENT_HOME/agent/grader-host/agent_prerequisites.sh`
+5. Install the agent prerequisites with
+
+    ```bash
+    $DEPLOYMENT_HOME/agent/grader-host/agent_prerequisites.sh
+    ```
 
 6. Disable selinux
 
@@ -64,7 +68,7 @@ sudo $DEPLOYMENT_HOME/deployment_scripts/add_grader_server.sh
     
     Make sure the `backend` service is running in the main server and you can see the its host.
 
-8. To verify that the deployment was successful, check the logs on the machine where the `backend service is running and verify that it registered the agents you just deployed. It should look something like the following lines, which indicate that the agents said 'hello' to the backend and everything is ready to use.
+8. To verify that the deployment was successful, check the logs on the machine where the `backend` service is running and verify that it registered the agents you just deployed. It should look something like the following lines, which indicate that the agents said 'hello' to the backend and everything is ready to use.
 
     ```bash
     $ journalctl -b -u backend | grep hello

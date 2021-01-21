@@ -4,7 +4,7 @@ The tools machine can be independently deployed and scaled without disturbing th
 
 ## Steps to deploy the tools host
 
-1. Have a machine with CentOS 7 and git installed `sudo yum install git`. 
+1. Have a machine with CentOS 7 and git installed `sudo yum install -y git`. 
 
 2. Clone the deployment repository `git clone https://github.com/JuezUN/Deployment.git`.
 
