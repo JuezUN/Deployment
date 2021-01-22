@@ -2,6 +2,7 @@ version: "3"
 
 services:
   linter-service:
+    container_name: uncode_linter_service
     image: unjudge/linter-web-service
     ports:
       - "${LINTER_PORT}:4567"
@@ -12,6 +13,7 @@ services:
           memory: 1000M # Limit memory usage to 1GB
           cpus: "1" # Set a custom cpu usage
   python-tutor:
+    container_name: uncode_tutor_service
     image: unjudge/onlinepythontutor
     environment:
       - "COKAPI_ENDPOINT=${UNCODE_DOMAIN}/cokapi" # Update with the correct domain or IP where python tutor is deployed

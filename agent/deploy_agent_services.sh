@@ -30,6 +30,15 @@ chown agent:agent /usr/local/bin/mcq_agent.sh
 cp "$DEPLOYMENT_HOME/agent/units/docker_agent.service" "/etc/systemd/system"
 cp "$DEPLOYMENT_HOME/agent/units/mcq_agent.service" "/etc/systemd/system"
 
+# Set proxy in case it is present
+if [ -n "$http_proxy" ]
+then
+    echo -e "http_proxy=\"$http_proxy\"" | sudo tee -a /etc/sysconfig/agents_env.conf
+    echo -e "https_proxy=\"$https_proxy\"" | sudo tee -a /etc/sysconfig/agents_env.conf
+    echo -e "HTTP_PROXY=\"$HTTP_PROXY\"" | sudo tee -a /etc/sysconfig/agents_env.conf
+    echo -e "HTTPS_PROXY=\"$HTTPS_PROXY\"" | sudo tee -a /etc/sysconfig/agents_env.conf
+fi
+
 chmod 664 /etc/systemd/system/docker_agent.service
 chmod 664 /etc/systemd/system/mcq_agent.service
 

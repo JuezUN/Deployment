@@ -34,8 +34,13 @@ The tools machine can be independently deployed and scaled without disturbing th
 
 8. Logout and log back in to the server so that the user can use mongo and docker without `sudo`.
 
-9. Run the command `./tools_host/run.sh` to deploy the linter, python tutor, cokapi and nginx services.
+9. Edit the file `./tools_host/config/nginx/uncode_tools.conf` adding the machine IP or domain name. Also, you may want to allow some specific IPs which can do requests to this server.
 
-10. Edit the file `/etc/nginx/conf.d/uncode_tools.conf` adding the machine IP or domain name. Also, you may want to allow some specific IPs which can do requests to this server.
+10. Run the command `./tools_host/run.sh` to deploy the linter, python tutor, cokapi and nginx services.
 
-11. Restart Nginx to load changes: `sudo service nginx restart`.
+11. Test the tools that they are working from UNCode.
+
+## Common Problems
+
+- Check the firewall rules. See the [documentation](firewall.md) we have wrote about this to allow some ports and services. See that the `http` service is available, otherwise set this service.
+- See if you are behind a proxy. See the [documentation](../proxy.md) for more information, to setup docker for example.
