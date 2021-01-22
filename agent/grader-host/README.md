@@ -79,5 +79,5 @@ sudo $DEPLOYMENT_HOME/deployment_scripts/add_grader_server.sh
 
 ## Common Problems
 
-- Check the firewall rules. See the [documentation](firewall.md) we have wrote about this to allow some ports and services.
+- Check the firewall rules. See the [documentation](../../firewall.md) we have wrote about this to allow some ports and services.
 - See if you are behind a proxy. See the [documentation](../../proxy.md) for more information, to setup docker for example.
