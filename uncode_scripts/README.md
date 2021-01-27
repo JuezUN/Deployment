@@ -82,7 +82,7 @@ uncode_tutor_restart
 
 ## uncode_tools_restart
 
-This command is used to **update and restart** the linter python tutor related web services.
+This command is used to **update and restart** the linter and python tutor related web services.
 
 Usage:
 
@@ -97,7 +97,7 @@ This command updates the server with latest version of UNCode tools containers f
 Usage:
 
 ```bash
-uncode_update_containers
+uncode_update_tools
 ```
 
 ## uncode_database_backup
@@ -243,7 +243,7 @@ After installing the new packages, it restarts the webapp to make the server wor
 
 ## uncode_update_containers
 
-This command updates the server with latest version of UNCode grading containers.
+This command updates the server with the latest version of UNCode grading containers.
 
 Usage:
 
