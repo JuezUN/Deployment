@@ -1,19 +1,25 @@
 #!/bin/bash
 
 echo "Pulling grading containers"
-echo "Pulling base container"
 
+echo "Pulling base container"
 docker pull unjudge/inginious-c-base
+
 echo "Pulling default container"
 docker pull unjudge/inginious-c-default
+
 echo "Pulling uncode base container"
 docker pull unjudge/uncode-c-base
+
 echo "Pulling multilang container"
 docker pull unjudge/inginious-c-multilang
+
 echo "Pulling datascience container"
 docker pull unjudge/inginious-c-datascience
+
 echo "Pulling hdl container"
 docker pull unjudge/hdl-uncode
+
 echo "Pulling notebook container"
 docker pull unjudge/inginious-c-notebook
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo -e "Installing Docker\n"
+
 sudo yum check-update
 
 curl -fsSL https://get.docker.com/ | sh

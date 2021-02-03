@@ -1,5 +1,5 @@
 [Unit]
-Description=MCQ Agent - Multiple Choice Questions Agent - grades MCQs  
+Description=MCQ Agent - Grades Multiple Choice Questions (MCQs)
 StartLimitBurst=300
 StartLimitIntervalSec=600
 After=network.target
@@ -8,7 +8,7 @@ After=docker.service
 [Service]
 User=agent
 Group=agent
-EnvironmentFile=/etc/sysconfig/inginious_agents.conf
+EnvironmentFile=/etc/sysconfig/agents_env.conf
 WorkingDirectory=/var/www/INGInious/
 ExecStart=/usr/local/bin/mcq_agent.sh
 Restart=always

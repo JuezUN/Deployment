@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Updating tools containers"
+docker pull unjudge/linter-web-service
+docker pull unjudge/onlinepythontutor
+
+docker pull unjudge/opt-cpp-backend
+docker tag unjudge/opt-cpp-backend:latest pgbovine/opt-cpp-backend:v1

@@ -2,7 +2,7 @@
 
 #!/bin/bash
 
-#update server with latest version of UNcode's INGInious, a branch can also be specified to the script via the -b tag
+# Update server with latest version of UNCode. A branch can also be specified to the script via the `-b` tag
 
 BRANCH=""
 while getopts "b:" opt; do
@@ -25,12 +25,12 @@ uncode_update_containers
 
 if [ -n "$BRANCH" ]
 then
-    sudo -H pip3.5 install --upgrade "git+https://github.com/JuezUN/INGInious.git@$BRANCH"
+    sudo -H pip3.6 install --upgrade "git+https://github.com/JuezUN/INGInious.git@$BRANCH"
 else
-    sudo -H pip3.5 install --upgrade git+https://github.com/JuezUN/INGInious.git
+    sudo -H pip3.6 install --upgrade git+https://github.com/JuezUN/INGInious.git
 fi
 
-sudo npm install --prefix /usr/lib/python3.5/site-packages/inginious/frontend/plugins/problem_bank/react_app/
-sudo npm run build --prefix /usr/lib/python3.5/site-packages/inginious/frontend/plugins/problem_bank/react_app/
+sudo npm install --prefix /usr/local/lib/python3.6/site-packages/inginious/frontend/plugins/problem_bank/react_app/
+sudo npm run build --prefix /usr/local/lib/python3.6/site-packages/inginious/frontend/plugins/problem_bank/react_app/
 
 uncode_webapp_restart

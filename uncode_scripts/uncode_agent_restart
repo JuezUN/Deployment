@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Restarting docker_agent and mcq_agent services..."
+
+sudo service docker_agent restart
+sudo service mcq_agent restart
+
+echo "The services were successfully restarted."

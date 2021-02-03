@@ -1,12 +1,6 @@
 #!/bin/bash
 
-# Starts the mcq-agent module from inginious
-set -e
+# Service mcq_agent starts the `inginious-agent-mcq` program to run submissions
 
-if [ -z "$BACKEND_HOST" ]
-then
-    echo -e "$(tput setaf 1)Variable BACKEND_HOST not defined $(tput sgr0)"
-    exit 1
-fi
-
-inginious-agent-mcq tcp://$BACKEND_HOST:2001
+# The first parameter is the backendhost IP set in the `/etc/hosts` file
+inginious-agent-mcq tcp://$(grep backendhost < /etc/hosts | awk 'NR==1{print $1}'):2001

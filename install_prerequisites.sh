@@ -1,17 +1,20 @@
 #!/bin/bash
 
-#this script installs the prerequisites needed to run the Judge
+# This script installs the prerequisites needed to run the UNCode webapp
 
-#install INGInious dependencies
-chmod +x *.sh
-chmod +x deployment_scripts/*.sh
-bash deployment_scripts/install_basic_dependencies.sh
-sudo bash deployment_scripts/install_mongodb.sh
-bash deployment_scripts/install_node.sh
-sudo bash install_uncode_scripts.sh
+echo "Installing the UNCode dependencies"
 
-echo "installing nginx + lighttpd with fastcgi"
-bash deployment_scripts/install_nginx.sh
-bash deployment_scripts/install_lighttpd.sh
+chmod +x $DEPLOYMENT_HOME/*.sh
+chmod +x $DEPLOYMENT_HOME/deployment_scripts/*.sh
+chmod +x $DEPLOYMENT_HOME/tools_host/*.sh
+
+bash "$DEPLOYMENT_HOME/deployment_scripts/install_basic_dependencies.sh"
+sudo bash "$DEPLOYMENT_HOME/deployment_scripts/install_mongodb.sh"
+sudo bash "$DEPLOYMENT_HOME/deployment_scripts/install_node.sh"
+sudo bash "$DEPLOYMENT_HOME/deployment_scripts/install_uncode_scripts.sh"
+
+echo -e "Installing Nginx and Lighttpd with fastcgi\n"
+bash "$DEPLOYMENT_HOME/deployment_scripts/install_nginx.sh"
+bash "$DEPLOYMENT_HOME/deployment_scripts/install_lighttpd.sh"
 
 echo -e "\n\n$(tput setaf 3)Please logout and back in to finish the Docker installation $(tput sgr0)"

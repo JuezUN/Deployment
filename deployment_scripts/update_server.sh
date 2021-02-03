@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#update server with latest version of UNcode's INGInious, a branch can also be specified to the script via the -b tag
+# Update server with latest version of UNCode, a branch can also be specified to the script via the -b tag
 
 BRANCH=""
 while getopts "b:" opt; do
@@ -21,7 +21,7 @@ done
 
 if [ -n "$BRANCH" ]
 then
-    sudo -H pip3.5 install --upgrade "git+https://github.com/JuezUN/INGInious.git@$BRANCH"
+    sudo -H pip3.6 install --upgrade "git+https://github.com/JuezUN/INGInious.git@$BRANCH"
 else
-    sudo -H pip3.5 install --upgrade git+https://github.com/JuezUN/INGInious.git
+    sudo -H pip3.6 install --upgrade git+https://github.com/JuezUN/INGInious.git
 fi

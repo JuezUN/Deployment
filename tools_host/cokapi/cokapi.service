@@ -1,5 +1,5 @@
 [Unit]
-Description=Cokapi - Pythontutor backend for C++ and other languages
+Description=Cokapi service - Python Tutor backend for C++ and other languages
 StartLimitBurst=300
 StartLimitIntervalSec=600
 After=network.target

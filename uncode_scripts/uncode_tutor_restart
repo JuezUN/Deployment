@@ -2,15 +2,17 @@
 
 cd $DEPLOYMENT_HOME
 
-#Restart and update docker container
+# Restart and update python tutor
+
 echo "Updating and restarting python-tutor..."
 docker pull unjudge/onlinepythontutor
 docker pull unjudge/opt-cpp-backend
 docker-compose --compatibility up -d --no-deps python-tutor
 docker-compose --compatibility restart python-tutor
 
-echo "python-tutor restarted successfully and images is up to date."
+echo "Python tutor restarted successfully and images are up to date."
 
-#Restart cokapi service
+# Restart cokapi service
 sudo service cokapi restart
-echo "Tutor (python-tutor + cokapi) restarted successfully"
+
+echo "Tutor Cokapi service restarted successfully"

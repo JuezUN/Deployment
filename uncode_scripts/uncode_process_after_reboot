@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#update server with latest container images.
+# Set environment variables, updates the containers and restarts the webapp
 
 cd $DEPLOYMENT_HOME
 

@@ -1,12 +1,8 @@
 #!/bin/bash
 
-# Starts the docker-agent module from inginious
-set -e
+# Service docker_agent starts the `inginious-agent-docker` program to run submissions
 
-if [ -z "$BACKEND_HOST" ]
-then
-    echo -e "$(tput setaf 1)Variable BACKEND_HOST not defined $(tput sgr0)"
-    exit 1
-fi
+# The first parameter is the backendhost IP and the second parameter is the concurrency which indicates how many
+# cores will run submission concurrently.
 
-inginious-agent-docker tcp://$BACKEND_HOST:2001
+inginious-agent-docker tcp://$(grep backendhost < /etc/hosts | awk 'NR==1{print $1}'):2001 --concurrency $(($(nproc) - 1)) --debug-host $(hostname -I | awk 'NR==1{print $1}')

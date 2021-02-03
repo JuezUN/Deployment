@@ -3,20 +3,11 @@ backup_directory: /var/www/INGInious/backup
 
 local-config:
     tmp_dir: /var/www/INGInious/tmp
-    concurrency: 6 # Equal to the number of cores
 
 log_level: WARNING # INFO or DEBUG
 
-smtp:
-    sendername: <sender_email>
-    host: smtp.gmail.com
-    port: 587
-    username: <your_user_name>
-    password: <your_user_password>
-    starttls: true
-
 mongo_opt:
-    database: INGInious
+    database: UNCode
     host: localhost
 superadmins:
 - superadmin
@@ -30,17 +21,12 @@ plugins:
     python_tutor_url: "http://<domain>/tutor/"
     use_wavedrom: True
   - plugin_module: inginious.frontend.plugins.grader_generator
-  - plugin_module: inginious.frontend.plugins.custom_input
   - plugin_module: inginious.frontend.plugins.UN_template
   - plugin_module: inginious.frontend.plugins.problem_bank
   - plugin_module: inginious.frontend.plugins.UNCode
     used_grading_environments: ["multiple_languages", "HDL", "Data Science", "Notebook"]
     used_subproblem_types: ["code_multiple_languages", "code_file_multiple_languages", "notebook_file"]
   - plugin_module: inginious.frontend.plugins.register_students
-  - plugin_module: inginious.frontend.plugins.auth.google_auth
-    id: "google_auth"
-    client_id: "<your_google_secret_id>"
-    client_secret: "<your_google_secret_key>"
   - plugin_module: inginious.frontend.plugins.task_cache
   - plugin_module: inginious.frontend.plugins.plagiarism
   - plugin_module: inginious.frontend.plugins.code_preview
