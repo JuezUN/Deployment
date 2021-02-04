@@ -14,21 +14,22 @@ Here is explained the step by step to install the components to monitor the serv
 
    ```bash
    chmod +x monitoring/*.sh
+   chmod +x monitoring/*/*.sh
    ```
 
-2. Modify the environmental variable `MONITOR_PATH` with the path where you want to install the monitoring services. To do so, modify the file `$DEPLOYMENT_PATH/monitoring/setup_monitoring_environment.sh`.
+2. Modify the environmental variable `MONITOR_PATH` with the path where you want to install the monitoring services. To do so, modify the file `$DEPLOYMENT_HOME/monitoring/setup_monitoring_environment.sh`.
 
-3. Run the command `$DEPLOYMENT_PATH/monitoring/setup_monitoring_environment.sh` to set the environment variables.
+3. Run the command `$DEPLOYMENT_HOME/monitoring/setup_monitoring_environment.sh` to set the environment variables.
 
 4. Disable selinux
 
-   `sudo $DEPLOYMENT_PATH/deployment_scripts/disable_selinux.sh`
+   `sudo $DEPLOYMENT_HOME/deployment_scripts/disable_selinux.sh`
 
    *Running this command will cause the server to restart automatically so that the changes are applied*
 
-5. Install monitoring services `$DEPLOYMENT_PATH/monitoring/install_monitoring_services.sh`
-6. Install monitoring panel `$DEPLOYMENT_PATH/monitoring/install_monitoring_panel.sh`
-7. (Optional) Install nginx `$DEPLOYMENT_PATH/monitoring/deploy_nginx_server_monitoring.sh`
+5. Install monitoring services `$DEPLOYMENT_HOME/monitoring/install_monitoring_services.sh`
+6. Install monitoring panel `$DEPLOYMENT_HOME/monitoring/install_monitoring_panel.sh`
+7. (Optional) Install nginx `$DEPLOYMENT_HOME/monitoring/deploy_nginx_server_monitoring.sh`
 
 For other servers
 
@@ -38,18 +39,18 @@ For other servers
    chmod +x monitoring/*.sh
    ```
 
-2. Modify the environmental variable `MONITOR_PATH` with the path where you want to install the monitoring services. To do so, modify the file `$DEPLOYMENT_PATH/monitoring/setup_monitoring_environment.sh`.
+2. Modify the environmental variable `MONITOR_PATH` with the path where you want to install the monitoring services. To do so, modify the file `$DEPLOYMENT_HOME/monitoring/setup_monitoring_environment.sh`.
 
-3. Run the command `$DEPLOYMENT_PATH/monitoring/setup_monitoring_environment.sh` to set the environment variables.
+3. Run the command `$DEPLOYMENT_HOME/monitoring/setup_monitoring_environment.sh` to set the environment variables.
 
 4. Disable selinux
 
-   `sudo $DEPLOYMENT_PATH/deployment_scripts/disable_selinux.sh`
+   `sudo $DEPLOYMENT_HOME/deployment_scripts/disable_selinux.sh`
 
    *Running this command will cause the server to restart automatically so that the changes are applied*
 
-5. Install monitoring services `$DEPLOYMENT_PATH/monitoring/install_monitoring_services.sh`
-6. Install nginx `$DEPLOYMENT_PATH/monitoring/deploy_nginx_server_monitoring.sh`
+5. Install monitoring services `$DEPLOYMENT_HOME/monitoring/install_monitoring_services.sh`
+6. Install nginx `$DEPLOYMENT_HOME/monitoring/deploy_nginx_server_monitoring.sh`
 7. Update prometheus config in main server
 
 ## Additional Configuration

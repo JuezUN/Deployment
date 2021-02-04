@@ -22,7 +22,7 @@ echo "##########################################################################
 ## PROMETHEUS ###
 #################
 
-sudo $DEPLOYMENT_PATH/monitoring/prometheus/install_prometheus.sh
+sudo $DEPLOYMENT_HOME/monitoring/prometheus/install_prometheus.sh
 
 echo "##################################################################################"
 
@@ -30,7 +30,7 @@ echo "##########################################################################
 #### GRAFANA ####
 #################
 
-sudo $DEPLOYMENT_PATH/monitoring/grafana/install_grafana.sh
+sudo $DEPLOYMENT_HOME/monitoring/grafana/install_grafana.sh
 
 echo "##################################################################################"
 echo "ADDITIONAL INFORMATION"

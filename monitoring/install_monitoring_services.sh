@@ -28,7 +28,7 @@ echo "##########################################################################
 # NODE EXPORTER #
 #################
 
-sudo $DEPLOYMENT_PATH/monitoring/node-exporter/install_node_exporter_service.sh
+sudo $DEPLOYMENT_HOME/monitoring/node-exporter/install_node_exporter_service.sh
 
 echo "##################################################################################"
 
@@ -36,7 +36,7 @@ echo "##########################################################################
 #### CADVISOR ###
 #################
 
-sudo $DEPLOYMENT_PATH/monitoring/cadvisor/install_c_advisor_service.sh
+sudo $DEPLOYMENT_HOME/monitoring/cadvisor/install_c_advisor_service.sh
 
 echo "##################################################################################"
 
@@ -44,9 +44,9 @@ echo "##########################################################################
 # DOCKER METRICS#
 #################
 if [ ! -f /etc/docker/daemon.json ];then
-  sed 's@SERVER_IP@'${SERVER_IP}'@g;s@DMETRICS_PORT@'${DMETRICS_PORT}'@g' $DEPLOYMENT_PATH/monitoring/docker/daemon.json > /etc/docker/daemon.json
+  sed 's@SERVER_IP@'${SERVER_IP}'@g;s@DMETRICS_PORT@'${DMETRICS_PORT}'@g' $DEPLOYMENT_HOME/monitoring/docker/daemon.json > /etc/docker/daemon.json
   systemctl restart docker
 else
   echo "Add to /etc/docker/daemon.json and restart docker service"
-  cat $DEPLOYMENT_PATH/monitoring/docker/daemon.json
+  cat $DEPLOYMENT_HOME/monitoring/docker/daemon.json
 fi
