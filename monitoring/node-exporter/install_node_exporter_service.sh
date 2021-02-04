@@ -10,8 +10,8 @@ rm -rf ${MONITOR_PATH}/node_exporter-${NODE_V}.linux-amd64.tar.gz
 echo "Creating node_exporter linux service"
 sed 's@MONITOR_PATH@'${MONITOR_PATH}'@g' $DEPLOYMENT_HOME/monitoring/node-exporter/node_exporter.service > /etc/systemd/system/node_exporter.service
 systemctl daemon-reload
-systemctl start node_exporter
 systemctl enable node_exporter
+systemctl start node_exporter
 
 echo "Estado node_exporter"
 systemctl status node_exporter

@@ -3,7 +3,7 @@
 cd MONITOR_PATH/cadvisor
 
 echo "Starting cadvisor"
-docker-compose up -d 
+/usr/local/bin/docker-compose up -d
 if [ $? -eq 0 ];then
   echo "cAdvisor started successfully"
 else
