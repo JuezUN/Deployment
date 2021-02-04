@@ -8,8 +8,8 @@ CADVISOR_PORT="9101"
 DMETRICS_PORT="9102"
 
 echo "Downloading Prometheus version ${PROM_V}"
-su - prometheus -c "cd ${MONITOR_PATH}; wget https://github.com/prometheus/prometheus/releases/download/v${PROM_V}/prometheus-${PROM_V}.linux-amd64.tar.gz"
-su - prometheus -c "cd ${MONITOR_PATH}; tar -zxvf prometheus-${PROM_V}.linux-amd64.tar.gz; mv prometheus-${PROM_V}.linux-amd64 prometheus"
+su - monitoring -c "cd ${MONITOR_PATH}; wget https://github.com/prometheus/prometheus/releases/download/v${PROM_V}/prometheus-${PROM_V}.linux-amd64.tar.gz"
+su - monitoring -c "cd ${MONITOR_PATH}; tar -zxvf prometheus-${PROM_V}.linux-amd64.tar.gz; mv prometheus-${PROM_V}.linux-amd64 prometheus"
 
 sed 's@GRAFANA_PORT@'${GRAFANA_PORT}'@g;s@SERVER_IP@'${SERVER_IP}'@g;s@CADVISOR_PORT@'${CADVISOR_PORT}'@g;s@DMETRICS_PORT@'${DMETRICS_PORT}'@g' $DEPLOYMENT_HOME/monitoring/prometheus/prometheus.yml > ${MONITOR_PATH}/prometheus/prometheus.yml
 rm -rf ${MONITOR_PATH}/prometheus-${PROM_V}.linux-amd64.tar.gz
