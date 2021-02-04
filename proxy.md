@@ -24,7 +24,7 @@ When you run services using systemd, each service has its own environment variab
 - ### Docker proxy
 
   You can see how to configure this service on the following [tutorial](https://docs.docker.com/config/daemon/systemd/#httphttps-proxy).
-
+  This tutorial sets the proxy for the docker daemon, however, to make the proxy available inside the containers, follow this [tutorial to configure the docker client](https://docs.docker.com/network/proxy/). 
 
 - ### Lighttpd proxy
 
