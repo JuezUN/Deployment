@@ -7,6 +7,10 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+chmod +x $DEPLOYMENT_HOME/deployment_scripts/*.sh
+
+$DEPLOYMENT_HOME/deployment_scripts/install_nginx.sh
+
 rm -rf /etc/nginx
 cp -r "$DEPLOYMENT_HOME/config/nginx" /etc/
 

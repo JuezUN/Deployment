@@ -1,7 +1,6 @@
 #!/usr/bin/bash
 
 CADVISOR_V="v0.35.0"
-CADVISOR_PORT="9101"
 
 mkdir ${MONITOR_PATH}/cadvisor
 

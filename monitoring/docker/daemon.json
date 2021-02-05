@@ -1,5 +1,5 @@
 {
-  "metrics-addr" : "SERVER_IP:DMETRICS_PORT",
+  "metrics-addr" : "localhost:DMETRICS_PORT",
   "experimental" : true
 }
 

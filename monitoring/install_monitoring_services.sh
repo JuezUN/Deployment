@@ -1,8 +1,5 @@
 #!/usr/bin/bash
 
-SERVER_IP=$(hostname -I | awk 'NR==1{print $1}')
-DMETRICS_PORT="9102"
-
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
   exit 2
@@ -21,6 +18,8 @@ then
 fi
 
 chown monitoring ${MONITOR_PATH}
+
+sudo yum install -y wget
 
 echo "##################################################################################"
 
@@ -44,7 +43,7 @@ echo "##########################################################################
 # DOCKER METRICS#
 #################
 if [ ! -f /etc/docker/daemon.json ];then
-  sed 's@SERVER_IP@'${SERVER_IP}'@g;s@DMETRICS_PORT@'${DMETRICS_PORT}'@g' $DEPLOYMENT_HOME/monitoring/docker/daemon.json > /etc/docker/daemon.json
+  sed 's@DMETRICS_PORT@'${DMETRICS_PORT}'@g' $DEPLOYMENT_HOME/monitoring/docker/daemon.json > /etc/docker/daemon.json
   systemctl restart docker
 else
   echo "Add to /etc/docker/daemon.json and restart docker service"
