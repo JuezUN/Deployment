@@ -5,6 +5,8 @@ if [ "$EUID" -ne 0 ]
   exit 2
 fi
 
+chmod +x monitoring/*/*.sh
+
 ###### CONFIG ######
 
 # Monitoring user

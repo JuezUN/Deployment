@@ -5,6 +5,8 @@ if [ "$EUID" -ne 0 ]
   exit 2
 fi
 
+chmod +x monitoring/*/*.sh
+
 # Monitoring user
 echo "Creating user 'monitoring'"
 sudo useradd -m -s /bin/bash monitoring
