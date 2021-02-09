@@ -20,20 +20,20 @@ scrape_configs:
   - job_name: 'node-exporter'
     metrics_path: "/node_exporter/metrics"
     static_configs:
-      - targets: ['localhost:9100']
+      - targets: ['SERVER_IP']
         labels:
           instance: 'main'
 
   - job_name: 'cadvisor'
     metrics_path: "/c_advisor/metrics"
     static_configs:
-      - targets: ['localhost:CADVISOR_PORT']
+      - targets: ['SERVER_IP']
         labels:
           instance: 'main'
 
   - job_name: 'docker'
     metrics_path: "/docker/metrics"
     static_configs:
-      - targets: ['localhost:DMETRICS_PORT']
+      - targets: ['SERVER_IP']
         labels:
           instance: 'main'

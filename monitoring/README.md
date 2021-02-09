@@ -9,7 +9,7 @@ The structure of the components that make possible the monitoring are shown belo
 
 ![Monitor Structure](assets/monitoring_architecture.png)
 
-Prometheus collects the data from Node Exporter, cAdvisor and Docker Metrics services. These three services are deployed in all server that you want to monitor and collect metrics, for instance, grader or tools hosts.
+Prometheus collects the data from Node Exporter, cAdvisor and Docker Metrics services. These three services are deployed in all servers that you want to monitor and collect metrics from, for instance, grader or tools hosts.
 Prometheus will be deployed in the main server, and this will be configured to collect the metrics from all servers. Grafana is the service which faces internet and will be only accessible to admin users in the path `/monitoring`. Grafana shows the information from Prometheus through Dashboards, where you can also send Alerts via [email](https://grafana.com/docs/grafana/latest/alerting/notifications/#email) or via [Slack webhook](https://grafana.com/docs/grafana/latest/alerting/notifications/#slack).
 Thus, you will have to install only some few services to monitor additional server whenever you add new ones to the infrastructure.
 
@@ -65,44 +65,43 @@ Here is explained the step by step to install the components to monitor the serv
 Here you have to add a new target for the different jobs in prometheus (node-exporter, docker, c-advisor), where a target is the IP of this server. Additionally, set a label to this IP so you can query the metrics of this server from grafana using the given label.
 Here is shown a example of how to add this target to the file, where the target with IP `35.226.138.8` is added to prometheus, so this server can be queried.
 
-```
-  - job_name: 'node-exporter'
-    metrics_path: "/node_exporter/metrics"
-    static_configs:
-      - targets: ['localhost:9100']
-        labels:
-          instance: 'main'
-      - targets: ['35.226.138.8'] # Another target in case you want to monitor another server, for example another grader or the tools server.
-        labels:
-          instance: 'grader-1'# Change label
-  - job_name: 'c-advisor'
-    metrics_path: /c_advisor/metrics
-    static_configs:
-      - targets: ['localhost:9101']
-        labels:
-          instance: 'main'
-      - targets: ['35.226.138.8'] # Add the remote server you want to monitor
-      labels:
-          instance: 'grader-1' # Change label
-  - job_name: 'docker'
-    metrics_path: /docker/metrics
-    static_configs:
-      - targets: ['localhost:9102']
-        labels:
-          instance: 'main'
-      - targets: ['35.226.138.8'] # Add the remote server you want to monitor
-      labels:
-          instance: 'grader-1' # Change label
+```yaml
+- job_name: 'node-exporter'
+metrics_path: "/node_exporter/metrics"
+static_configs:
+  - targets: ['168.1.x.x'] # This is the IP of the main server
+    labels:
+      instance: 'main'
+  - targets: ['35.226.138.8'] # Another target in case you want to monitor another server, for example another grader or the tools server.
+    labels:
+      instance: 'grader-1'# Change label
+- job_name: 'c-advisor'
+metrics_path: /c_advisor/metrics
+static_configs:
+  - targets: ['168.1.x.x'] # This is the IP of the main server
+    labels:
+      instance: 'main'
+  - targets: ['35.226.138.8'] # Add the remote server you want to monitor
+  labels:
+      instance: 'grader-1' # Change label
+- job_name: 'docker'
+metrics_path: /docker/metrics
+static_configs:
+  - targets: ['168.1.x.x'] # This is the IP of the main server
+    labels:
+      instance: 'main'
+  - targets: ['35.226.138.8'] # Add the remote server you want to monitor
+  labels:
+      instance: 'grader-1' # Change label
 ```
 
-After that, restart prmetheus to load changes: `sudo service prometheus restart`.
+After that, restart prometheus to load changes: `sudo service prometheus restart`.
 
 8. In case this is the main server, follow next steps
 
 ### Install control panel and prometheus
 
 Follow these steps only in the main server, which already contains the front end and the main services.
-
 
 1. Modify the var `GRAFANA_DOMAIN` in the file `$DEPLOYMENT_HOME/monitoring/grafana/install_grafana.sh` with the domain where grafana is hosted.
 
