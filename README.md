@@ -142,6 +142,10 @@ Mongo express is a service deployed with docker to graphically access to the Mon
 
 4. You will access Mongo Express in the path `/mongo_express` from your browser.
 
+### Install monitoring services
+
+In order to have a constant monitoring of your different server and services, it is very useful to install a control panel, as well as some services that constantly collect metrics from them. In case you want to install monitoring services, go to the [Monitoring documentation](monitoring/README.md).
+
 ## Configuration
 
 ### Configuration.yaml

@@ -11,7 +11,8 @@ Restart=on-failure
 #Prometheus on different path user
 ExecStart=MONITOR_PATH/prometheus/prometheus \
   --config.file=MONITOR_PATH/prometheus/prometheus.yml \
-  --storage.tsdb.path=MONITOR_PATH/prometheus/data
+  --storage.tsdb.path=MONITOR_PATH/prometheus/data \
+  --storage.tsdb.retention.time=1y
 
 [Install]
 WantedBy=multi-user.target
