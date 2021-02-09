@@ -16,7 +16,7 @@ The tools machine can be independently deployed and scaled without disturbing th
    chmod +x deployment_scripts/*.sh
    ```
 
-4. Modify the the environmental variable `UNCODE_DOMAIN` with the correct UNCode domain or IP. To do so, modify the file `env.sh`.
+4. Modify the environmental variable `UNCODE_DOMAIN` with the correct UNCode domain or IP. To do so, modify the file `env.sh`.
 
 5. Run the command `./setup_environment.sh && source env.sh` to set the environment variables (such as proxy and ports used by the microservices).
 

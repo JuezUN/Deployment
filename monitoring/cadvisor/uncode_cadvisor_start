@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd MONITOR_PATH/cadvisor
+
+echo "Starting cadvisor"
+/usr/local/bin/docker-compose up -d
+if [ $? -eq 0 ];then
+  echo "cAdvisor started successfully"
+else
+  echo "A problem occured during the start of cAdvisor"
+fi

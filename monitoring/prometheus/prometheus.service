@@ -1,0 +1,18 @@
+[Unit]
+Description=Prometheus Server
+Documentation=https://prometheus.io/docs/introduction/overview/
+After=network-online.target
+
+[Service]
+User=monitoring
+Restart=on-failure
+
+#Change this line if you download the 
+#Prometheus on different path user
+ExecStart=MONITOR_PATH/prometheus/prometheus \
+  --config.file=MONITOR_PATH/prometheus/prometheus.yml \
+  --storage.tsdb.path=MONITOR_PATH/prometheus/data \
+  --storage.tsdb.retention.time=1y
+
+[Install]
+WantedBy=multi-user.target

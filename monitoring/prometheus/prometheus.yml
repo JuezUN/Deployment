@@ -1,0 +1,39 @@
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+        labels:
+          instance: 'main'
+
+  - job_name: 'grafana'
+    static_configs:
+      - targets: ['localhost:GRAFANA_PORT']
+        labels:
+          instance: 'main'
+
+  - job_name: 'node-exporter'
+    metrics_path: "/node_exporter/metrics"
+    static_configs:
+      - targets: ['SERVER_IP']
+        labels:
+          instance: 'main'
+
+  - job_name: 'cadvisor'
+    metrics_path: "/c_advisor/metrics"
+    static_configs:
+      - targets: ['SERVER_IP']
+        labels:
+          instance: 'main'
+
+  - job_name: 'docker'
+    metrics_path: "/docker/metrics"
+    static_configs:
+      - targets: ['SERVER_IP']
+        labels:
+          instance: 'main'
