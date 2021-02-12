@@ -15,8 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1601432910350,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -60,7 +59,7 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 2,
+        "w": 3,
         "x": 0,
         "y": 1
       },
@@ -102,7 +101,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "count(count(node_cpu_seconds_total{instance=\"SERVER_IP:9100\"}) by (cpu))",
+          "expr": "count(count(node_cpu_seconds_total{instance=\"main\", job=\"node-exporter\"}) by (cpu))",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -169,7 +168,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 2,
+        "x": 3,
         "y": 1
       },
       "id": 46,
@@ -186,10 +185,10 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "targets": [
         {
-          "expr": "(((count(count(node_cpu_seconds_total{instance=\"SERVER_IP:9100\"}) by (cpu))) - avg(sum by (mode)(irate(node_cpu_seconds_total{mode='idle',instance=\"SERVER_IP:9100\"}[5m])))) * 100) / count(count(node_cpu_seconds_total{instance=\"SERVER_IP:9100\"}) by (cpu))",
+          "expr": "(((count(count(node_cpu_seconds_total{instance=\"main\", job=\"node-exporter\"}) by (cpu))) - avg(sum by (mode)(irate(node_cpu_seconds_total{mode='idle',instance=\"main\", job=\"node-exporter\"}[5m])))) * 100) / count(count(node_cpu_seconds_total{instance=\"main\", job=\"node-exporter\"}) by (cpu))",
           "hide": false,
           "interval": "",
           "intervalFactor": 1,
@@ -231,7 +230,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 6,
+        "x": 7,
         "y": 1
       },
       "id": 42,
@@ -271,7 +270,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "(sum(node_filesystem_size_bytes{fstype=~\"xfs|ext4\",instance=\"SERVER_IP:9100\"}) - sum(node_filesystem_free_bytes{fstype=~\"xfs|ext4\",instance=\"SERVER_IP:9100\"}) )/ sum(node_filesystem_size_bytes{fstype=~\"xfs|ext4\",instance=\"SERVER_IP:9100\"})",
+          "expr": "(sum(node_filesystem_size_bytes{fstype=~\"xfs|ext4\",instance=\"main\", job=\"node-exporter\"}) - sum(node_filesystem_free_bytes{fstype=~\"xfs|ext4\",instance=\"main\", job=\"node-exporter\"}) )/ sum(node_filesystem_size_bytes{fstype=~\"xfs|ext4\",instance=\"main\", job=\"node-exporter\"})",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -295,6 +294,65 @@
       "valueName": "current"
     },
     {
+      "datasource": "Prometheus",
+      "description": "Time since the last boot",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 11,
+        "y": 1
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^uptime$/",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "pluginVersion": "7.3.4",
+      "targets": [
+        {
+          "expr": "time() - node_boot_time_seconds{instance=\"main\", job=\"node-exporter\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "uptime",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
       "dashboardFilter": "",
       "dashboardTags": [],
       "datasource": null,
@@ -306,13 +364,13 @@
       },
       "folderId": null,
       "gridPos": {
-        "h": 14,
-        "w": 4,
-        "x": 10,
+        "h": 8,
+        "w": 9,
+        "x": 14,
         "y": 1
       },
       "id": 8,
-      "limit": 10,
+      "limit": "100",
       "nameFilter": "",
       "onlyAlertsOnDashboard": true,
       "pluginVersion": "7.1.5",
@@ -352,7 +410,7 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 2,
+        "w": 3,
         "x": 0,
         "y": 3
       },
@@ -394,7 +452,7 @@
       "tableColumn": "RAM",
       "targets": [
         {
-          "expr": "node_memory_MemTotal_bytes{instance=\"SERVER_IP:9100\"}",
+          "expr": "node_memory_MemTotal_bytes{instance=\"main\", job=\"node-exporter\"}",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "RAM",
@@ -443,7 +501,7 @@
       },
       "gridPos": {
         "h": 2,
-        "w": 2,
+        "w": 3,
         "x": 0,
         "y": 5
       },
@@ -485,7 +543,7 @@
       "tableColumn": "SWAP",
       "targets": [
         {
-          "expr": "node_memory_SwapTotal_bytes{instance=\"SERVER_IP:9100\"}",
+          "expr": "node_memory_SwapTotal_bytes{instance=\"main\", job=\"node-exporter\"}",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "SWAP",
@@ -536,7 +594,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 2,
+        "x": 3,
         "y": 5
       },
       "id": 40,
@@ -573,10 +631,10 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "{instance=\"SERVER_IP:9100\", job=\"node-exporter\"}",
+      "tableColumn": "{instance=\"main\", job=\"node-exporter\"}",
       "targets": [
         {
-          "expr": "((node_memory_MemTotal_bytes{instance=\"SERVER_IP:9100\"} - node_memory_MemAvailable_bytes{instance=\"SERVER_IP:9100\"}) / node_memory_MemTotal_bytes{instance=\"SERVER_IP:9100\"}) * 100",
+          "expr": "((node_memory_MemTotal_bytes{instance=\"main\", job=\"node-exporter\"} - node_memory_MemAvailable_bytes{instance=\"main\", job=\"node-exporter\"}) / node_memory_MemTotal_bytes{instance=\"main\", job=\"node-exporter\"}) * 100",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -620,7 +678,7 @@
       },
       "format": "decbytes",
       "gauge": {
-        "maxValue": 500000000,
+        "maxValue": 7999582208,
         "minValue": 0,
         "show": true,
         "thresholdLabels": false,
@@ -629,7 +687,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 6,
+        "x": 7,
         "y": 5
       },
       "id": 44,
@@ -666,10 +724,10 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "{instance=\"SERVER_IP:9100\", job=\"node-exporter\"}",
+      "tableColumn": "{instance=\"main\", job=\"node-exporter\"}",
       "targets": [
         {
-          "expr": "(node_memory_SwapTotal_bytes{instance=\"SERVER_IP:9100\"} - node_memory_SwapFree_bytes{instance=\"SERVER_IP:9100\"})",
+          "expr": "(node_memory_SwapTotal_bytes{instance=\"main\", job=\"node-exporter\"} - node_memory_SwapFree_bytes{instance=\"main\", job=\"node-exporter\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -678,7 +736,7 @@
           "step": 1800
         }
       ],
-      "thresholds": "400000000",
+      "thresholds": "4000000000,6000000000",
       "title": "Swap",
       "type": "singlestat",
       "valueFontSize": "80%",
@@ -692,72 +750,13 @@
       "valueName": "current"
     },
     {
-      "datasource": "Prometheus",
-      "description": "Time since the last boot",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 7,
-        "y": 9
-      },
-      "id": 2,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/^uptime$/",
-          "values": false
-        },
-        "textMode": "value"
-      },
-      "pluginVersion": "7.1.5",
-      "targets": [
-        {
-          "expr": "time() - node_boot_time_seconds{instance=\"SERVER_IP:9100\"} ",
-          "format": "time_series",
-          "hide": false,
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "uptime",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Uptime",
-      "type": "stat"
-    },
-    {
       "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 9
       },
       "id": 31,
       "panels": [],
@@ -771,7 +770,7 @@
           {
             "evaluator": {
               "params": [
-                1000
+                60
               ],
               "type": "gt"
             },
@@ -802,6 +801,9 @@
         "notifications": [
           {
             "uid": "GowF0BOGz"
+          },
+          {
+            "uid": "sAaWt1FGk"
           }
         ]
       },
@@ -850,9 +852,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 8,
+        "w": 12,
         "x": 0,
-        "y": 16
+        "y": 10
       },
       "hiddenSeries": false,
       "id": 32,
@@ -870,8 +872,11 @@
       "lines": false,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -894,19 +899,19 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "engine_daemon_container_states_containers{instance=\"SERVER_IP:DMETRICS_PORT\",job=\"docker\",state=\"running\"}",
+          "expr": "engine_daemon_container_states_containers{instance=\"main\",job=\"docker\",state=\"running\"}",
           "interval": "",
           "legendFormat": "Running",
           "refId": "A"
         },
         {
-          "expr": "engine_daemon_container_states_containers{instance=\"SERVER_IP:DMETRICS_PORT\",job=\"docker\",state=\"paused\"}",
+          "expr": "engine_daemon_container_states_containers{instance=\"main\",job=\"docker\",state=\"paused\"}",
           "interval": "",
           "legendFormat": "Paused",
           "refId": "B"
         },
         {
-          "expr": "engine_daemon_container_states_containers{instance=\"SERVER_IP:DMETRICS_PORT\",job=\"docker\",state=\"stopped\"}",
+          "expr": "engine_daemon_container_states_containers{instance=\"main\",job=\"docker\",state=\"stopped\"}",
           "interval": "",
           "legendFormat": "Stopped",
           "refId": "C"
@@ -918,7 +923,7 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 1000
+          "value": 60
         }
       ],
       "timeFrom": null,
@@ -980,7 +985,7 @@
             },
             "query": {
               "params": [
-                "A",
+                "D",
                 "5m",
                 "now"
               ]
@@ -999,34 +1004,11 @@
               "type": "lt"
             },
             "operator": {
-              "type": "or"
+              "type": "and"
             },
             "query": {
               "params": [
-                "B",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "min"
-            },
-            "type": "query"
-          },
-          {
-            "evaluator": {
-              "params": [
-                0.5
-              ],
-              "type": "lt"
-            },
-            "operator": {
-              "type": "or"
-            },
-            "query": {
-              "params": [
-                "C",
+                "E",
                 "5m",
                 "now"
               ]
@@ -1047,7 +1029,7 @@
         "noDataState": "no_data",
         "notifications": [
           {
-            "uid": "GowF0BOGz"
+            "uid": "sAaWt1FGk"
           }
         ]
       },
@@ -1096,9 +1078,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 9,
-        "x": 8,
-        "y": 16
+        "w": 12,
+        "x": 12,
+        "y": 10
       },
       "hiddenSeries": false,
       "id": 33,
@@ -1116,8 +1098,11 @@
       "lines": false,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1127,22 +1112,16 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "count(time()-container_last_seen{name=\"deployment_linter-service_1\", instance=\"SERVER_IP:CADVISOR_PORT\"}<=60) or vector(0)",
+          "expr": "count(time()-container_last_seen{name=\"uncode_mongo_express\", instance=\"main\", job=\"cadvisor\"}<=60) or vector(0)",
           "interval": "",
-          "legendFormat": "Linter",
-          "refId": "A"
+          "legendFormat": "Mongo Express",
+          "refId": "D"
         },
         {
-          "expr": "count(time()-container_last_seen{name=\"deployment_python-tutor_1\", instance=\"SERVER_IP:CADVISOR_PORT\"}<=60) or vector(0)",
+          "expr": "count(time()-container_last_seen{name=\"uncode_metabase\", instance=\"main\", job=\"cadvisor\"}<=60) or vector(0)",
           "interval": "",
-          "legendFormat": "Tutor PY3",
-          "refId": "B"
-        },
-        {
-          "expr": "count(time()-container_last_seen{name=\"deployment_python-tutor-py2_1\", instance=\"SERVER_IP:CADVISOR_PORT\"}<=60) or vector(0)",
-          "interval": "",
-          "legendFormat": "Tutor PY2",
-          "refId": "C"
+          "legendFormat": "Metabase",
+          "refId": "E"
         }
       ],
       "thresholds": [
@@ -1151,8 +1130,7 @@
           "fill": true,
           "line": true,
           "op": "lt",
-          "value": 0.5,
-          "yaxis": "left"
+          "value": 0.5
         }
       ],
       "timeFrom": null,
@@ -1214,12 +1192,13 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 16,
+        "w": 8,
         "x": 0,
-        "y": 24
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 36,
+      "interval": "15s",
       "legend": {
         "avg": false,
         "current": false,
@@ -1231,9 +1210,13 @@
       },
       "lines": true,
       "linewidth": 1,
+      "maxDataPoints": 5760,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1248,7 +1231,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "count(container_last_seen{instance=\"SERVER_IP:CADVISOR_PORT\", container_label_org_inginious_grading_name=\"multiple_languages\"})  OR vector(0)\n",
+          "expr": "count((time() - container_last_seen{instance=\"main\", job=\"cadvisor\", container_label_org_inginious_grading_name=\"multiple_languages\"})<=15)  OR vector(0)\n",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "Multiple Language",
@@ -1313,11 +1296,11 @@
       "gridPos": {
         "h": 8,
         "w": 8,
-        "x": 0,
-        "y": 32
+        "x": 8,
+        "y": 18
       },
       "hiddenSeries": false,
-      "id": 38,
+      "id": 37,
       "legend": {
         "avg": false,
         "current": false,
@@ -1330,15 +1313,18 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [
         {
-          "alias": "Use of Notebooks",
-          "color": "#FF780A"
+          "alias": "HDL",
+          "color": "#A352CC"
         }
       ],
       "spaceLength": 10,
@@ -1346,10 +1332,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "count(container_last_seen{instance=\"SERVER_IP:CADVISOR_PORT\", container_label_org_inginious_grading_name=\"Notebook\"}) OR vector(0)\n",
+          "expr": "count((time() - container_last_seen{instance=\"main\", job=\"cadvisor\", container_label_org_inginious_grading_name=\"HDL\"})<=15)  OR vector(0)\n",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "Use of Notebooks",
+          "legendFormat": "HDL",
           "refId": "A"
         }
       ],
@@ -1357,7 +1343,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Use of Notebooks [Beta]",
+      "title": "Use of HDL containers [Beta]",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1411,11 +1397,11 @@
       "gridPos": {
         "h": 8,
         "w": 8,
-        "x": 8,
-        "y": 32
+        "x": 16,
+        "y": 18
       },
       "hiddenSeries": false,
-      "id": 37,
+      "id": 38,
       "legend": {
         "avg": false,
         "current": false,
@@ -1428,15 +1414,18 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [
         {
-          "alias": "HDL",
-          "color": "#A352CC"
+          "alias": "Use of Notebooks",
+          "color": "#FF780A"
         }
       ],
       "spaceLength": 10,
@@ -1444,10 +1433,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "count(container_last_seen{instance=\"SERVER_IP:CADVISOR_PORT\", container_label_org_inginious_grading_name=\"HDL\"}) OR vector(0)\n",
+          "expr": "count((time() - container_last_seen{instance=\"main\", job=\"cadvisor\", container_label_org_inginious_grading_name=\"Notebook\"})<=15)  OR vector(0)",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "HDL",
+          "legendFormat": "Use of Notebooks",
           "refId": "A"
         }
       ],
@@ -1455,7 +1444,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Use of HDL containers [Beta]",
+      "title": "Use of Notebooks [Beta]",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1499,7 +1488,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 26
       },
       "id": 25,
       "panels": [],
@@ -1515,7 +1504,7 @@
           {
             "evaluator": {
               "params": [
-                80
+                180
               ],
               "type": "gt"
             },
@@ -1546,6 +1535,9 @@
         "notifications": [
           {
             "uid": "GowF0BOGz"
+          },
+          {
+            "uid": "sAaWt1FGk"
           }
         ]
       },
@@ -1564,9 +1556,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 11,
+        "w": 13,
         "x": 0,
-        "y": 41
+        "y": 27
       },
       "hiddenSeries": false,
       "id": 27,
@@ -1586,8 +1578,11 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1597,7 +1592,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\".+\", instance=\"SERVER_IP:CADVISOR_PORT\"}[5m])) by (name) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\".+\", instance=\"main\", job=\"cadvisor\"}[5m])) by (name) * 100",
           "interval": "",
           "legendFormat": "{{name}}",
           "refId": "A"
@@ -1609,7 +1604,7 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 80
+          "value": 180
         }
       ],
       "timeFrom": null,
@@ -1668,9 +1663,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 10,
-        "x": 11,
-        "y": 41
+        "w": 11,
+        "x": 13,
+        "y": 27
       },
       "hiddenSeries": false,
       "id": 29,
@@ -1690,8 +1685,11 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1701,7 +1699,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "container_memory_usage_bytes{name!=\"\",instance=\"SERVER_IP:CADVISOR_PORT\"}",
+          "expr": "container_memory_usage_bytes{name!=\"\",instance=\"main\", job=\"cadvisor\"}",
           "interval": "",
           "legendFormat": "{{name}}",
           "refId": "A"
@@ -1755,7 +1753,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 49
+        "y": 35
       },
       "id": 4,
       "panels": [],
@@ -1801,7 +1799,7 @@
         "noDataState": "no_data",
         "notifications": [
           {
-            "uid": "GowF0BOGz"
+            "uid": "sAaWt1FGk"
           }
         ]
       },
@@ -1822,7 +1820,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 50
+        "y": 36
       },
       "hiddenSeries": false,
       "id": 6,
@@ -1838,8 +1836,11 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": true,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1849,42 +1850,42 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(irate(node_cpu_seconds_total{mode=\"system\",instance=\"SERVER_IP:9100\"}[5m])) * 25",
+          "expr": "sum(irate(node_cpu_seconds_total{mode=\"system\",instance=\"main\", job=\"node-exporter\"}[5m])) * 25",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Busy System",
           "refId": "A"
         },
         {
-          "expr": "sum(irate(node_cpu_seconds_total{mode=\"user\",instance=\"SERVER_IP:9100\"}[5m])) * 25",
+          "expr": "sum(irate(node_cpu_seconds_total{mode=\"user\",instance=\"main\", job=\"node-exporter\"}[5m])) * 25",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Busy User",
           "refId": "B"
         },
         {
-          "expr": "sum(irate(node_cpu_seconds_total{mode=\"iowait\",instance=\"SERVER_IP:9100\"}[5m])) * 25",
+          "expr": "sum(irate(node_cpu_seconds_total{mode=\"iowait\",instance=\"main\", job=\"node-exporter\"}[5m])) * 25",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Busy Iowait",
           "refId": "C"
         },
         {
-          "expr": "sum(irate(node_cpu_seconds_total{mode=~\".*irq\",instance=\"SERVER_IP:9100\"}[5m])) * 25",
+          "expr": "sum(irate(node_cpu_seconds_total{mode=~\".*irq\",instance=\"main\", job=\"node-exporter\"}[5m])) * 25",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Busy IRQs",
           "refId": "D"
         },
         {
-          "expr": "sum (irate(node_cpu_seconds_total{mode!=\"idle\",mode!=\"user\",mode!=\"system\",mode!=\"iowait\",mode!=\"irq\",mode!=\"softirq\",instance=\"SERVER_IP:9100\"}[5m])) * 25",
+          "expr": "sum (irate(node_cpu_seconds_total{mode!=\"idle\",mode!=\"user\",mode!=\"system\",mode!=\"iowait\",mode!=\"irq\",mode!=\"softirq\",instance=\"main\", job=\"node-exporter\"}[5m])) * 25",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Busy Other",
           "refId": "E"
         },
         {
-          "expr": "sum(irate(node_cpu_seconds_total{mode=\"idle\",instance=\"SERVER_IP:9100\"}[5m]))*25",
+          "expr": "sum(irate(node_cpu_seconds_total{mode=\"idle\",instance=\"main\", job=\"node-exporter\"}[5m]))*25",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Idle",
@@ -1979,7 +1980,10 @@
         "noDataState": "no_data",
         "notifications": [
           {
-            "uid": "GowF0BOGz"
+            "uid": "sAaWt1FGk"
+          },
+          {
+            "uid": "t95QONcGz"
           }
         ]
       },
@@ -2001,7 +2005,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 50
+        "y": 36
       },
       "hiddenSeries": false,
       "id": 10,
@@ -2017,8 +2021,11 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2035,35 +2042,35 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_memory_MemTotal_bytes{instance=\"SERVER_IP:9100\"} -  node_memory_MemAvailable_bytes{instance=\"SERVER_IP:9100\"}",
+          "expr": "node_memory_MemTotal_bytes{instance=\"main\", job=\"node-exporter\"} -  node_memory_MemAvailable_bytes{instance=\"main\", job=\"node-exporter\"}",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "RAM Used",
           "refId": "A"
         },
         {
-          "expr": "node_memory_MemAvailable_bytes{instance=\"SERVER_IP:9100\"} - node_memory_MemFree_bytes{instance=\"SERVER_IP:9100\"}",
+          "expr": "node_memory_MemAvailable_bytes{instance=\"main\", job=\"node-exporter\"} - node_memory_MemFree_bytes{instance=\"main\", job=\"node-exporter\"}",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "RAM Cache",
           "refId": "B"
         },
         {
-          "expr": "node_memory_MemFree_bytes{instance=\"SERVER_IP:9100\"}",
+          "expr": "node_memory_MemFree_bytes{instance=\"main\", job=\"node-exporter\"}",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "RAM Free",
           "refId": "C"
         },
         {
-          "expr": "node_memory_MemTotal_bytes{instance=\"SERVER_IP:9100\"}",
+          "expr": "node_memory_MemTotal_bytes{instance=\"main\", job=\"node-exporter\"}",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "RAM Total",
           "refId": "D"
         },
         {
-          "expr": "node_memory_MemAvailable_bytes{instance=\"SERVER_IP:9100\"}",
+          "expr": "node_memory_MemAvailable_bytes{instance=\"main\", job=\"node-exporter\"}",
           "hide": true,
           "interval": "",
           "intervalFactor": 2,
@@ -2077,8 +2084,7 @@
           "fill": true,
           "line": true,
           "op": "lt",
-          "value": 1000000000,
-          "yaxis": "left"
+          "value": 1000000000
         }
       ],
       "timeFrom": null,
@@ -2122,13 +2128,179 @@
       }
     },
     {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                2000000000
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "C",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "0m",
+        "frequency": "1m",
+        "handler": 1,
+        "message": "Less than 2GB in the SWAP",
+        "name": "SWAP alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "sAaWt1FGk"
+          }
+        ]
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 36
+      },
+      "hiddenSeries": false,
+      "id": 54,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "SWAP Total",
+          "color": "#C0D8FF",
+          "fill": 0,
+          "stack": false
+        }
+      ],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "(node_memory_SwapTotal_bytes{instance=\"main\", job=\"node-exporter\"} - node_memory_SwapFree_bytes{instance=\"main\", job=\"node-exporter\"})",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "SWAP Used",
+          "refId": "A"
+        },
+        {
+          "expr": "(node_memory_SwapFree_bytes{instance=\"main\", job=\"node-exporter\"})",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "SWAP Free",
+          "refId": "C"
+        },
+        {
+          "expr": "node_memory_SwapTotal_bytes{instance=\"main\", job=\"node-exporter\"}",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "SWAP Total",
+          "refId": "D"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 2000000000
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "SWAP",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
       "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 58
+        "y": 44
       },
       "id": 16,
       "panels": [],
@@ -2142,7 +2314,7 @@
           {
             "evaluator": {
               "params": [
-                5000000000
+                500000000
               ],
               "type": "lt"
             },
@@ -2167,12 +2339,12 @@
         "for": "5m",
         "frequency": "5m",
         "handler": 1,
-        "message": "Space in FS /home is lower than 1GB",
-        "name": "/home FS Alert",
+        "message": "Space in FS / is lower than 500MB",
+        "name": "/ FS alert",
         "noDataState": "no_data",
         "notifications": [
           {
-            "uid": "GowF0BOGz"
+            "uid": "sAaWt1FGk"
           }
         ]
       },
@@ -2194,7 +2366,169 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 59
+        "y": 45
+      },
+      "hiddenSeries": false,
+      "id": 19,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "node_filesystem_size_bytes{device!~'rootfs', mountpoint=\"/\", instance=\"main\"}",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Total",
+          "refId": "A"
+        },
+        {
+          "expr": "node_filesystem_avail_bytes{device!~'rootfs', mountpoint=\"/\", instance=\"main\"}",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Available",
+          "refId": "B"
+        },
+        {
+          "expr": "node_filesystem_size_bytes{device!~'rootfs', mountpoint=\"/\", instance=\"main\"} - node_filesystem_avail_bytes{device!~'rootfs', mountpoint=\"/\", instance=\"main\"}",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Used",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 500000000
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "/",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                1500000000
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "B",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "5m",
+        "handler": 1,
+        "message": "Space in FS /home is lower than 1.5GB",
+        "name": "/home FS Alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "sAaWt1FGk"
+          }
+        ]
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 45
       },
       "hiddenSeries": false,
       "id": 18,
@@ -2212,8 +2546,11 @@
       "lines": true,
       "linewidth": 2,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2223,22 +2560,22 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_filesystem_size_bytes{instance=\"SERVER_IP:9100\", device!~'rootfs', mountpoint=\"/home\"}",
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/home\"}",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Total",
           "refId": "A"
         },
         {
-          "expr": "node_filesystem_avail_bytes{instance=\"SERVER_IP:9100\", device!~'rootfs', mountpoint=\"/home\"}",
-          "hide": true,
+          "expr": "node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/home\"}",
+          "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Available",
           "refId": "B"
         },
         {
-          "expr": "node_filesystem_size_bytes{instance=\"SERVER_IP:9100\", device!~'rootfs', mountpoint=\"/home\"} - node_filesystem_avail_bytes{instance=\"SERVER_IP:9100\",  device!~'rootfs', mountpoint=\"/home\"}",
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/home\"} - node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\",  device!~'rootfs', mountpoint=\"/home\"}",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Used",
@@ -2251,8 +2588,7 @@
           "fill": true,
           "line": true,
           "op": "lt",
-          "value": 5000000000,
-          "yaxis": "left"
+          "value": 1500000000
         }
       ],
       "timeFrom": null,
@@ -2302,7 +2638,7 @@
           {
             "evaluator": {
               "params": [
-                5000000000
+                20000000000
               ],
               "type": "lt"
             },
@@ -2325,14 +2661,338 @@
         ],
         "executionErrorState": "alerting",
         "for": "5m",
-        "frequency": "1m",
+        "frequency": "5m",
         "handler": 1,
-        "message": "Space in FS / is lower than 1GB",
-        "name": "/ FS alert",
+        "message": "Space in FS /datos is lower than 5GB",
+        "name": "/datos alert",
         "noDataState": "no_data",
         "notifications": [
           {
-            "uid": "GowF0BOGz"
+            "uid": "sAaWt1FGk"
+          }
+        ]
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 45
+      },
+      "hiddenSeries": false,
+      "id": 58,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/datos\"}",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Total",
+          "refId": "A"
+        },
+        {
+          "expr": "node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/datos\"}",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Available",
+          "refId": "B"
+        },
+        {
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/datos\"} - node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\",  device!~'rootfs', mountpoint=\"/datos\"}",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Used",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 20000000000
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "/datos",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                500000000
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "B",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "5m",
+        "handler": 1,
+        "message": "Space in FS /usr is lower than 1GB",
+        "name": "/usr alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "sAaWt1FGk"
+          }
+        ]
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 53
+      },
+      "hiddenSeries": false,
+      "id": 56,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/usr\"}",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Total",
+          "refId": "A"
+        },
+        {
+          "expr": "node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/usr\"}",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Available",
+          "refId": "B"
+        },
+        {
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/usr\"} - node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\",  device!~'rootfs', mountpoint=\"/usr\"}",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Used",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 500000000
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "/usr",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                2000000000
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "B",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "5m",
+        "handler": 1,
+        "message": "Space in FS /opt is lower than 4GB",
+        "name": "/opt alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "sAaWt1FGk"
           }
         ]
       },
@@ -2354,10 +3014,10 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 59
+        "y": 53
       },
       "hiddenSeries": false,
-      "id": 19,
+      "id": 55,
       "legend": {
         "alignAsTable": true,
         "avg": false,
@@ -2372,8 +3032,11 @@
       "lines": true,
       "linewidth": 2,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2383,22 +3046,22 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_filesystem_size_bytes{device!~'rootfs', mountpoint=\"/\"}",
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/opt\"}",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Total",
           "refId": "A"
         },
         {
-          "expr": "node_filesystem_avail_bytes{device!~'rootfs', mountpoint=\"/\"}",
-          "hide": true,
+          "expr": "node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/opt\"}",
+          "hide": false,
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Available",
           "refId": "B"
         },
         {
-          "expr": "node_filesystem_size_bytes{device!~'rootfs', mountpoint=\"/\"} - node_filesystem_avail_bytes{device!~'rootfs', mountpoint=\"/\"}",
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/opt\"} - node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\",  device!~'rootfs', mountpoint=\"/opt\"}",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Used",
@@ -2411,14 +3074,661 @@
           "fill": true,
           "line": true,
           "op": "lt",
-          "value": 5000000000,
-          "yaxis": "left"
+          "value": 2000000000
         }
       ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "/",
+      "title": "/opt",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                50000000
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "B",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "5m",
+        "handler": 1,
+        "message": "Space in FS /boot is lower than 500MB",
+        "name": "/boot alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "sAaWt1FGk"
+          }
+        ]
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 53
+      },
+      "hiddenSeries": false,
+      "id": 61,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/boot\"}",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Total",
+          "refId": "A"
+        },
+        {
+          "expr": "node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/boot\"}",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Available",
+          "refId": "B"
+        },
+        {
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/boot\"} - node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\",  device!~'rootfs', mountpoint=\"/boot\"}",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Used",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 50000000
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "/boot",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                500000000
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "B",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "5m",
+        "handler": 1,
+        "message": "Space in FS /var is lower than 1GB",
+        "name": "/var alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "sAaWt1FGk"
+          }
+        ]
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 61
+      },
+      "hiddenSeries": false,
+      "id": 57,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/var\"}",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Total",
+          "refId": "A"
+        },
+        {
+          "expr": "node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/var\"}",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Available",
+          "refId": "B"
+        },
+        {
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/var\"} - node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\",  device!~'rootfs', mountpoint=\"/var\"}",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Used",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 500000000
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "/var",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                500000000
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "B",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "5m",
+        "handler": 1,
+        "message": "Space in FS /var/log is lower than 1GB",
+        "name": "/var/log alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "sAaWt1FGk"
+          }
+        ]
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 61
+      },
+      "hiddenSeries": false,
+      "id": 59,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/var/log\"}",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Total",
+          "refId": "A"
+        },
+        {
+          "expr": "node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/var/log\"}",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Available",
+          "refId": "B"
+        },
+        {
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/var/log\"} - node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\",  device!~'rootfs', mountpoint=\"/var/log\"}",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Used",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 500000000
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "/var/log",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "decbytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                500000000
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "B",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "5m",
+        "handler": 1,
+        "message": "Space in FS /var/www is lower than 1GB",
+        "name": "/var/www alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "sAaWt1FGk"
+          }
+        ]
+      },
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 61
+      },
+      "hiddenSeries": false,
+      "id": 60,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/var/www\"}",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Total",
+          "refId": "A"
+        },
+        {
+          "expr": "node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/var/www\"}",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Available",
+          "refId": "B"
+        },
+        {
+          "expr": "node_filesystem_size_bytes{instance=\"main\", job=\"node-exporter\", device!~'rootfs', mountpoint=\"/var/www\"} - node_filesystem_avail_bytes{instance=\"main\", job=\"node-exporter\",  device!~'rootfs', mountpoint=\"/var/www\"}",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "Used",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 500000000
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "/var/www",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2462,7 +3772,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 67
+        "y": 69
       },
       "id": 21,
       "panels": [],
@@ -2610,20 +3920,39 @@
               "type": "min"
             },
             "type": "query"
+          },
+          {
+            "evaluator": {
+              "params": [
+                0.5
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "or"
+            },
+            "query": {
+              "params": [
+                "G",
+                "1m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "min"
+            },
+            "type": "query"
           }
         ],
         "executionErrorState": "alerting",
-        "for": "1m",
+        "for": "5m",
         "frequency": "1m",
         "handler": 1,
         "message": "No all services are activated",
-        "name": "UNCode Services alert",
+        "name": "UNCode Services alert (Main server)",
         "noDataState": "no_data",
-        "notifications": [
-          {
-            "uid": "GowF0BOGz"
-          }
-        ]
+        "notifications": []
       },
       "aliasColors": {},
       "bars": true,
@@ -2672,7 +4001,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 68
+        "y": 70
       },
       "hiddenSeries": false,
       "id": 23,
@@ -2689,8 +4018,11 @@
       "lines": false,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2700,40 +4032,46 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_systemd_unit_state{instance=\"SERVER_IP:9100\", name=\"docker.service\", state=\"active\"}",
+          "expr": "node_systemd_unit_state{instance=\"main\", job=\"node-exporter\", name=\"docker.service\", state=\"active\"}",
           "interval": "",
           "legendFormat": "Docker",
           "refId": "A"
         },
         {
-          "expr": "node_systemd_unit_state{instance=\"SERVER_IP:9100\", name=\"mongod.service\", state=\"active\"}",
+          "expr": "node_systemd_unit_state{instance=\"main\", job=\"node-exporter\", name=\"mongod.service\", state=\"active\"}",
           "interval": "",
           "legendFormat": "Mongo",
           "refId": "B"
         },
         {
-          "expr": "node_systemd_unit_state{instance=\"SERVER_IP:9100\", name=\"mcq_agent.service\", state=\"active\"}",
+          "expr": "node_systemd_unit_state{instance=\"main\", job=\"node-exporter\", name=\"lighttpd.service\", state=\"active\"}",
           "interval": "",
-          "legendFormat": "MCQ",
-          "refId": "C"
+          "legendFormat": "lighttpd",
+          "refId": "F"
         },
         {
-          "expr": "node_systemd_unit_state{instance=\"SERVER_IP:9100\", name=\"backend.service\", state=\"active\"}",
-          "interval": "",
-          "legendFormat": "Backend",
-          "refId": "D"
-        },
-        {
-          "expr": "node_systemd_unit_state{instance=\"SERVER_IP:9100\", name=\"nginx.service\", state=\"active\"}",
+          "expr": "node_systemd_unit_state{instance=\"main\", job=\"node-exporter\", name=\"nginx.service\", state=\"active\"}",
           "interval": "",
           "legendFormat": "nginx",
           "refId": "E"
         },
         {
-          "expr": "node_systemd_unit_state{instance=\"SERVER_IP:9100\", name=\"lighttpd.service\", state=\"active\"}",
+          "expr": "node_systemd_unit_state{instance=\"main\", job=\"node-exporter\", name=\"backend.service\", state=\"active\"}",
           "interval": "",
-          "legendFormat": "lighttpd",
-          "refId": "F"
+          "legendFormat": "Backend",
+          "refId": "D"
+        },
+        {
+          "expr": "node_systemd_unit_state{instance=\"main\", job=\"node-exporter\", name=\"docker_agent.service\", state=\"active\"}",
+          "interval": "",
+          "legendFormat": "Docker Agent",
+          "refId": "G"
+        },
+        {
+          "expr": "node_systemd_unit_state{instance=\"main\", job=\"node-exporter\", name=\"mcq_agent.service\", state=\"active\"}",
+          "interval": "",
+          "legendFormat": "MCQ",
+          "refId": "C"
         }
       ],
       "thresholds": [
@@ -2871,7 +4209,7 @@
         "noDataState": "no_data",
         "notifications": [
           {
-            "uid": "GowF0BOGz"
+            "uid": "sAaWt1FGk"
           }
         ]
       },
@@ -2922,7 +4260,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 68
+        "y": 70
       },
       "hiddenSeries": false,
       "id": 34,
@@ -2939,8 +4277,11 @@
       "lines": false,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2950,25 +4291,25 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_systemd_unit_state{instance=\"SERVER_IP:9100\", name=\"prometheus.service\", state=\"active\"}",
+          "expr": "node_systemd_unit_state{instance=\"main\", job=\"node-exporter\", name=\"prometheus.service\", state=\"active\"}",
           "interval": "",
           "legendFormat": "Prometheus",
           "refId": "A"
         },
         {
-          "expr": "node_systemd_unit_state{instance=\"SERVER_IP:9100\", name=\"node_exporter.service\", state=\"active\"}",
+          "expr": "node_systemd_unit_state{instance=\"main\", job=\"node-exporter\", name=\"node_exporter.service\", state=\"active\"}",
           "interval": "",
           "legendFormat": "Node Exporter",
           "refId": "B"
         },
         {
-          "expr": "node_systemd_unit_state{instance=\"SERVER_IP:9100\", name=\"grafana-server.service\", state=\"active\"}",
+          "expr": "node_systemd_unit_state{instance=\"main\", job=\"node-exporter\", name=\"grafana-server.service\", state=\"active\"}",
           "interval": "",
           "legendFormat": "Grafana",
           "refId": "C"
         },
         {
-          "expr": "count(time()-container_last_seen{instance=\"SERVER_IP:CADVISOR_PORT\", name=\"cadvisor_cadvisor_1\"}<=60) or vector(0)",
+          "expr": "count(time()-container_last_seen{instance=\"main\", job=\"cadvisor\", name=\"cadvisor_cadvisor_1\"}<=60) or vector(0)",
           "interval": "",
           "legendFormat": "cAdvisor",
           "refId": "D"
@@ -3147,7 +4488,7 @@
           }
         ],
         "executionErrorState": "alerting",
-        "for": "0m",
+        "for": "5m",
         "frequency": "1m",
         "handler": 1,
         "message": "Prometheus target down",
@@ -3155,7 +4496,7 @@
         "noDataState": "no_data",
         "notifications": [
           {
-            "uid": "GowF0BOGz"
+            "uid": "sAaWt1FGk"
           }
         ]
       },
@@ -3206,7 +4547,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 76
+        "y": 78
       },
       "hiddenSeries": false,
       "id": 53,
@@ -3223,8 +4564,11 @@
       "lines": false,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -3240,25 +4584,25 @@
           "refId": "A"
         },
         {
-          "expr": "up{instance=\"localhost:GRAFANA_PORT\"}",
+          "expr": "up{instance=\"localhost:9091\"}",
           "interval": "",
           "legendFormat": "Grafana",
           "refId": "C"
         },
         {
-          "expr": "up{instance=\"SERVER_IP:9100\"}",
+          "expr": "up{instance=\"main\", job=\"node-exporter\"}",
           "interval": "",
           "legendFormat": "Node Exporter",
           "refId": "B"
         },
         {
-          "expr": "up{instance=\"SERVER_IP:CADVISOR_PORT\"}",
+          "expr": "up{instance=\"main\", job=\"cadvisor\"}",
           "interval": "",
           "legendFormat": "cAdvisor",
           "refId": "D"
         },
         {
-          "expr": "up{instance=\"SERVER_IP:DMETRICS_PORT\"}",
+          "expr": "up{instance=\"main\", job=\"docker\"}",
           "interval": "",
           "legendFormat": "Docker Metrics",
           "refId": "E"
@@ -3322,68 +4666,7 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": [
-      {
-        "current": {
-          "selected": false,
-          "text": "SERVER_IP:CADVISOR_PORT",
-          "value": "SERVER_IP:CADVISOR_PORT"
-        },
-        "hide": 2,
-        "label": null,
-        "name": "test_cadvisor",
-        "options": [
-          {
-            "selected": true,
-            "text": "SERVER_IP:CADVISOR_PORT",
-            "value": "SERVER_IP:CADVISOR_PORT"
-          }
-        ],
-        "query": "SERVER_IP:CADVISOR_PORT",
-        "skipUrlSync": false,
-        "type": "constant"
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "SERVER_IP:9100",
-          "value": "SERVER_IP:9100"
-        },
-        "hide": 2,
-        "label": null,
-        "name": "test_nodeexporter",
-        "options": [
-          {
-            "selected": true,
-            "text": "SERVER_IP:9100",
-            "value": "SERVER_IP:9100"
-          }
-        ],
-        "query": "SERVER_IP:9100",
-        "skipUrlSync": false,
-        "type": "constant"
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "SERVER_IP:DMETRICS_PORT",
-          "value": "SERVER_IP:DMETRICS_PORT"
-        },
-        "hide": 2,
-        "label": null,
-        "name": "test_dockermetrics",
-        "options": [
-          {
-            "selected": true,
-            "text": "SERVER_IP:DMETRICS_PORT",
-            "value": "SERVER_IP:DMETRICS_PORT"
-          }
-        ],
-        "query": "SERVER_IP:DMETRICS_PORT",
-        "skipUrlSync": false,
-        "type": "constant"
-      }
-    ]
+    "list": []
   },
   "time": {
     "from": "now-1h",
@@ -3404,7 +4687,7 @@
     ]
   },
   "timezone": "",
-  "title": "UNCode",
+  "title": "UNCode Main server",
   "uid": "r5JMIBdMk",
-  "version": 99
+  "version": 82
 }
