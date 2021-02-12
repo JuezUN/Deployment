@@ -37,7 +37,7 @@ Here is explained the step by step to install the components to monitor the serv
 
    *Running this command will cause the server to restart automatically so that the changes are applied*
 
-5. Install the monitoring services `$DEPLOYMENT_HOME/monitoring/install_monitoring_services.sh`
+5. Install the monitoring services `sudo $DEPLOYMENT_HOME/monitoring/install_monitoring_services.sh`
 
 6. There two options, this dependes whether nginx is already installed or not:
 
@@ -105,7 +105,7 @@ Follow these steps only in the main server, which already contains the front end
 
 1. Modify the var `GRAFANA_DOMAIN` in the file `$DEPLOYMENT_HOME/monitoring/grafana/install_grafana.sh` with the domain where grafana is hosted.
 
-2. Install monitoring panel: `$DEPLOYMENT_HOME/monitoring/install_monitoring_panel.sh`
+2. Install monitoring panel: `sudo $DEPLOYMENT_HOME/monitoring/install_monitoring_panel.sh`
 
 3. Update nginx configuration file to be able to access grafana in the path `/monitoring`.
 
