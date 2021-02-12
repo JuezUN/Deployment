@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 6,
+  "id": 2,
   "links": [],
   "panels": [
     {
@@ -30,8 +30,8 @@
       },
       "folderId": null,
       "gridPos": {
-        "h": 8,
-        "w": 3,
+        "h": 7,
+        "w": 5,
         "x": 0,
         "y": 0
       },
@@ -57,7 +57,7 @@
           {
             "evaluator": {
               "params": [
-                700
+                650
               ],
               "type": "gt"
             },
@@ -80,7 +80,7 @@
           {
             "evaluator": {
               "params": [
-                720
+                655
               ],
               "type": "lt"
             },
@@ -105,12 +105,12 @@
         "for": "0m",
         "frequency": "1m",
         "handler": 1,
-        "message": "Daily report - CPU docker",
-        "name": "Daily report - CPU docker",
+        "message": "Daily report - CPU docker (Main server)",
+        "name": "Daily report - CPU docker (Main server)",
         "noDataState": "no_data",
         "notifications": [
           {
-            "uid": "Tkeem3dGk"
+            "uid": "y3EGt1KGk"
           }
         ]
       },
@@ -128,8 +128,8 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 9,
-        "w": 13,
+        "h": 7,
+        "w": 19,
         "x": 5,
         "y": 0
       },
@@ -151,8 +151,11 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -162,13 +165,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\".+\",instance=\"SERVER_IP:CADVISOR_PORT\"}[5m])) by (name) * 100",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\".+\",instance=\"main\", job=\"cadvisor\"}[5m])) by (name) * 100",
           "interval": "",
           "legendFormat": "{{name}}",
           "refId": "A"
         },
         {
-          "expr": "((node_time_seconds{instance=\"SERVER_IP:9100\"}-(5*3600))%86400)/36",
+          "expr": "((node_time_seconds{instance=\"main\", job=\"node-exporter\"}-(5*3600))%86400)/36",
           "hide": true,
           "interval": "",
           "legendFormat": "Time",
@@ -181,7 +184,7 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 700
+          "value": 650
         }
       ],
       "timeFrom": null,
@@ -234,7 +237,7 @@
           {
             "evaluator": {
               "params": [
-                700
+                660
               ],
               "type": "gt"
             },
@@ -257,7 +260,7 @@
           {
             "evaluator": {
               "params": [
-                720
+                670
               ],
               "type": "lt"
             },
@@ -282,12 +285,12 @@
         "for": "0m",
         "frequency": "1m",
         "handler": 1,
-        "message": "Daily report - CPU",
-        "name": "Daily report - CPU",
+        "message": "Daily report - CPU (Main server)",
+        "name": "Daily report - CPU (Main server)",
         "noDataState": "no_data",
         "notifications": [
           {
-            "uid": "Tkeem3dGk"
+            "uid": "y3EGt1KGk"
           }
         ]
       },
@@ -306,9 +309,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 9,
-        "w": 9,
+        "w": 13,
         "x": 0,
-        "y": 9
+        "y": 7
       },
       "hiddenSeries": false,
       "id": 4,
@@ -324,8 +327,11 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": true,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -335,49 +341,49 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(irate(node_cpu_seconds_total{mode=\"system\",instance=\"SERVER_IP:9100\"}[5m])) * 25",
+          "expr": "sum(irate(node_cpu_seconds_total{mode=\"system\",instance=\"main\", job=\"node-exporter\"}[5m])) * 25",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Busy System",
           "refId": "A"
         },
         {
-          "expr": "sum(irate(node_cpu_seconds_total{mode=\"user\",instance=\"SERVER_IP:9100\"}[5m])) * 25",
+          "expr": "sum(irate(node_cpu_seconds_total{mode=\"user\",instance=\"main\", job=\"node-exporter\"}[5m])) * 25",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Busy User",
           "refId": "B"
         },
         {
-          "expr": "sum(irate(node_cpu_seconds_total{mode=\"iowait\",instance=\"SERVER_IP:9100\"}[5m])) * 25",
+          "expr": "sum(irate(node_cpu_seconds_total{mode=\"iowait\",instance=\"main\", job=\"node-exporter\"}[5m])) * 25",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Busy Iowait",
           "refId": "C"
         },
         {
-          "expr": "sum(irate(node_cpu_seconds_total{mode=~\".*irq\",instance=\"SERVER_IP:9100\"}[5m])) * 25",
+          "expr": "sum(irate(node_cpu_seconds_total{mode=~\".*irq\",instance=\"main\", job=\"node-exporter\"}[5m])) * 25",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Busy IRQs",
           "refId": "D"
         },
         {
-          "expr": "sum (irate(node_cpu_seconds_total{mode!=\"idle\",mode!=\"user\",mode!=\"system\",mode!=\"iowait\",mode!=\"irq\",mode!=\"softirq\",instance=\"SERVER_IP:9100\"}[5m])) * 25",
+          "expr": "sum (irate(node_cpu_seconds_total{mode!=\"idle\",mode!=\"user\",mode!=\"system\",mode!=\"iowait\",mode!=\"irq\",mode!=\"softirq\",instance=\"main\", job=\"node-exporter\"}[5m])) * 25",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Busy Other",
           "refId": "E"
         },
         {
-          "expr": "sum(irate(node_cpu_seconds_total{mode=\"idle\",instance=\"SERVER_IP:9100\"}[5m]))*25",
+          "expr": "sum(irate(node_cpu_seconds_total{mode=\"idle\",instance=\"168.176.239.145:9100\"}[5m]))*25",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Idle",
           "refId": "F"
         },
         {
-          "expr": "((node_time_seconds{instance=\"SERVER_IP:9100\"}-(5*3600))%86400)/36",
+          "expr": "((node_time_seconds{instance=\"168.176.239.145:9100\"}-(5*3600))%86400)/36",
           "hide": true,
           "interval": "",
           "legendFormat": "time",
@@ -390,7 +396,7 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 700
+          "value": 660
         }
       ],
       "timeFrom": null,
@@ -442,7 +448,7 @@
           {
             "evaluator": {
               "params": [
-                700
+                675
               ],
               "type": "gt"
             },
@@ -465,7 +471,7 @@
           {
             "evaluator": {
               "params": [
-                720
+                685
               ],
               "type": "lt"
             },
@@ -490,12 +496,12 @@
         "for": "0m",
         "frequency": "1m",
         "handler": 1,
-        "message": "Daily report - Memory",
-        "name": "Daily report - Memory",
+        "message": "Daily report - Memory (Main server)",
+        "name": "Daily report - Memory (Main server)",
         "noDataState": "no_data",
         "notifications": [
           {
-            "uid": "Tkeem3dGk"
+            "uid": "y3EGt1KGk"
           }
         ]
       },
@@ -515,9 +521,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 9,
-        "w": 9,
-        "x": 9,
-        "y": 9
+        "w": 11,
+        "x": 13,
+        "y": 7
       },
       "hiddenSeries": false,
       "id": 6,
@@ -533,8 +539,11 @@
       "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "7.1.5",
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -551,35 +560,35 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "node_memory_MemTotal_bytes{instance=\"SERVER_IP:9100\"} -  node_memory_MemAvailable_bytes{instance=\"SERVER_IP:9100\"}",
+          "expr": "node_memory_MemTotal_bytes{instance=\"main\", job=\"node-exporter\"} -  node_memory_MemAvailable_bytes{instance=\"main\", job=\"node-exporter\"}",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "RAM Used",
           "refId": "A"
         },
         {
-          "expr": "node_memory_MemAvailable_bytes{instance=\"SERVER_IP:9100\"} - node_memory_MemFree_bytes{instance=\"SERVER_IP:9100\"}",
+          "expr": "node_memory_MemAvailable_bytes{instance=\"main\", job=\"node-exporter\"} - node_memory_MemFree_bytes{instance=\"main\", job=\"node-exporter\"}",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "RAM Cache",
           "refId": "B"
         },
         {
-          "expr": "node_memory_MemFree_bytes{instance=\"SERVER_IP:9100\"}",
+          "expr": "node_memory_MemFree_bytes{instance=\"main\", job=\"node-exporter\"}",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "RAM Free",
           "refId": "C"
         },
         {
-          "expr": "node_memory_MemTotal_bytes{instance=\"SERVER_IP:9100\"}",
+          "expr": "node_memory_MemTotal_bytes{instance=\"main\", job=\"node-exporter\"}",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "RAM Total",
           "refId": "D"
         },
         {
-          "expr": "node_memory_MemAvailable_bytes{instance=\"SERVER_IP:9100\"}",
+          "expr": "node_memory_MemAvailable_bytes{instance=\"main\", job=\"node-exporter\"}",
           "hide": true,
           "interval": "",
           "intervalFactor": 2,
@@ -587,7 +596,7 @@
           "refId": "E"
         },
         {
-          "expr": "((node_time_seconds{instance=\"SERVER_IP:9100\"}-(5*3600))%86400)/36",
+          "expr": "((node_time_seconds{instance=\"main\", job=\"node-exporter\"}-(5*3600))%86400)/36",
           "hide": true,
           "interval": "",
           "legendFormat": "time",
@@ -600,7 +609,7 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 700
+          "value": 675
         }
       ],
       "timeFrom": null,
@@ -644,6 +653,7 @@
       }
     }
   ],
+  "refresh": false,
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -671,5 +681,5 @@
   "timezone": "",
   "title": "Daily report - Uncode",
   "uid": "F3OFiqOGk",
-  "version": 12
+  "version": 19
 }

@@ -5,7 +5,7 @@ if [ "$EUID" -ne 0 ]
   exit 2
 fi
 
-chmod +x monitoring/*/*.sh
+chmod +x $DEPLOYMENT_HOME/monitoring/*/*.sh
 
 ###### CONFIG ######
 
