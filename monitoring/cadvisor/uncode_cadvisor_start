@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd MONITOR_PATH/cadvisor
+cd $MONITOR_PATH/cadvisor
 
 echo "Starting cadvisor"
 /usr/local/bin/docker-compose up -d
