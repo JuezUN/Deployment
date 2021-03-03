@@ -25,9 +25,9 @@ uncode_update_containers
 
 if [ -n "$BRANCH" ]
 then
-    sudo -H pip3.6 install --upgrade "git+https://github.com/JuezUN/INGInious.git@$BRANCH"
+    sudo -H pip3.6 install -I --upgrade "git+https://github.com/JuezUN/INGInious.git@$BRANCH"
 else
-    sudo -H pip3.6 install --upgrade git+https://github.com/JuezUN/INGInious.git
+    sudo -H pip3.6 install -I --upgrade git+https://github.com/JuezUN/INGInious.git
 fi
 
 sudo npm install --prefix /usr/local/lib/python3.6/site-packages/inginious/frontend/plugins/problem_bank/react_app/

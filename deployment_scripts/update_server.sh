@@ -21,7 +21,7 @@ done
 
 if [ -n "$BRANCH" ]
 then
-    sudo -H pip3.6 install --upgrade "git+https://github.com/JuezUN/INGInious.git@$BRANCH"
+    sudo -H pip3.6 install --upgrade -I "git+https://github.com/JuezUN/INGInious.git@$BRANCH"
 else
-    sudo -H pip3.6 install --upgrade git+https://github.com/JuezUN/INGInious.git
+    sudo -H pip3.6 install --upgrade -I git+https://github.com/JuezUN/INGInious.git
 fi
