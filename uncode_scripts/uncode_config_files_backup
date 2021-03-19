@@ -1,0 +1,130 @@
+#!/bin/bash
+
+set -e
+
+if [ "$EUID" -ne 0 ]; then
+    echo "Please run as root"
+    exit 1;
+fi
+
+if [ -z "$1" ]
+then
+      echo -e "\nSet the backup folder path.\n";
+      exit 1;
+fi
+
+if [ -z "$2" ]
+then
+      echo -e "\nSet a server name (e.g. main or grader).\n";
+      exit 1;
+fi
+
+if [ -z "$3" ]
+then
+      echo -e "\nSet machine type (main/grader/tools).\n";
+      exit 1;
+fi
+
+backup_folder_path="$1";
+server_name="$2";
+server_type="$3";
+
+dt=$(date '+%d/%m/%Y %H:%M:%S');
+
+cd "$backup_folder_path";
+mkdir "$server_name" || true;
+cd "$server_name/";
+
+sudo git pull origin master
+
+rm -f backup.log || true;
+
+# AGENT SERVICES FILES
+
+if [ "$server_type" != "tools" ]
+then
+    mkdir agent || true;
+
+    sudo cp /usr/local/bin/docker_agent.sh ./agent || true;
+    echo -e "\nBackup from /usr/local/bin/docker_agent.sh to $backup_folder_path/$server_name/agent/docker_agent.sh\n" >> backup.log;
+
+    sudo cp /usr/local/bin/mcq_agent.sh ./agent  || true;
+    echo -e "\nBackup from /usr/local/bin/mcq_agent.sh to $backup_folder_path/$server_name/agent/mcq_agent.sh\n" >> backup.log;
+
+    sudo cp /etc/systemd/system/docker_agent.service ./agent || true;
+    echo -e "\nBackup from /etc/systemd/system/docker_agent.service to $backup_folder_path/$server_name/agent/docker_agent.service\n" >> backup.log;
+
+    sudo cp /etc/systemd/system/mcq_agent.service ./agent || true;
+    echo -e "\nBackup from /etc/systemd/system/mcq_agent.service to $backup_folder_path/$server_name/agent/mcq_agent.service\n" >> backup.log;
+fi
+
+# BACKEND SERVICE FILES
+
+if [ "$server_type" == "main" ]
+then
+    mkdir backend || true;
+
+    sudo cp /usr/local/bin/backend.sh ./backend || true;
+    echo -e "\nBackup from /usr/local/bin/backend.sh to $backup_folder_path/$server_name/backend/backend.sh\n" >> backup.log;
+
+    sudo cp /etc/systemd/system/backend.service ./backend || true;
+    echo -e "\nBackup from /etc/systemd/system/backend.service to $backup_folder_path/$server_name/backend/backend.service\n" >> backup.log;
+fi
+
+# LIGHTTPD FILES
+
+if [ "$server_type" == "main" ]
+then
+    sudo cp -rf /etc/lighttpd ./ || true;
+    echo -e "\nBackup from /etc/lighttpd to $backup_folder_path/$server_name/lighttpd\n" >> backup.log;
+fi
+
+# NGINX FILES
+
+sudo cp -rf /etc/nginx ./ || true;
+echo -e "\nBackup from /etc/nginx to $backup_folder_path/$server_name/nginx/\n" >> backup.log;
+
+# CONFIGURATION.YAML
+
+if [ "$server_type" == "main" ]
+then
+    sudo cp /var/www/INGInious/configuration.yaml ./ || true;
+    echo -e "\nBackup from /var/www/INGInious/configuration.yaml to $backup_folder_path/$server_name/configuration.yaml\n" >> backup.log;
+fi
+
+# GRAFANA SERVICE FILES
+
+if [ "$server_type" == "main" ]
+then
+    mkdir grafana || true;
+
+    sudo cp /etc/grafana/grafana.ini ./grafana || true;
+    echo -e "\nBackup from /etc/grafana/grafana.ini to $backup_folder_path/$server_name/grafana/grafana.ini\n" >> backup.log;
+fi
+
+# PROMETHEUS SERVICE FILES
+
+if [ "$server_type" == "main" ]
+then
+    mkdir prometheus || true;
+
+    sudo cp "${MONITOR_PATH}/prometheus/prometheus.yml" ./prometheus || true;
+    echo -e "\nBackup from ${MONITOR_PATH}/prometheus/prometheus.yml to $backup_folder_path/$server_name/prometheus/prometheus.yml\n" >> backup.log;
+fi
+
+# ADD FILES TO GITHUB AND PUSH
+echo -e "\nBackup done on $dt\n" >> backup.log;
+
+echo -e "Creating backup...\n"
+
+sudo git add --all
+
+sudo git commit -m "$dt"
+
+echo -e "\nBackup committed successfully\n";
+
+echo -e "\nPushing backups to remote...\n"
+
+sudo git push -u origin master
+
+echo -e "\nBackup(s) pushed successfully"
