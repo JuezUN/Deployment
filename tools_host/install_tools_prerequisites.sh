@@ -15,6 +15,7 @@ sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_linter_restart" /usr/bin
 sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_tutor_restart" /usr/bin
 sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_update_tools" /usr/bin
 sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_process_after_reboot" /usr/bin
+sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_config_files_backup" /usr/bin
 
 echo "Installing Nginx for tools server"
 bash "$DEPLOYMENT_HOME/deployment_scripts/install_nginx.sh"

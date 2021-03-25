@@ -250,3 +250,31 @@ Usage:
 ```bash
 uncode_update_containers
 ```
+
+## uncode_config_files_backup
+
+Use this script to create backups of configuration files for a given server. This script copies some specific configuration files from the different services hosted by a given server. The files are copied to Git repository. Thus, you need to have a repository where you want to store the backed up files.
+
+This script receives three mandatory parameters:
+
+1. Path to the repository: this first parameter tells the script where to copy the files.
+2. Server name: a name that you give to the server you are backing up. For example `main` or `grader-1`.
+3. Server type: given that the same repository may be used to store config files from several servers, it is necessary to tell the script what kind of services are hosted in that server. Thus, you need to write either `main`, `grader` or `tools`, which are the kinds of services that can be deployed with UNCode.
+
+These services or files are backed up:
+
+- lighttpd (Only for main server).
+- nginx (All servers).
+- agent (Main and Grader servers).
+- Backend (Main server).
+- Grafana (Main server).
+- Prometheus (Main server).
+- configuration.yaml (Main server).
+
+As seen in the list, the kind of service that is backed up, directly depends on the server type set in the third parameter.
+
+To use this script, run the next command, replacing the parameters with the correct values:
+
+```bash
+uncode_config_files_backup /path/to/repository <server_name> <server_type (main/grader/tools)>
+```

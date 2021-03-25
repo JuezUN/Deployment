@@ -21,6 +21,9 @@ sudo systemctl start docker_agent && sudo systemctl start mcq_agent
 # Install the UNCode scripts related to the agent
 chmod +x $DEPLOYMENT_HOME/uncode_scripts/uncode*
 sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_agent_restart" /usr/bin
+
+sudo sed -i 's/uncode_webapp_restart/uncode_agent_restart/g' "$DEPLOYMENT_HOME/uncode_scripts/uncode_update_server";
 sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_update_server" /usr/bin
 sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_process_after_reboot" /usr/bin
 sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_update_containers" /usr/bin
+sudo cp "$DEPLOYMENT_HOME/uncode_scripts/uncode_config_files_backup" /usr/bin
