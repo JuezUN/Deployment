@@ -112,6 +112,12 @@ then
     echo -e "\nBackup from ${MONITOR_PATH}/prometheus/prometheus.yml to $backup_folder_path/$server_name/prometheus/prometheus.yml\n" >> backup.log;
 fi
 
+# BACKUP ROOT CRONS
+
+sudo mkdir cron || true;
+sudo cp /var/spool/cron/root ./cron/ || true;
+echo -e "\nBackup from /var/spool/cron/root to $backup_folder_path/$server_name/cron/root\n" >> backup.log;
+
 # ADD FILES TO GITHUB AND PUSH
 echo -e "\nBackup done on $dt\n" >> backup.log;
 
