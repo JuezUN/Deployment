@@ -29,13 +29,15 @@ backup_folder_path="$1";
 server_name="$2";
 server_type="$3";
 
+make_push="$4";
+
 dt=$(date '+%d/%m/%Y %H:%M:%S');
 
 cd "$backup_folder_path";
 mkdir "$server_name" || true;
 cd "$server_name/";
 
-sudo git pull origin master
+sudo git pull origin master || true;
 
 rm -f backup.log || true;
 
@@ -129,8 +131,11 @@ sudo git commit -m "$dt"
 
 echo -e "\nBackup committed successfully\n";
 
-echo -e "\nPushing backups to remote...\n"
+if ["$make_push" == "true"]
+then
+    echo -e "\nPushing backups to remote...\n"
 
-sudo git push -u origin master
+    sudo git push -u origin master
 
-echo -e "\nBackup(s) pushed successfully"
+    echo -e "\nBackup(s) pushed successfully"
+end
