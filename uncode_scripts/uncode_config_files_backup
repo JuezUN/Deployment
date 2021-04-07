@@ -37,8 +37,6 @@ cd "$backup_folder_path";
 mkdir "$server_name" || true;
 cd "$server_name/";
 
-sudo git pull origin master || true;
-
 rm -f backup.log || true;
 
 # AGENT SERVICES FILES
@@ -127,7 +125,7 @@ echo -e "Creating backup...\n"
 
 sudo git add --all
 
-sudo git commit -m "$dt"
+sudo git commit -m "$dt - $server_name";
 
 echo -e "\nBackup committed successfully\n";
 
@@ -138,4 +136,4 @@ then
     sudo git push -u origin master
 
     echo -e "\nBackup(s) pushed successfully"
-end
+fi
