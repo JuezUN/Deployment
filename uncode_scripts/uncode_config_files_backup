@@ -123,17 +123,17 @@ echo -e "\nBackup done on $dt\n" >> backup.log;
 
 echo -e "Creating backup...\n"
 
-sudo git add --all
+git add --all :/
 
 sudo git commit -m "$dt - $server_name";
 
 echo -e "\nBackup committed successfully\n";
 
-if ["$make_push" == "true"]
+if [ "$make_push" == "true" ]
 then
-    echo -e "\nPushing backups to remote...\n"
+    echo -e "\nPushing backups to remote...\n";
 
-    sudo git push -u origin master
+    sudo git push -u origin master;
 
-    echo -e "\nBackup(s) pushed successfully"
+    echo -e "\nBackup(s) pushed successfully";
 fi
