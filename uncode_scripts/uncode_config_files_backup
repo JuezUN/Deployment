@@ -112,12 +112,15 @@ then
     echo -e "\nBackup from ${MONITOR_PATH}/prometheus/prometheus.yml to $backup_folder_path/$server_name/prometheus/prometheus.yml\n" >> backup.log;
 fi
 
+# BACKUP TOOLS FILES
+
 if ["$server_type" == "tools"]
 then
 
     sudo cp /home/uncode/config_backup/tools ./ || true;
     echo -e "\nBackup from /home/uncode/config_backup/tools to $backup_folder_path/$server_name >> backup.log\n"
 
+# BACKUP GRADER FILES
 
 
 if ["$server_type" == "grader"]
