@@ -112,6 +112,23 @@ then
     echo -e "\nBackup from ${MONITOR_PATH}/prometheus/prometheus.yml to $backup_folder_path/$server_name/prometheus/prometheus.yml\n" >> backup.log;
 fi
 
+if ["$server_type" == "tools"]
+then
+
+    sudo cp /home/uncode/config_backup/tools ./ || true;
+    echo -e "\nBackup from /home/uncode/config_backup/tools to $backup_folder_path/$server_name >> backup.log\n"
+
+
+
+if ["$server_type" == "grader"]
+
+    sudo cp /home/uncode/config_backup/grader ./ || true;
+    echo -e "\nBackup from /home/uncode/config_backup/grader to $backup_folder_path/$server_name >> backup.log\n"
+
+then
+
+
+
 # BACKUP ROOT CRONS
 
 sudo mkdir cron || true;
