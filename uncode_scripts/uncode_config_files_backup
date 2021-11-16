@@ -112,23 +112,19 @@ then
     echo -e "\nBackup from ${MONITOR_PATH}/prometheus/prometheus.yml to $backup_folder_path/$server_name/prometheus/prometheus.yml\n" >> backup.log;
 fi
 
-# BACKUP TOOLS FILES
+# BACKUP TOOLS AND GRADER COMMON FILES
 
-if ["$server_type" == "tools"]
+if ["$server_type" == "tools" && "$server_name" == "tools" || "$server_type" == "grader" && "$server_name" == "grader"]
 then
+    sudo mkdir backup || true; 
 
-    sudo cp /home/uncode/config_backup/tools ./ || true;
-    echo -e "\nBackup from /home/uncode/config_backup/tools to $backup_folder_path/$server_name >> backup.log\n"
+    sudo cp /etc/nginx ./backup/ || true;
+    echo -e "\nBackup from /etc/nginx to $backup_folder_path/$server_name/backup/nginx/\n" >> backup.log\;
 
-# BACKUP GRADER FILES
+    sudo mkdir backup/cron || true;
 
-
-if ["$server_type" == "grader"]
-
-    sudo cp /home/uncode/config_backup/grader ./ || true;
-    echo -e "\nBackup from /home/uncode/config_backup/grader to $backup_folder_path/$server_name >> backup.log\n"
-
-then
+    sudo cp /var/spool/cron/root ./backup/cron/ || true;
+    echo -e "\nBackup from /var/spool/cron/root to $backup_folder_path/$server_name/backup/cron/root\n" >> backup.log;
 
 
 
