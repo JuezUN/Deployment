@@ -112,19 +112,36 @@ then
     echo -e "\nBackup from ${MONITOR_PATH}/prometheus/prometheus.yml to $backup_folder_path/$server_name/prometheus/prometheus.yml\n" >> backup.log;
 fi
 
-# BACKUP TOOLS AND GRADER COMMON FILES
+# BACKUP TOOLS/GRADER COMMON FILES
 
 if [ "$server_type" == "tools" -a "$server_name" == "tools" -o "$server_type" == "grader" -a "$server_name" == "grader" ]
 then
-    sudo mkdir backup || true; 
+    sudo mkdir common_files_backup || true; 
 
-    sudo cp -r /etc/nginx ./backup/ || true;
-    echo -e "\nBackup from /etc/nginx to $backup_folder_path/$server_name/backup/nginx/\n" >> backup/backup.log;
+    sudo cp -r /etc/nginx ./common_files_backup/ || true;
+    echo -e "\nBackup from /etc/nginx to $backup_folder_path/$server_name/common_files_backup/nginx/\n" >> common_files_backup/backup.log;
 
-    sudo mkdir backup/cron || true;
+    sudo mkdir common_files_backup/cron || true;
 
-    sudo cp -r /var/spool/cron/root ./backup/cron/ || true;
-    echo -e "\nBackup from /var/spool/cron/root to $backup_folder_path/$server_name/backup/cron/root\n" >> backup/backup.log;
+    sudo cp -r /var/spool/cron/root ./common_files_backup/cron/ || true;
+    echo -e "\nBackup from /var/spool/cron/root to $backup_folder_path/$server_name/common_files_backup/cron/root\n" >> common_files_backup/backup.log;
+
+    if [ "$server_type" == "grader" ]
+    then
+        mkdir common_files_backup/agent || true;
+
+        sudo cp /usr/local/bin/docker_agent.sh ./common_files_backup/agent || true;
+        echo -e "\nBackup from /usr/local/bin/docker_agent.sh to $backup_folder_path/$server_name/common_files_backup/agent/docker_agent.sh\n" >> common_files_backup/backup.log;
+
+        sudo cp /usr/local/bin/mcq_agent.sh ./common_files_backup/agent  || true;
+        echo -e "\nBackup from /usr/local/bin/mcq_agent.sh to $backup_folder_path/$server_name/common_files_backup/agent/mcq_agent.sh\n" >> common_files_backup/backup.log;
+
+        sudo cp /etc/systemd/system/docker_agent.service ./common_files_backup/agent || true;
+        echo -e "\nBackup from /etc/systemd/system/docker_agent.service to $backup_folder_path/$server_name/common_files_backup/agent/docker_agent.service\n" >> common_files_backup/backup.log;
+
+        sudo cp /etc/systemd/system/mcq_agent.service ./common_files_backup/agent || true;
+        echo -e "\nBackup from /etc/systemd/system/mcq_agent.service to $backup_folder_path/$server_name/common_files_backup/agent/mcq_agent.service\n" >> common_files_backup/backup.log;
+    fi
 fi
 
 
