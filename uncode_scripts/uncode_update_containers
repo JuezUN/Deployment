@@ -29,3 +29,5 @@ docker tag unjudge/inginious-c-multilang ingi/inginious-c-multilang
 docker tag unjudge/inginious-c-datascience ingi/inginious-c-datascience
 docker tag unjudge/hdl-uncode ingi/hdl-uncode
 docker tag unjudge/inginious-c-notebook ingi/inginious-c-notebook
+
+docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
